@@ -1283,8 +1283,9 @@
             if (!cachedKopBawah) cachedKopBawah = await getBase64ImageOptimized(LINK_KOP_BAWAH, "image/png");
 
             let hAtas = 80; let hBawah = 80;
-            if (cachedKopAtas) { const imgA = new Image(); imgA.src = cachedKopAtas; hAtas = (pageWidth * imgA.height) / imgA.width; }
-            if (cachedKopBawah) { const imgB = new Image(); imgB.src = cachedKopBawah; hBawah = (pageWidth * imgB.height) / imgB.width; }
+            // Membatasi tinggi KOP maksimal 130pt agar tidak menyita area tabel siswa
+            if (cachedKopAtas) { const imgA = new Image(); imgA.src = cachedKopAtas; hAtas = Math.min((pageWidth * imgA.height) / imgA.width, 130); }
+            if (cachedKopBawah) { const imgB = new Image(); imgB.src = cachedKopBawah; hBawah = Math.min((pageWidth * imgB.height) / imgB.width, 130); }
 
             classesToProcess.forEach((kls, index) => {
                 if (index > 0) doc.addPage();
@@ -1303,19 +1304,21 @@
                 if (cachedKopAtas) doc.addImage(cachedKopAtas, 'JPEG', 0, 0, pageWidth, hAtas);
                 if (cachedKopBawah) doc.addImage(cachedKopBawah, 'PNG', 0, pageHeight - hBawah, pageWidth, hBawah);
 
-                let currentY = hAtas + 20;
-                doc.setFont('Helvetica', 'bold'); doc.setFontSize(14); doc.setTextColor(30, 41, 59); doc.text(`LAPORAN KEUANGAN INFAQ - KELAS ${kls}`, 40, currentY);
-                currentY += 15; doc.setFont('Helvetica', 'normal'); doc.setFontSize(10); doc.setTextColor(100, 116, 139); doc.text(`Dicetak pada : ${printDate} WIB`, 40, currentY); currentY += 12; doc.text(`Dicetak oleh : ${userName}`, 40, currentY);
+                // Memadatkan jarak margin atas dan teks informasi
+                let currentY = hAtas + 15;
+                doc.setFont('Helvetica', 'bold'); doc.setFontSize(13); doc.setTextColor(30, 41, 59); doc.text(`LAPORAN KEUANGAN INFAQ - KELAS ${kls}`, 40, currentY);
+                currentY += 14; doc.setFont('Helvetica', 'normal'); doc.setFontSize(9); doc.setTextColor(100, 116, 139); doc.text(`Dicetak pada : ${printDate} WIB`, 40, currentY); 
+                currentY += 12; doc.text(`Dicetak oleh : ${userName}`, 40, currentY);
 
                 let totalMasukKelas = 0; students.forEach(s => { allDates.forEach(d => { if (db.infaq[kls][d][s.presensi] === 'paid') totalMasukKelas += nominal; }); });
                 const p = db.pengeluaran[kls] || []; const totalKeluarKelas = p.reduce((sum, i) => sum + i.amount, 0);
 
-                currentY += 20; const boxW = (pageWidth - 80) / 3;
-                doc.setFillColor(59, 130, 246); doc.rect(40, currentY, boxW - 5, 50, 'F'); doc.setTextColor(255); doc.setFontSize(8); doc.text("TOTAL MASUK", 50, currentY + 15); doc.setFontSize(12); doc.text(formatRupiah(totalMasukKelas), 50, currentY + 35);
-                doc.setFillColor(249, 115, 22); doc.rect(40 + boxW, currentY, boxW - 5, 50, 'F'); doc.setTextColor(255); doc.setFontSize(8); doc.text("TOTAL KELUAR", 40 + boxW + 10, currentY + 15); doc.setFontSize(12); doc.text(formatRupiah(totalKeluarKelas), 40 + boxW + 10, currentY + 35);
-                doc.setFillColor(16, 185, 129); doc.rect(40 + (boxW * 2), currentY, boxW - 5, 50, 'F'); doc.setTextColor(255); doc.setFontSize(8); doc.text("SISA SALDO", 40 + (boxW * 2) + 10, currentY + 15); doc.setFontSize(12); doc.text(formatRupiah(totalMasukKelas - totalKeluarKelas), 40 + (boxW * 2) + 10, currentY + 35);
+                currentY += 15; const boxW = (pageWidth - 80) / 3; const boxH = 45; // Tinggi kotak diringkas
+                doc.setFillColor(59, 130, 246); doc.rect(40, currentY, boxW - 5, boxH, 'F'); doc.setTextColor(255); doc.setFontSize(7); doc.text("TOTAL MASUK", 50, currentY + 14); doc.setFontSize(11); doc.text(formatRupiah(totalMasukKelas), 50, currentY + 32);
+                doc.setFillColor(249, 115, 22); doc.rect(40 + boxW, currentY, boxW - 5, boxH, 'F'); doc.setTextColor(255); doc.setFontSize(7); doc.text("TOTAL KELUAR", 40 + boxW + 10, currentY + 14); doc.setFontSize(11); doc.text(formatRupiah(totalKeluarKelas), 40 + boxW + 10, currentY + 32);
+                doc.setFillColor(16, 185, 129); doc.rect(40 + (boxW * 2), currentY, boxW - 5, boxH, 'F'); doc.setTextColor(255); doc.setFontSize(7); doc.text("SISA SALDO", 40 + (boxW * 2) + 10, currentY + 14); doc.setFontSize(11); doc.text(formatRupiah(totalMasukKelas - totalKeluarKelas), 40 + (boxW * 2) + 10, currentY + 32);
 
-                currentY += 70;
+                currentY += boxH + 15; // Jarak setelah box diringkas
                 let body = [];
                 students.forEach(s => {
                     let row = [s.presensi, s.nama];
@@ -1326,7 +1329,20 @@
                 doc.autoTable({
                     startY: currentY,
                     head: [['No', 'Nama Siswa', ...allDates.map(d => formatDateID(d).slice(0,6))]],
-                    body: body, theme: 'striped', headStyles: { fillColor: [30, 64, 175], fontSize: 9 }, bodyStyles: { fontSize: 8 }, alternateRowStyles: { fillColor: [240, 249, 255] }, margin: { top: 40, left: 40, right: 40, bottom: hBawah + 30 },
+                    body: body, 
+                    theme: 'striped', 
+                    // Menyesuaikan ukuran padding dan font agar 35 Baris bisa masuk
+                    styles: { fontSize: 7, cellPadding: 1.5 }, 
+                    headStyles: { fillColor: [30, 64, 175], fontSize: 7, cellPadding: 2 }, 
+                    alternateRowStyles: { fillColor: [240, 249, 255] }, 
+                    margin: { top: hAtas + 10, left: 40, right: 40, bottom: hBawah + 10 },
+                    // Backup rule: jika jumlah siswa ektrem dan harus 2 halaman, KOP tetap dicetak
+                    didDrawPage: function (data) {
+                        if (data.pageNumber > 1) {
+                            if (cachedKopAtas) doc.addImage(cachedKopAtas, 'JPEG', 0, 0, pageWidth, hAtas);
+                            if (cachedKopBawah) doc.addImage(cachedKopBawah, 'PNG', 0, pageHeight - hBawah, pageWidth, hBawah);
+                        }
+                    }
                 });
             });
 
