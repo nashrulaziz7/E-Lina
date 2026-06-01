@@ -1040,216 +1040,77 @@
         }
 
         function updateWallet(kelas, totalMasuk) {
-            const p = db.pengeluaran[kelas] || []; const totalKeluar = p.reduce((sum, item) => sum + i.amount, 0);
+            const p = db.pengeluaran[kelas] || []; const totalKeluar = p.reduce((sum, item) => sum + item.amount, 0);
             document.getElementById('wali-tot-masuk').textContent = formatRupiah(totalMasuk); document.getElementById('wali-tot-keluar').textContent = formatRupiah(totalKeluar); document.getElementById('wali-tot-saldo').textContent = formatRupiah(totalMasuk - totalKeluar);
         }
 
+        // =========================================================================
+        // FITUR BARU: MANAJER LAPORAN WALI KELAS PRO
+        // =========================================================================
         function downloadWaliReport() {
-            if (!session.selectedMonths || session.selectedMonths.length === 0) { Swal.fire({icon: 'warning', title: 'Pilih Bulan', text: 'Silakan pilih bulan yang akan didownload.', customClass:{popup:'rounded-3xl w-[80%] max-w-xs'}}); return; }
-            askFormat(session.user.kelas, true);
-        }
+            const kls = session.user.kelas;
+            const students = db.users.murid.filter(m => m.kelas === kls).sort((a,b) => String(a.presensi).localeCompare(String(b.presensi), undefined, {numeric: true}));
+            
+            if (students.length === 0) {
+                Swal.fire({icon: 'warning', title: 'Kelas Kosong', text: 'Belum ada siswa di kelas ini.', customClass:{popup:'rounded-3xl w-[80%] max-w-xs'}});
+                return;
+            }
 
-        function askFormat(targetClass, filterBySelectedMonths) {
-            Swal.fire({
-                title: 'Pilih Format Laporan', text: 'Silakan pilih format file yang Anda inginkan.', icon: 'question', showCancelButton: true, confirmButtonText: 'PDF (Profesional)', cancelButtonText: 'Excel (Data)',
-                customClass: { popup: 'rounded-3xl w-[90%] max-w-sm', confirmButton: 'btn-click bg-blue-600 text-white px-5 py-2.5 rounded-xl text-sm font-bold shadow-md', cancelButton: 'btn-click bg-green-600 text-white px-5 py-2.5 rounded-xl text-sm font-bold shadow-md' }, buttonsStyling: false
-            }).then((result) => { if (result.isConfirmed) { generatePDFReport(targetClass, filterBySelectedMonths); } else if (result.dismiss === Swal.DismissReason.cancel) { generateReportForClass(targetClass, filterBySelectedMonths); } });
-        }
+            let stuOptions = `<option value="ALL">Semua Siswa (Tabel Rekap Kelas)</option>`;
+            students.forEach(s => {
+                stuOptions += `<option value="${s.presensi}">Buku Infaq : ${s.nama}</option>`;
+            });
 
-        function openPengeluaranModal() {
             Swal.fire({
-                title: '<span class="text-base font-black">Catat Pengeluaran</span>',
-                html: `<div class="flex flex-col gap-3 text-left mt-4"><label class="text-[10px] font-bold text-gray-500 uppercase tracking-wide">Tanggal</label><input type="date" id="swal-p-date" class="w-full p-2.5 border border-gray-200 rounded-xl text-sm outline-none focus:ring-2 focus:ring-blue-500 cursor-pointer bg-white" value="${getLocalYYYYMMDD(new Date())}"><label class="text-[10px] font-bold text-gray-500 uppercase tracking-wide mt-1">Keterangan</label><input type="text" id="swal-p-desc" class="w-full p-2.5 border border-gray-200 rounded-xl text-sm outline-none focus:ring-2 focus:ring-blue-500 bg-white" placeholder="Contoh: Beli Sapu & Pel"><label class="text-[10px] font-bold text-gray-500 uppercase tracking-wide mt-1">Nominal (Rp)</label><input type="number" id="swal-p-amount" class="w-full p-2.5 border border-gray-200 rounded-xl text-sm outline-none focus:ring-2 focus:ring-blue-500 bg-white font-mono" placeholder="Contoh: 15000"></div>`,
-                confirmButtonText: 'Simpan', showCancelButton: true, cancelButtonText: 'Batal', customClass: { popup: 'rounded-3xl w-[90%] max-w-sm p-5', confirmButton: 'btn-click bg-orange-500 text-white px-5 py-2.5 rounded-xl text-sm font-bold shadow-md', cancelButton: 'btn-click bg-gray-100 text-gray-700 px-5 py-2.5 rounded-xl text-sm font-bold' }, buttonsStyling: false,
-                preConfirm: () => { return { date: document.getElementById('swal-p-date').value, desc: document.getElementById('swal-p-desc').value, amount: parseInt(document.getElementById('swal-p-amount').value) } }
+                title: '<span class="text-base font-black">Pengaturan Laporan</span>',
+                html: `
+                    <div class="text-left mt-4 space-y-4">
+                        <div>
+                            <label class="text-[10px] font-bold text-gray-500 uppercase tracking-wide">Target Cetak</label>
+                            <select id="rep-target" class="w-full p-2.5 border border-gray-200 rounded-xl text-sm font-semibold outline-none focus:ring-2 focus:ring-blue-500 bg-white cursor-pointer mt-1 shadow-sm">
+                                ${stuOptions}
+                            </select>
+                        </div>
+                        <div>
+                            <label class="text-[10px] font-bold text-gray-500 uppercase tracking-wide">Rentang Waktu</label>
+                            <select id="rep-time" class="w-full p-2.5 border border-gray-200 rounded-xl text-sm font-semibold outline-none focus:ring-2 focus:ring-blue-500 bg-white cursor-pointer mt-1 shadow-sm">
+                                <option value="SELECTED">Hanya Bulan yang Ditampilkan Saat Ini</option>
+                                <option value="ALL_TIME">Semua Bulan (Keseluruhan Data)</option>
+                            </select>
+                        </div>
+                        <div class="pt-2">
+                            <label class="text-[10px] font-bold text-gray-500 uppercase tracking-wide">Format File</label>
+                            <div class="flex gap-2 mt-1">
+                                <label class="flex-1 cursor-pointer">
+                                    <input type="radio" name="rep-format" value="PDF" class="peer sr-only" checked>
+                                    <div class="text-center p-2 border border-gray-200 rounded-xl text-xs font-bold text-gray-500 peer-checked:bg-red-500 peer-checked:text-white peer-checked:border-red-500 transition shadow-sm"><i class="fas fa-file-pdf mr-1"></i> PDF</div>
+                                </label>
+                                <label class="flex-1 cursor-pointer">
+                                    <input type="radio" name="rep-format" value="EXCEL" class="peer sr-only">
+                                    <div class="text-center p-2 border border-gray-200 rounded-xl text-xs font-bold text-gray-500 peer-checked:bg-green-600 peer-checked:text-white peer-checked:border-green-600 transition shadow-sm"><i class="fas fa-file-excel mr-1"></i> EXCEL</div>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                `,
+                showCancelButton: true, confirmButtonText: 'Mulai Unduh <i class="fas fa-download ml-1"></i>', cancelButtonText: 'Batal',
+                customClass: { popup: 'rounded-3xl w-[95%] max-w-sm p-5 bg-slate-50', confirmButton: 'btn-click bg-blue-600 text-white px-5 py-3 rounded-xl text-xs font-bold shadow-[0_4px_10px_rgba(37,99,235,0.2)] w-full mb-2', cancelButton: 'btn-click bg-white border border-gray-200 text-gray-600 px-5 py-3 rounded-xl text-xs font-bold w-full', actions: 'flex flex-col w-full' }, buttonsStyling: false,
+                preConfirm: () => {
+                    return { target: document.getElementById('rep-target').value, time: document.getElementById('rep-time').value, format: document.querySelector('input[name="rep-format"]:checked').value }
+                }
             }).then((result) => {
                 if (result.isConfirmed) {
-                    const data = result.value; if (!data.desc || !data.amount) return Swal.fire({icon: 'error', title: 'Data belum lengkap', customClass:{popup:'rounded-3xl w-[80%] max-w-xs'}});
-                    const kelas = session.user.kelas; if (!db.pengeluaran[kelas]) db.pengeluaran[kelas] = []; db.pengeluaran[kelas].push({ id: Date.now().toString(), date: data.date, desc: data.desc, amount: data.amount }); saveDB(); renderWaliChecklist(); Swal.fire({icon: 'success', title: 'Tersimpan', showConfirmButton: false, timer: 1000, customClass:{popup:'rounded-3xl w-[80%] max-w-xs'}});
+                    if (result.value.time === 'SELECTED' && (!session.selectedMonths || session.selectedMonths.length === 0)) {
+                        Swal.fire({icon: 'warning', title: 'Bulan Belum Dipilih', text: 'Anda memilih cetak bulan saat ini, tapi belum ada bulan yang diceklis.', customClass:{popup:'rounded-3xl w-[80%] max-w-xs'}});
+                        return;
+                    }
+                    if (result.value.format === 'PDF') {
+                        generateAdvancedWaliPDF(result.value.target, result.value.time);
+                    } else {
+                        generateAdvancedWaliExcel(result.value.target, result.value.time);
+                    }
                 }
             });
-        }
-
-        function viewPengeluaranHistory() {
-            const kelas = session.user.kelas; const p = db.pengeluaran[kelas] || [];
-            if (p.length === 0) return Swal.fire({icon: 'info', title: 'Belum ada data pengeluaran.', customClass:{popup:'rounded-3xl w-[80%] max-w-xs'}});
-            let html = `<div class="max-h-64 overflow-y-auto text-left text-xs bg-slate-50 rounded-xl border border-gray-100 mt-2"><table class="w-full"><thead class="bg-gray-100/80 text-[10px] text-gray-500 uppercase"><tr><th class="p-3 font-bold">Tanggal</th><th class="p-3 font-bold">Ket</th><th class="p-3 font-bold text-right">Nominal</th><th class="p-3"></th></tr></thead><tbody>`;
-            p.sort((a,b) => new Date(b.date) - new Date(a.date)).forEach(item => { html += `<tr class="border-b border-gray-100 hover:bg-white transition"><td class="p-3 font-medium text-gray-600 whitespace-nowrap">${item.date.slice(5).replace('-','/')}</td><td class="p-3 font-bold text-gray-800">${item.desc}</td><td class="p-3 text-right text-red-600 font-bold whitespace-nowrap">${formatRupiah(item.amount).replace('Rp','').trim()}</td><td class="p-3 text-center"><button onclick="deletePengeluaran('${item.id}')" class="btn-click text-red-400 hover:text-red-600 bg-red-50 p-1.5 rounded-lg transition"><i class="fas fa-trash text-[10px]"></i></button></td></tr>`; }); html += `</tbody></table></div>`;
-
-            window.deletePengeluaran = (id) => { db.pengeluaran[kelas] = db.pengeluaran[kelas].filter(x => x.id !== id); saveDB(); renderWaliChecklist(); Swal.close(); setTimeout(viewPengeluaranHistory, 250); };
-            Swal.fire({ title: '<span class="text-base font-black">Riwayat Pengeluaran</span>', html: html, showConfirmButton: false, showCloseButton: true, customClass: {popup: 'rounded-3xl w-[95%] max-w-md p-4'} });
-        }
-
-        // --- WALI MURID VIEW LOGIC ---
-        function setupMuridView() {
-            document.getElementById('murid-title-nama').textContent = session.user.nama; document.getElementById('murid-title-kelas-only').textContent = session.user.kelas; document.getElementById('murid-title-pres-only').textContent = session.user.presensi;
-            const imgMurid = document.getElementById('murid-foto-profil');
-            if (session.user.foto && session.user.foto.trim() !== '') { imgMurid.src = session.user.foto; } else { imgMurid.src = `https://api.dicebear.com/9.x/bottts-neutral/svg?seed=${encodeURIComponent(session.user.nama)}&backgroundColor=b6e3f4,ffdfbf,c0aede,ffd5dc&radius=50`; }
-            updateMonthDisplay(); renderMuridView();
-        }
-
-        function renderMuridView() {
-            if (!session.selectedMonths || session.selectedMonths.length === 0) return;
-            const kls = session.user.kelas; const presensi = session.user.presensi; const nominal = getNominalKelas(kls); let monthTotal = 0, listHTML = '';
-            
-            session.selectedMonths.sort().forEach(monthStr => {
-                const [year, month] = monthStr.split('-'); const fridays = getFridays(parseInt(year), parseInt(month));
-                listHTML += `<div class="mb-6"><div class="inline-block bg-blue-100/50 text-blue-700 text-[10px] font-black px-3 py-1.5 rounded-lg mb-3 uppercase tracking-[0.1em] border border-blue-200">${formatMonthID(monthStr)}</div><div class="grid grid-cols-2 gap-3">`;
-                fridays.forEach((f) => {
-                    const fStr = getLocalYYYYMMDD(f); const status = (db.infaq[kls] && db.infaq[kls][fStr]) ? db.infaq[kls][fStr][presensi] : null;
-                    let styleClass = 'bg-white border-gray-100', textRp = 'Belum', colorRp = 'text-gray-400', icon = '<i class="fas fa-clock text-gray-300"></i>';
-                    if (status === 'paid') { styleClass = 'bg-green-50 border-green-200'; textRp = formatRupiah(nominal); colorRp = 'text-green-600'; icon = '<i class="fas fa-check-circle text-green-500"></i>'; monthTotal += nominal; } 
-                    else if (status === 'libur') { styleClass = 'bg-red-50 border-red-100'; textRp = 'Libur'; colorRp = 'text-red-400'; icon = '<i class="fas fa-times-circle text-red-300"></i>'; }
-                    listHTML += `<div class="${styleClass} border rounded-2xl p-3 flex flex-col justify-center items-center text-center shadow-sm hover:shadow-md transition gap-1"><span class="text-[10px] text-gray-500 font-bold tracking-wide">TGL ${String(f.getDate()).padStart(2,'0')}</span><div class="text-sm font-black ${colorRp} my-0.5">${textRp}</div><div class="text-xs">${icon}</div></div>`;
-                });
-                listHTML += `</div></div>`;
-            });
-            document.getElementById('murid-jumat-list').innerHTML = listHTML; document.getElementById('murid-total-bulan').textContent = formatRupiah(monthTotal);
-        }
-
-        // --- ADMIN LOGIC ---
-        function setupAdminView() {
-            const classes = [...new Set(db.users.wali.map(w => w.kelas))].sort(); const viewSel = document.getElementById('admin-view-class'); const reportSel = document.getElementById('admin-report-class');
-            let opts = classes.map(c => `<option value="${c}">Kelas ${c}</option>`).join('');
-            viewSel.innerHTML = (classes.length > 0) ? opts : '<option value="">Kosong</option>'; reportSel.innerHTML = '<option value="ALL">Semua Kelas</option>' + opts;
-            const imgAdmin = document.getElementById('admin-foto-profil');
-            if (db.users.admin[0]?.foto && db.users.admin[0].foto.trim() !== '') { imgAdmin.src = db.users.admin[0].foto; } else { imgAdmin.src = `https://api.dicebear.com/9.x/initials/svg?seed=Admin&backgroundColor=3B82F6`; }
-            if (classes.length > 0) renderAdminClassView();
-        }
-
-        function renderAdminClassView() {
-            const kls = document.getElementById('admin-view-class').value; if (!kls) return;
-            const nominal = getNominalKelas(kls); const students = db.users.murid.filter(m => m.kelas === kls).sort((a,b) => String(a.presensi).localeCompare(String(b.presensi), undefined, {numeric: true}));
-            let totalMasuk = 0, tbody = '';
-            
-            if (students.length === 0) { tbody = `<tr><td colspan="4" class="text-center p-8 text-gray-400 text-xs font-medium"><i class="fas fa-inbox text-3xl mb-2 block text-gray-200"></i> Belum ada data siswa.</td></tr>`; } 
-            else {
-                students.forEach(s => {
-                    let stTot = 0; if (db.infaq[kls]) { Object.keys(db.infaq[kls]).forEach(d => { if (db.infaq[kls][d][s.presensi] === 'paid') { stTot += nominal; totalMasuk += nominal; } }); }
-                    tbody += `<tr class="border-b border-gray-100 hover:bg-slate-50 transition text-xs md:text-sm"><td class="p-3 text-center text-gray-500 font-medium">${s.presensi}</td><td class="p-3 font-bold text-gray-800">${s.nama}</td><td class="p-3 font-mono text-gray-400">${s.kode}</td><td class="p-3 text-right font-black text-blue-600 bg-blue-50/30">${formatRupiah(stTot)}</td></tr>`;
-                });
-            }
-            
-            const p = db.pengeluaran[kls] || []; const totalKeluar = p.reduce((s, i) => s + i.amount, 0);
-            document.getElementById('admin-tot-masuk').textContent = formatRupiah(totalMasuk); document.getElementById('admin-tot-keluar').textContent = formatRupiah(totalKeluar); document.getElementById('admin-tot-saldo').textContent = formatRupiah(totalMasuk - totalKeluar);
-            document.getElementById('admin-table').innerHTML = `<thead class="bg-slate-100 text-[10px] text-gray-500 uppercase tracking-wide border-b border-gray-200"><tr><th class="p-3 text-center w-12">No</th><th class="p-3">Nama Lengkap</th><th class="p-3">Kode Unik</th><th class="p-3 text-right">Total Infaq</th></tr></thead><tbody>${tbody}</tbody>`;
-        }
-
-        function openSetNominalModal() {
-            let html = '<div class="space-y-3 text-left mt-4 max-h-64 overflow-y-auto pr-2">'; const classes = [...new Set(db.users.wali.map(w => w.kelas))].sort();
-            classes.forEach(c => { html += `<div class="flex justify-between items-center bg-white p-3 rounded-xl border border-gray-200 shadow-sm"><span class="font-bold text-gray-700 text-sm">Kelas ${c}</span><div class="flex items-center"><span class="text-xs text-gray-400 font-bold mr-2">Rp</span><input type="number" id="nom-${c}" value="${getNominalKelas(c)}" class="border border-gray-200 rounded-lg p-2 w-24 text-right font-mono font-bold text-orange-600 focus:ring-2 focus:ring-orange-500 outline-none bg-orange-50/50"></div></div>`; }); html += '</div>';
-            
-            Swal.fire({ 
-                title: '<span class="text-base font-black">Set Nominal Default</span>', html: html, showCancelButton: true, confirmButtonText: 'Simpan', cancelButtonText: 'Batal', customClass: { popup: 'rounded-3xl w-[90%] max-w-sm p-5 bg-slate-50', confirmButton: 'btn-click bg-orange-500 text-white px-5 py-2.5 rounded-xl text-sm font-bold shadow-md', cancelButton: 'btn-click bg-white border border-gray-200 text-gray-700 px-5 py-2.5 rounded-xl text-sm font-bold' }, buttonsStyling: false, preConfirm: () => { let res = {}; classes.forEach(c => { res[c] = parseInt(document.getElementById(`nom-${c}`).value) || 0; }); return res; }
-            }).then(result => { if (result.isConfirmed) { db.config.defaultNominal = result.value; saveDB(); renderAdminClassView(); Swal.fire({icon:'success', title:'Tersimpan', showConfirmButton:false, timer:1000, customClass:{popup:'rounded-3xl w-[80%] max-w-xs'}}); } });
-        }
-
-        window.updateEditUserList = () => {
-            const role = document.getElementById('edit-role').value; const sel = document.getElementById('edit-user-select'); const fields = document.getElementById('edit-fields');
-            sel.classList.add('hidden'); fields.classList.add('hidden'); if (!role) return;
-            let opts = '<option value="">-- Pilih Akun --</option>';
-            if (role === 'admin') { db.users.admin.forEach((a, i) => opts += `<option value="${i}">${a.username}</option>`); } 
-            else if (role === 'wali') { db.users.wali.forEach((w, i) => opts += `<option value="${i}">Kelas ${w.kelas} - ${w.nama}</option>`); } 
-            else if (role === 'murid') { db.users.murid.forEach((m, i) => opts += `<option value="${i}">Kelas ${m.kelas} - ${m.presensi} - ${m.nama}</option>`); }
-            sel.innerHTML = opts; sel.classList.remove('hidden');
-        }
-
-        window.updateEditFields = () => {
-            const role = document.getElementById('edit-role').value; const idx = document.getElementById('edit-user-select').value; const fields = document.getElementById('edit-fields');
-            if (idx === '') { fields.classList.add('hidden'); return; } fields.classList.remove('hidden');
-            const elKelas = document.getElementById('edit-kelas'); const elId = document.getElementById('edit-id'); const elNama = document.getElementById('edit-nama'); const elPass = document.getElementById('edit-pass'); const elFoto = document.getElementById('edit-foto'); const btnDelete = document.getElementById('btn-delete-account');
-
-            elFoto.style.display = 'block'; if (role === 'admin' && db.users.admin.length <= 1) { btnDelete.classList.add('hidden'); } else { btnDelete.classList.remove('hidden'); }
-
-            if (role === 'admin') { 
-                elKelas.style.display = 'none'; elNama.style.display = 'none'; elId.style.display = 'block'; 
-                elId.placeholder = "Username"; elId.value = db.users.admin[idx].username; elPass.value = db.users.admin[idx].kode; elFoto.value = db.users.admin[idx].foto || ""; 
-            } else if (role === 'wali') { 
-                const u = db.users.wali[idx]; elKelas.style.display = 'block'; elNama.style.display = 'block'; elId.style.display = 'none'; elKelas.value = u.kelas; elNama.value = u.nama; elPass.value = u.kode; elFoto.value = u.foto || ""; 
-            } else if (role === 'murid') { 
-                const u = db.users.murid[idx]; elKelas.style.display = 'block'; elNama.style.display = 'block'; elId.style.display = 'block'; elId.placeholder = "No Presensi"; elKelas.value = u.kelas; elId.value = u.presensi; elNama.value = u.nama; elPass.value = u.kode; elFoto.value = u.foto || ""; 
-            }
-        }
-
-        window.deleteSelectedAccount = () => {
-            const role = document.getElementById('edit-role').value; const idx = document.getElementById('edit-user-select').value; if(!role || idx === '') return;
-            Swal.fire({ title: 'Hapus Akun?', text: "Data tidak bisa dikembalikan!", icon: 'warning', showCancelButton: true, confirmButtonColor: '#ef4444', cancelButtonColor: '#cbd5e1', confirmButtonText: 'Ya, Hapus!', cancelButtonText: 'Batal', customClass: {popup: 'rounded-3xl w-[90%] max-w-sm'}
-            }).then((result) => { if (result.isConfirmed) { if (role === 'admin') db.users.admin.splice(idx, 1); else if (role === 'wali') db.users.wali.splice(idx, 1); else if (role === 'murid') db.users.murid.splice(idx, 1); saveDB(); setupAdminView(); Swal.fire({icon: 'success', title: 'Terhapus!', showConfirmButton: false, timer: 1000, customClass: {popup: 'rounded-3xl'}}); } });
-        }
-
-        function openEditAccountModal() {
-            Swal.fire({ 
-                title: '<span class="text-base font-black">Manajemen Akun</span>',
-                html: `
-                    <div class="flex flex-col gap-3 mt-4 text-left">
-                        <select id="edit-role" onchange="window.updateEditUserList()" class="w-full p-3 border border-gray-200 rounded-xl text-sm font-semibold outline-none focus:ring-2 focus:ring-blue-500 bg-white"><option value="">-- Pilih Akses Level --</option><option value="wali">Wali Kelas</option><option value="murid">Wali Murid</option><option value="admin">Admin</option></select>
-                        <select id="edit-user-select" onchange="window.updateEditFields()" class="w-full p-3 border border-gray-200 rounded-xl text-sm font-semibold outline-none focus:ring-2 focus:ring-blue-500 bg-white hidden"></select>
-                        <div id="edit-fields" class="flex-col gap-3 hidden border-t border-gray-100 pt-4 mt-2">
-                            <input type="text" id="edit-kelas" class="w-full p-3 border border-gray-200 rounded-xl text-sm font-medium bg-white" placeholder="Kelas (misal: 1A)">
-                            <input type="text" id="edit-id" class="w-full p-3 border border-gray-200 rounded-xl text-sm font-medium bg-white" placeholder="Presensi / Username">
-                            <input type="text" id="edit-nama" class="w-full p-3 border border-gray-200 rounded-xl text-sm font-medium bg-white" placeholder="Nama Lengkap">
-                            <input type="url" id="edit-foto" class="w-full p-3 border border-gray-200 rounded-xl text-sm font-medium bg-white" placeholder="URL Link Foto (opsional)">
-                            <input type="text" id="edit-pass" class="w-full p-3 border-2 border-orange-200 rounded-xl text-sm outline-none focus:ring-2 focus:ring-orange-500 font-mono font-bold text-orange-600 bg-orange-50/50 mt-1 mb-2 tracking-widest" placeholder="PASSWORD / KODE">
-                            <button type="button" id="btn-delete-account" onclick="window.deleteSelectedAccount()" class="w-full bg-white text-red-500 border border-red-200 py-2.5 rounded-xl text-xs font-bold hover:bg-red-50 transition"><i class="fas fa-trash-alt mr-1"></i> HAPUS AKUN</button>
-                        </div>
-                    </div>`,
-                showCancelButton: true, confirmButtonText: 'Simpan', cancelButtonText: 'Tutup', customClass: { popup: 'rounded-3xl w-[90%] max-w-md p-5 bg-slate-50', confirmButton: 'btn-click bg-blue-600 text-white px-5 py-2.5 rounded-xl text-sm font-bold shadow-md', cancelButton: 'btn-click bg-white border border-gray-200 text-gray-700 px-5 py-2.5 rounded-xl text-sm font-bold', actions: 'w-full flex gap-3 justify-center mt-5' }, buttonsStyling: false, 
-                preConfirm: () => { const role = document.getElementById('edit-role').value; const idx = document.getElementById('edit-user-select').value; if (!role || idx === '') return false; return { role, idx, kelas: document.getElementById('edit-kelas').value, id: document.getElementById('edit-id').value, nama: document.getElementById('edit-nama').value, pass: document.getElementById('edit-pass').value, foto: document.getElementById('edit-foto').value } }
-            }).then(res => {
-                if (res.isConfirmed && res.value) {
-                    const data = res.value; if (!data.pass) return Swal.fire({icon:'error', title:'Kode kosong', customClass:{popup:'rounded-3xl w-[80%] max-w-xs'}});
-                    if (data.role === 'admin') { db.users.admin[data.idx].username = data.id; db.users.admin[data.idx].kode = data.pass; db.users.admin[data.idx].foto = data.foto; } 
-                    else if (data.role === 'wali') { db.users.wali[data.idx].kelas = data.kelas; db.users.wali[data.idx].nama = data.nama; db.users.wali[data.idx].kode = data.pass; db.users.wali[data.idx].foto = data.foto; } 
-                    else if (data.role === 'murid') { db.users.murid[data.idx].kelas = data.kelas; db.users.murid[data.idx].presensi = data.id; db.users.murid[data.idx].nama = data.nama; db.users.murid[data.idx].kode = data.pass; db.users.murid[data.idx].foto = data.foto; }
-                    saveDB(); setupAdminView(); Swal.fire({icon:'success', title:'Tersimpan', showConfirmButton:false, timer:1500, customClass:{popup:'rounded-3xl w-[80%] max-w-xs'}});
-                }
-            });
-        }
-
-        function openAddStudentModal() {
-            const kls = document.getElementById('admin-view-class').value; if (!kls) return Swal.fire({icon:'warning', title:'Pilih Kelas', text:'Pilih kelas terlebih dahulu.', customClass: {popup: 'rounded-3xl'}});
-            Swal.fire({ 
-                title: `<span class="text-base font-black">Tambah Siswa ${kls}</span>`, 
-                html: `<div class="flex flex-col gap-3 text-left mt-4"><input type="text" id="add-s-presensi" class="w-full p-3 border border-gray-200 rounded-xl text-sm font-medium bg-white" placeholder="No Presensi (misal: 35)"><input type="text" id="add-s-nama" class="w-full p-3 border border-gray-200 rounded-xl text-sm font-medium bg-white" placeholder="Nama Lengkap"><input type="text" id="add-s-kode" class="w-full p-3 border border-gray-200 rounded-xl text-sm font-medium font-mono bg-white" placeholder="Kode Login"></div>`, 
-                showCancelButton: true, confirmButtonText: 'Tambah', cancelButtonText: 'Batal', customClass: { popup: 'rounded-3xl w-[90%] max-w-sm p-5 bg-slate-50', confirmButton: 'btn-click bg-blue-600 text-white px-5 py-2.5 rounded-xl text-sm font-bold shadow-md', cancelButton: 'btn-click bg-white border border-gray-200 text-gray-700 px-5 py-2.5 rounded-xl text-sm font-bold' }, buttonsStyling: false, 
-                preConfirm: () => { return { presensi: document.getElementById('add-s-presensi').value, nama: document.getElementById('add-s-nama').value, kode: document.getElementById('add-s-kode').value } }
-            }).then(res => {
-                if (res.isConfirmed) {
-                    const data = res.value; if (!data.presensi || !data.nama || !data.kode) return Swal.fire({icon:'error', title:'Data tidak lengkap', customClass:{popup:'rounded-3xl'}});
-                    if (db.users.murid.find(m => m.kelas === kls && m.presensi === data.presensi)) return Swal.fire({icon:'error', title:'Presensi sudah ada', customClass:{popup:'rounded-3xl'}});
-                    db.users.murid.push({ kelas: kls, presensi: data.presensi, nama: data.nama, kode: data.kode, foto: "" }); saveDB(); renderAdminClassView(); Swal.fire({icon:'success', title:'Berhasil', showConfirmButton:false, timer:1000, customClass:{popup:'rounded-3xl'}});
-                }
-            });
-        }
-
-        function downloadFormatExcel() {
-            const wb = XLSX.utils.book_new();
-            const adminData = db.users.admin.map(a => ({ Username: a.username, Kode: a.kode, Link_Foto: a.foto || "" })); XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(adminData), "ADMIN");
-            const waliData = db.users.wali.map(w => ({ Kelas: w.kelas, Nama_Wali: w.nama, Kode_Login: w.kode, Nominal_Default: getNominalKelas(w.kelas), Link_Foto: w.foto || "" })); XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(waliData.length > 0 ? waliData : [{Kelas:'1A', Nama_Wali:'Ust. Budi', Kode_Login:'123', Nominal_Default:2000, Link_Foto: ""}]), "WALI_KELAS");
-            const muridData = db.users.murid.map(m => ({ Kelas: m.kelas, Presensi: m.presensi, Nama_Siswa: m.nama, Kode_Login: m.kode, Link_Foto: m.foto || "" })); XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(muridData.length > 0 ? muridData : [{Kelas:'1A', Presensi:'01', Nama_Siswa:'Ahmad', Kode_Login:'01', Link_Foto: ""}]), "WALI_MURID");
-            XLSX.writeFile(wb, "Format_Data_ELINA.xlsx");
-        }
-
-        function uploadExcel(e) {
-            const file = e.target.files[0]; if (!file) return; const reader = new FileReader();
-            reader.onload = (evt) => {
-                try {
-                    const data = evt.target.result; const wb = XLSX.read(data, {type: 'binary'});
-                    if (wb.Sheets["ADMIN"]) { const adminJson = XLSX.utils.sheet_to_json(wb.Sheets["ADMIN"]); if (adminJson.length > 0 && adminJson[0].Username) db.users.admin = adminJson.map(a => ({ username: a.Username, kode: a.Kode.toString(), foto: a.Link_Foto || "" })); }
-                    if (wb.Sheets["WALI_KELAS"]) { db.users.wali = []; XLSX.utils.sheet_to_json(wb.Sheets["WALI_KELAS"]).forEach(w => { const kls = w.Kelas.toString(); db.users.wali.push({ kelas: kls, nama: w.Nama_Wali, kode: w.Kode_Login.toString(), foto: w.Link_Foto || "" }); db.config.defaultNominal[kls] = parseInt(w.Nominal_Default) || 2000; }); }
-                    if (wb.Sheets["WALI_MURID"]) { db.users.murid = []; XLSX.utils.sheet_to_json(wb.Sheets["WALI_MURID"]).forEach(m => { let p = m.Presensi.toString(); if (p.length === 1) p = '0'+p; db.users.murid.push({ kelas: m.Kelas.toString(), presensi: p, nama: m.Nama_Siswa, kode: m.Kode_Login.toString(), foto: m.Link_Foto || "" }); }); }
-                    saveDB(); setupAdminView(); Swal.fire({icon:'success', title:'Data Terupdate!', customClass:{popup:'rounded-3xl w-[85%] max-w-sm'}});
-                } catch (error) { Swal.fire({icon:'error', title:'Format Salah', text: 'Pastikan file sesuai format.', customClass:{popup:'rounded-3xl w-[80%] max-w-xs'}}); } 
-                e.target.value = '';
-            }; reader.readAsBinaryString(file);
-        }
-
-        // =========================================================================
-        // TURBO PDF GENERATOR - LOGIC ASYNCHRONOUS UNTUK MENCEGAH UI FREEZE
-        // =========================================================================
-        function downloadReport() {
-            const targetClass = document.getElementById('admin-report-class').value;
-            askFormat(targetClass, false); 
         }
 
         async function getBase64ImageOptimized(imageUrl, format) {
@@ -1270,7 +1131,259 @@
             });
         }
 
-        async function processPDF(targetClass, filterBySelectedMonths) {
+        async function generateAdvancedWaliPDF(target, timeFilter) {
+            Swal.fire({ title: 'Menyiapkan Laporan...', html: 'Mengunduh KOP dan menyusun tata letak PDF...', allowOutsideClick: false, didOpen: () => { Swal.showLoading(); }});
+
+            setTimeout(async () => {
+                try {
+                    const { jsPDF } = window.jspdf;
+                    const pageWidth = 612.28; const pageHeight = 935.43; // F4 Size
+                    const doc = new jsPDF('p', 'pt', [pageWidth, pageHeight]);
+                    const kls = session.user.kelas;
+                    const nominal = getNominalKelas(kls);
+                    const printDate = new Date().toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric', hour: '2-digit', minute:'2-digit' });
+
+                    // Load KOP
+                    if (!cachedKopAtas) cachedKopAtas = await getBase64ImageOptimized(LINK_KOP_ATAS, "image/jpeg");
+                    if (!cachedKopBawah) cachedKopBawah = await getBase64ImageOptimized(LINK_KOP_BAWAH, "image/png");
+
+                    let hAtas = 80; let hBawah = 80;
+                    if (cachedKopAtas) { const imgA = new Image(); imgA.src = cachedKopAtas; hAtas = Math.min((pageWidth * imgA.height) / imgA.width, 130); }
+                    if (cachedKopBawah) { const imgB = new Image(); imgB.src = cachedKopBawah; hBawah = Math.min((pageWidth * imgB.height) / imgB.width, 130); }
+
+                    // Tentukan rentang waktu
+                    let monthsToProcess = [];
+                    if (timeFilter === 'SELECTED') { monthsToProcess = [...session.selectedMonths].sort(); } 
+                    else {
+                        // Kumpulkan semua bulan yang ada datanya di kelas ini
+                        let allM = new Set();
+                        if (db.infaq[kls]) { Object.keys(db.infaq[kls]).forEach(d => allM.add(d.slice(0,7))); }
+                        monthsToProcess = Array.from(allM).sort();
+                        if(monthsToProcess.length === 0) monthsToProcess = [getLocalMonthStr()]; // Fallback jika kosong
+                    }
+
+                    // CABANG 1: CETAK BUKU INFAQ (PER SISWA)
+                    if (target !== 'ALL') {
+                        const s = db.users.murid.find(m => m.kelas === kls && m.presensi === target);
+                        
+                        if (cachedKopAtas) doc.addImage(cachedKopAtas, 'JPEG', 0, 0, pageWidth, hAtas);
+                        if (cachedKopBawah) doc.addImage(cachedKopBawah, 'PNG', 0, pageHeight - hBawah, pageWidth, hBawah);
+
+                        let currentY = hAtas + 25;
+                        doc.setFont('Helvetica', 'bold'); doc.setFontSize(16); doc.setTextColor(30, 41, 59); doc.text(`BUKU CATATAN INFAQ SISWA`, pageWidth/2, currentY, {align: 'center'});
+                        
+                        currentY += 25;
+                        doc.setFontSize(11); doc.setTextColor(71, 85, 105);
+                        doc.text(`Nama Lengkap`, 50, currentY); doc.text(`: ${s.nama}`, 150, currentY); currentY += 15;
+                        doc.text(`Kelas / Presensi`, 50, currentY); doc.text(`: ${s.kelas} / ${s.presensi}`, 150, currentY); currentY += 15;
+                        doc.text(`Dicetak Pada`, 50, currentY); doc.text(`: ${printDate} WIB`, 150, currentY);
+
+                        currentY += 20;
+                        let body = []; let totalSiswaMasuk = 0;
+
+                        monthsToProcess.forEach(mStr => {
+                            const [year, month] = mStr.split('-'); 
+                            const fridays = getFridays(parseInt(year), parseInt(month));
+                            let row = [formatMonthID(mStr)];
+                            let mTotal = 0;
+                            
+                            // Ambil data 5 pekan
+                            for(let i=0; i<5; i++) {
+                                if (fridays[i]) {
+                                    const dStr = getLocalYYYYMMDD(fridays[i]);
+                                    // Menggunakan Optional Chaining (?.) untuk mencegah Crash Undefined
+                                    const stat = db.infaq[kls]?.[dStr]?.[s.presensi];
+                                    if (stat === 'paid') { row.push('LUNAS'); mTotal += nominal; totalSiswaMasuk += nominal; }
+                                    else if (stat === 'libur') { row.push('LIBUR'); }
+                                    else { row.push('-'); }
+                                } else {
+                                    row.push(''); // Tidak ada pekan ke-5
+                                }
+                            }
+                            row.push(formatRupiah(mTotal));
+                            body.push(row);
+                        });
+
+                        doc.autoTable({
+                            startY: currentY,
+                            head: [['Bulan', 'Pekan 1', 'Pekan 2', 'Pekan 3', 'Pekan 4', 'Pekan 5', 'Total/Bln']],
+                            body: body, theme: 'grid', 
+                            headStyles: { fillColor: [37, 99, 235], textColor: 255, halign: 'center', fontSize: 10, cellPadding: 4 },
+                            bodyStyles: { halign: 'center', fontSize: 9, cellPadding: 3 },
+                            columnStyles: { 0: { halign: 'left', fontStyle: 'bold' }, 6: { halign: 'right', fontStyle: 'bold', textColor: [22, 163, 74] } },
+                            margin: { left: 40, right: 40, bottom: hBawah + 10 }
+                        });
+
+                        doc.setFontSize(12); doc.setTextColor(30, 41, 59);
+                        doc.text(`Total Keseluruhan Infaq: ${formatRupiah(totalSiswaMasuk)}`, doc.lastAutoTable.finalY + 25, 40);
+                        
+                        doc.save(`Buku_Infaq_${s.nama}_${kls}.pdf`);
+                        Swal.close(); return;
+                    }
+
+                    // CABANG 2: CETAK REKAP SELURUH SISWA
+                    const students = db.users.murid.filter(m => m.kelas === kls).sort((a,b) => String(a.presensi).localeCompare(String(b.presensi), undefined, {numeric: true}));
+                    let allDates = [];
+                    monthsToProcess.forEach(mStr => {
+                        const [year, month] = mStr.split('-'); 
+                        const fridays = getFridays(parseInt(year), parseInt(month));
+                        fridays.forEach(f => allDates.push(getLocalYYYYMMDD(f)));
+                    });
+
+                    if (cachedKopAtas) doc.addImage(cachedKopAtas, 'JPEG', 0, 0, pageWidth, hAtas);
+                    if (cachedKopBawah) doc.addImage(cachedKopBawah, 'PNG', 0, pageHeight - hBawah, pageWidth, hBawah);
+
+                    let currentY = hAtas + 15;
+                    doc.setFont('Helvetica', 'bold'); doc.setFontSize(13); doc.setTextColor(30, 41, 59); doc.text(`LAPORAN REKAP INFAQ - KELAS ${kls}`, 40, currentY);
+                    currentY += 14; doc.setFont('Helvetica', 'normal'); doc.setFontSize(9); doc.setTextColor(100, 116, 139); doc.text(`Dicetak pada : ${printDate} WIB`, 40, currentY); 
+                    
+                    let totalMasukKelas = 0; 
+                    students.forEach(s => { allDates.forEach(d => { if (db.infaq[kls]?.[d]?.[s.presensi] === 'paid') totalMasukKelas += nominal; }); });
+                    const p = db.pengeluaran[kls] || []; const totalKeluarKelas = p.reduce((sum, i) => sum + i.amount, 0);
+
+                    currentY += 15; const boxW = (pageWidth - 80) / 3; const boxH = 40; 
+                    doc.setFillColor(59, 130, 246); doc.rect(40, currentY, boxW - 5, boxH, 'F'); doc.setTextColor(255); doc.setFontSize(7); doc.text("TOTAL MASUK", 50, currentY + 14); doc.setFontSize(11); doc.text(formatRupiah(totalMasukKelas), 50, currentY + 30);
+                    doc.setFillColor(249, 115, 22); doc.rect(40 + boxW, currentY, boxW - 5, boxH, 'F'); doc.setTextColor(255); doc.setFontSize(7); doc.text("TOTAL KELUAR", 40 + boxW + 10, currentY + 14); doc.setFontSize(11); doc.text(formatRupiah(totalKeluarKelas), 40 + boxW + 10, currentY + 30);
+                    doc.setFillColor(16, 185, 129); doc.rect(40 + (boxW * 2), currentY, boxW - 5, boxH, 'F'); doc.setTextColor(255); doc.setFontSize(7); doc.text("SISA SALDO", 40 + (boxW * 2) + 10, currentY + 14); doc.setFontSize(11); doc.text(formatRupiah(totalMasukKelas - totalKeluarKelas), 40 + (boxW * 2) + 10, currentY + 30);
+
+                    currentY += boxH + 15; 
+                    let body = [];
+                    students.forEach(s => {
+                        let row = [s.presensi, s.nama];
+                        let stTotal = 0;
+                        allDates.forEach(d => { 
+                            const stat = db.infaq[kls]?.[d]?.[s.presensi]; 
+                            if (stat === 'paid') { row.push('v'); stTotal += nominal; }
+                            else if (stat === 'libur') { row.push('x'); }
+                            else { row.push('-'); }
+                        });
+                        row.push(formatRupiah(stTotal).replace('Rp','').trim());
+                        body.push(row);
+                    });
+
+                    // Dinamis Font Size jika kolom sangat banyak (Misal 12 Bulan)
+                    let colCount = allDates.length + 3; 
+                    let dynFontSize = colCount > 20 ? 5 : (colCount > 12 ? 6 : 7);
+
+                    doc.autoTable({
+                        startY: currentY,
+                        head: [['No', 'Nama Siswa', ...allDates.map(d => { const dt = d.split('-'); return `${dt[2]}/${dt[1]}`; }), 'Tot']],
+                        body: body, theme: 'striped', 
+                        styles: { fontSize: dynFontSize, cellPadding: 1, halign: 'center' }, 
+                        headStyles: { fillColor: [30, 64, 175], cellPadding: 2 }, 
+                        columnStyles: { 1: { halign: 'left', cellWidth: 'auto' } }, // Nama rata kiri
+                        alternateRowStyles: { fillColor: [240, 249, 255] }, 
+                        margin: { top: hAtas + 10, left: 20, right: 20, bottom: hBawah + 10 },
+                        didDrawPage: function (data) {
+                            if (data.pageNumber > 1) {
+                                if (cachedKopAtas) doc.addImage(cachedKopAtas, 'JPEG', 0, 0, pageWidth, hAtas);
+                                if (cachedKopBawah) doc.addImage(cachedKopBawah, 'PNG', 0, pageHeight - hBawah, pageWidth, hBawah);
+                            }
+                        }
+                    });
+
+                    doc.save(`Rekap_Kelas_${kls}_${timeFilter}.pdf`);
+                    Swal.close();
+
+                } catch (error) {
+                    console.error("PDF Error:", error);
+                    Swal.fire({icon: 'error', title: 'Gagal', text: 'Terjadi kesalahan saat memproses data PDF.'});
+                }
+            }, 300);
+        }
+
+        function generateAdvancedWaliExcel(target, timeFilter) {
+            const wb = XLSX.utils.book_new(); 
+            const kls = session.user.kelas;
+            const nominal = getNominalKelas(kls);
+            
+            let monthsToProcess = [];
+            if (timeFilter === 'SELECTED') { monthsToProcess = [...session.selectedMonths].sort(); } 
+            else {
+                let allM = new Set();
+                if (db.infaq[kls]) { Object.keys(db.infaq[kls]).forEach(d => allM.add(d.slice(0,7))); }
+                monthsToProcess = Array.from(allM).sort();
+                if(monthsToProcess.length === 0) monthsToProcess = [getLocalMonthStr()]; 
+            }
+
+            if (target !== 'ALL') {
+                const s = db.users.murid.find(m => m.kelas === kls && m.presensi === target);
+                let aoa = [
+                    ["BUKU CATATAN INFAQ SISWA"], [],
+                    ["Nama Siswa", s.nama],
+                    ["Kelas", s.kelas],
+                    ["No Presensi", s.presensi], [],
+                    ["BULAN", "PEKAN 1", "PEKAN 2", "PEKAN 3", "PEKAN 4", "PEKAN 5", "TOTAL (Rp)"]
+                ];
+
+                let grandTotal = 0;
+                monthsToProcess.forEach(mStr => {
+                    const [year, month] = mStr.split('-'); const fridays = getFridays(parseInt(year), parseInt(month));
+                    let row = [formatMonthID(mStr)]; let mTotal = 0;
+                    for(let i=0; i<5; i++) {
+                        if (fridays[i]) {
+                            const dStr = getLocalYYYYMMDD(fridays[i]);
+                            const stat = db.infaq[kls]?.[dStr]?.[s.presensi];
+                            if (stat === 'paid') { row.push(nominal); mTotal += nominal; grandTotal += nominal; }
+                            else if (stat === 'libur') { row.push('LIBUR'); } else { row.push(0); }
+                        } else { row.push(''); }
+                    }
+                    row.push(mTotal); aoa.push(row);
+                });
+                aoa.push([], ["TOTAL KESELURUHAN:", "", "", "", "", "", grandTotal]);
+                
+                const ws = XLSX.utils.aoa_to_sheet(aoa);
+                ws['!cols'] = [{wch: 15}, {wch: 12}, {wch: 12}, {wch: 12}, {wch: 12}, {wch: 12}, {wch: 15}];
+                XLSX.utils.book_append_sheet(wb, ws, s.nama.substring(0,25));
+                XLSX.writeFile(wb, `Infaq_${s.nama}_${kls}.xlsx`);
+
+            } else {
+                // Rekap Kelas
+                const students = db.users.murid.filter(m => m.kelas === kls).sort((a,b) => String(a.presensi).localeCompare(String(b.presensi), undefined, {numeric: true}));
+                let allDates = [];
+                monthsToProcess.forEach(mStr => {
+                    const [year, month] = mStr.split('-'); const fridays = getFridays(parseInt(year), parseInt(month));
+                    fridays.forEach(f => allDates.push(getLocalYYYYMMDD(f)));
+                });
+
+                let aoa = [ ["LAPORAN REKAP KEUANGAN KELAS " + kls], ["Dicetak:", new Date().toLocaleDateString('id-ID')], [], ["RINGKASAN", "JUMLAH (IDR)"], ["Total Masuk", 0], ["Total Keluar", 0], ["Sisa Saldo", 0], [], [] ];
+                
+                let headers = ["NO", "NAMA SISWA"];
+                allDates.forEach(d => headers.push(formatDateID(d).slice(0,6))); headers.push("TOTAL");
+                aoa.push(headers);
+
+                let totalMasukKelas = 0;
+                students.forEach(s => {
+                    let row = [s.presensi, s.nama]; let stTotal = 0;
+                    allDates.forEach(d => { 
+                        const stat = db.infaq[kls]?.[d]?.[s.presensi]; 
+                        if (stat === 'paid') { row.push(nominal); stTotal += nominal; } 
+                        else if (stat === 'libur') { row.push("LIBUR"); } else { row.push(0); } 
+                    });
+                    row.push(stTotal); totalMasukKelas += stTotal; aoa.push(row);
+                });
+
+                aoa[4][1] = totalMasukKelas;
+                const p = db.pengeluaran[kls] || []; const totalKeluarKelas = p.reduce((sum, i) => sum + i.amount, 0);
+                aoa[5][1] = totalKeluarKelas; aoa[6][1] = totalMasukKelas - totalKeluarKelas;
+
+                const ws = XLSX.utils.aoa_to_sheet(aoa);
+                ws['!cols'] = [{ wch: 5 }, { wch: 20 }, ...Array(allDates.length).fill({ wch: 8 }), { wch: 15 }];
+                XLSX.utils.book_append_sheet(wb, ws, `REKAP_${kls}`);
+                XLSX.writeFile(wb, `Rekap_Infaq_Kelas_${kls}.xlsx`);
+            }
+            Swal.fire({ icon: 'success', title: 'Berhasil!', showConfirmButton: false, timer: 1500, customClass: { popup: 'rounded-3xl w-[80%] max-w-sm' } });
+        }
+
+        // =========================================================================
+        // ADMIN PDF GENERATOR (Dipertahankan menggunakan metode lama)
+        // =========================================================================
+        function downloadReport() {
+            const targetClass = document.getElementById('admin-report-class').value;
+            askFormat(targetClass, false); 
+        }
+
+        async function processAdminPDF(targetClass, filterBySelectedMonths) {
             const { jsPDF } = window.jspdf;
             const pageWidth = 612.28; const pageHeight = 935.43;
             const doc = new jsPDF('p', 'pt', [pageWidth, pageHeight]);
@@ -1280,10 +1393,10 @@
             const userName = session.user.nama || session.user.username || "Admin";
 
             if (!cachedKopAtas) cachedKopAtas = await getBase64ImageOptimized(LINK_KOP_ATAS, "image/jpeg");
-            if (!cachedKopBawah) cachedKopBawah = await getBase64ImageOptimized(LINK_KOP_BAWAH, "image/png");
+            if (!cachedKopBawah) cachedKopBawah = await getBase64ImageOptimized(LINK_KOP_BAWAH, "image/png"); 
 
             let hAtas = 80; let hBawah = 80;
-            // Membatasi tinggi KOP maksimal 130pt agar tidak menyita area tabel siswa
+            // DIBATASI 130pt agar ukuran F4 muat 35 siswa per halaman
             if (cachedKopAtas) { const imgA = new Image(); imgA.src = cachedKopAtas; hAtas = Math.min((pageWidth * imgA.height) / imgA.width, 130); }
             if (cachedKopBawah) { const imgB = new Image(); imgB.src = cachedKopBawah; hBawah = Math.min((pageWidth * imgB.height) / imgB.width, 130); }
 
@@ -1304,39 +1417,34 @@
                 if (cachedKopAtas) doc.addImage(cachedKopAtas, 'JPEG', 0, 0, pageWidth, hAtas);
                 if (cachedKopBawah) doc.addImage(cachedKopBawah, 'PNG', 0, pageHeight - hBawah, pageWidth, hBawah);
 
-                // Memadatkan jarak margin atas dan teks informasi
                 let currentY = hAtas + 15;
                 doc.setFont('Helvetica', 'bold'); doc.setFontSize(13); doc.setTextColor(30, 41, 59); doc.text(`LAPORAN KEUANGAN INFAQ - KELAS ${kls}`, 40, currentY);
-                currentY += 14; doc.setFont('Helvetica', 'normal'); doc.setFontSize(9); doc.setTextColor(100, 116, 139); doc.text(`Dicetak pada : ${printDate} WIB`, 40, currentY); 
-                currentY += 12; doc.text(`Dicetak oleh : ${userName}`, 40, currentY);
+                currentY += 14; doc.setFont('Helvetica', 'normal'); doc.setFontSize(9); doc.setTextColor(100, 116, 139); doc.text(`Dicetak pada : ${printDate} WIB`, 40, currentY); currentY += 12; doc.text(`Dicetak oleh : ${userName}`, 40, currentY);
 
-                let totalMasukKelas = 0; students.forEach(s => { allDates.forEach(d => { if (db.infaq[kls][d][s.presensi] === 'paid') totalMasukKelas += nominal; }); });
+                let totalMasukKelas = 0; students.forEach(s => { allDates.forEach(d => { if (db.infaq[kls]?.[d]?.[s.presensi] === 'paid') totalMasukKelas += nominal; }); });
                 const p = db.pengeluaran[kls] || []; const totalKeluarKelas = p.reduce((sum, i) => sum + i.amount, 0);
 
-                currentY += 15; const boxW = (pageWidth - 80) / 3; const boxH = 45; // Tinggi kotak diringkas
+                currentY += 15; const boxW = (pageWidth - 80) / 3; const boxH = 45;
                 doc.setFillColor(59, 130, 246); doc.rect(40, currentY, boxW - 5, boxH, 'F'); doc.setTextColor(255); doc.setFontSize(7); doc.text("TOTAL MASUK", 50, currentY + 14); doc.setFontSize(11); doc.text(formatRupiah(totalMasukKelas), 50, currentY + 32);
                 doc.setFillColor(249, 115, 22); doc.rect(40 + boxW, currentY, boxW - 5, boxH, 'F'); doc.setTextColor(255); doc.setFontSize(7); doc.text("TOTAL KELUAR", 40 + boxW + 10, currentY + 14); doc.setFontSize(11); doc.text(formatRupiah(totalKeluarKelas), 40 + boxW + 10, currentY + 32);
                 doc.setFillColor(16, 185, 129); doc.rect(40 + (boxW * 2), currentY, boxW - 5, boxH, 'F'); doc.setTextColor(255); doc.setFontSize(7); doc.text("SISA SALDO", 40 + (boxW * 2) + 10, currentY + 14); doc.setFontSize(11); doc.text(formatRupiah(totalMasukKelas - totalKeluarKelas), 40 + (boxW * 2) + 10, currentY + 32);
 
-                currentY += boxH + 15; // Jarak setelah box diringkas
+                currentY += boxH + 15;
                 let body = [];
                 students.forEach(s => {
                     let row = [s.presensi, s.nama];
-                    allDates.forEach(d => { const stat = db.infaq[kls][d][s.presensi]; row.push(stat === 'paid' ? 'Lunas' : (stat === 'libur' ? 'Libur' : '-')); });
+                    allDates.forEach(d => { const stat = db.infaq[kls]?.[d]?.[s.presensi]; row.push(stat === 'paid' ? 'Lunas' : (stat === 'libur' ? 'Libur' : '-')); });
                     body.push(row);
                 });
 
                 doc.autoTable({
                     startY: currentY,
                     head: [['No', 'Nama Siswa', ...allDates.map(d => formatDateID(d).slice(0,6))]],
-                    body: body, 
-                    theme: 'striped', 
-                    // Menyesuaikan ukuran padding dan font agar 35 Baris bisa masuk
+                    body: body, theme: 'striped', 
                     styles: { fontSize: 7, cellPadding: 1.5 }, 
                     headStyles: { fillColor: [30, 64, 175], fontSize: 7, cellPadding: 2 }, 
                     alternateRowStyles: { fillColor: [240, 249, 255] }, 
                     margin: { top: hAtas + 10, left: 40, right: 40, bottom: hBawah + 10 },
-                    // Backup rule: jika jumlah siswa ektrem dan harus 2 halaman, KOP tetap dicetak
                     didDrawPage: function (data) {
                         if (data.pageNumber > 1) {
                             if (cachedKopAtas) doc.addImage(cachedKopAtas, 'JPEG', 0, 0, pageWidth, hAtas);
@@ -1349,101 +1457,32 @@
             return { doc, base64Atas: cachedKopAtas, base64Bawah: cachedKopBawah };
         }
 
-        function generatePDFReport(targetClass, filterBySelectedMonths) {
+        function askFormat(targetClass, filterBySelectedMonths) {
             Swal.fire({
-                title: 'Menyiapkan Laporan...',
-                html: 'Mohon tunggu, dokumen PDF sedang dirender...',
-                allowOutsideClick: false,
-                didOpen: () => { 
-                    Swal.showLoading(); 
-                    setTimeout(async () => {
-                        try {
-                            const result = await processPDF(targetClass, filterBySelectedMonths);
-                            result.doc.save(`Laporan_Infaq_ELINA_${targetClass}_${getLocalYYYYMMDD(new Date())}.pdf`);
-                            
-                            if(!result.base64Atas || !result.base64Bawah) {
-                                Swal.fire({icon: 'warning', title: 'KOP Tidak Dimuat', text: 'Gagal memuat gambar KOP. Pastikan Anda menjalankan ini dari GitHub Pages Anda.', customClass:{popup:'rounded-3xl w-[85%]'}});
-                            } else {
-                                Swal.close();
-                            }
-                        } catch (error) {
-                            console.error("PDF Error:", error);
-                            Swal.fire({icon: 'error', title: 'Gagal', text: 'Terjadi kesalahan saat membuat PDF.'});
+                title: 'Pilih Format Laporan', text: 'Silakan pilih format file yang Anda inginkan.', icon: 'question', showCancelButton: true, confirmButtonText: 'PDF (Profesional)', cancelButtonText: 'Excel (Data)',
+                customClass: { popup: 'rounded-3xl w-[90%] max-w-sm', confirmButton: 'btn-click bg-blue-600 text-white px-5 py-2.5 rounded-xl text-sm font-bold shadow-md', cancelButton: 'btn-click bg-green-600 text-white px-5 py-2.5 rounded-xl text-sm font-bold shadow-md' }, buttonsStyling: false
+            }).then((result) => { 
+                if (result.isConfirmed) { 
+                    Swal.fire({
+                        title: 'Menyiapkan Dokumen...', html: 'Sedang memuat KOP dan merender laporan...', allowOutsideClick: false,
+                        didOpen: () => { 
+                            Swal.showLoading();
+                            setTimeout(async () => {
+                                try {
+                                    const resultData = await processAdminPDF(targetClass, filterBySelectedMonths);
+                                    resultData.doc.save(`Laporan_Infaq_ELINA_${targetClass}_${getLocalYYYYMMDD(new Date())}.pdf`);
+                                    Swal.close();
+                                } catch (error) {
+                                    console.error("PDF Error:", error);
+                                    Swal.fire({icon: 'error', title: 'Gagal', text: 'Terjadi kesalahan saat membuat PDF.'});
+                                }
+                            }, 200);
                         }
-                    }, 200); 
-                }
+                    });
+                } else if (result.dismiss === Swal.DismissReason.cancel) { 
+                    generateReportForClass(targetClass, filterBySelectedMonths); 
+                } 
             });
-        }
-
-        function generateReportForClass(targetClass, filterBySelectedMonths) {
-            const wb = XLSX.utils.book_new(); 
-            let classesToProcess = targetClass === 'ALL' ? [...new Set(db.users.wali.map(w => w.kelas))] : [targetClass];
-            
-            classesToProcess.forEach(kls => {
-                const nominal = getNominalKelas(kls);
-                const students = db.users.murid.filter(m => m.kelas === kls).sort((a,b) => String(a.presensi).localeCompare(String(b.presensi), undefined, {numeric: true}));
-                let allDatesSet = new Set(); 
-                
-                if (db.infaq[kls]) {
-                    Object.keys(db.infaq[kls]).forEach(d => {
-                        if (filterBySelectedMonths) { const mStr = d.slice(0, 7); if (session.selectedMonths.includes(mStr)) allDatesSet.add(d); } 
-                        else { allDatesSet.add(d); }
-                    });
-                }
-                let allDates = Array.from(allDatesSet).sort();
-
-                let aoa = [
-                    ["LAPORAN KEUANGAN KELAS " + kls],
-                    ["Dicetak pada:", new Date().toLocaleDateString('id-ID')],
-                    [],
-                    ["RINGKASAN", "JUMLAH (IDR)"],
-                    ["Total Masuk", 0],
-                    ["Total Keluar", 0],
-                    ["Sisa Saldo", 0],
-                    [], []
-                ];
-
-                let totalMasukKelas = 0;
-                let headers = ["NO", "NAMA SISWA"];
-                allDates.forEach(d => headers.push(formatDateID(d)));
-                headers.push("TOTAL INFAQ");
-                aoa.push(headers);
-
-                students.forEach(s => {
-                    let row = [s.presensi, s.nama];
-                    let stTotal = 0;
-                    allDates.forEach(d => { 
-                        const stat = db.infaq[kls][d][s.presensi]; 
-                        if (stat === 'paid') { row.push(nominal); stTotal += nominal; } 
-                        else if (stat === 'libur') { row.push("LIBUR"); } 
-                        else { row.push(0); } 
-                    });
-                    row.push(stTotal);
-                    totalMasukKelas += stTotal;
-                    aoa.push(row);
-                });
-
-                aoa[4][1] = totalMasukKelas;
-                const p = db.pengeluaran[kls] || [];
-                const totalKeluarKelas = p.reduce((sum, i) => sum + i.amount, 0);
-                aoa[5][1] = totalKeluarKelas;
-                aoa[6][1] = totalMasukKelas - totalKeluarKelas;
-
-                if (p.length > 0) {
-                    aoa.push([], ["RINCIAN PENGELUARAN"], ["TANGGAL", "KETERANGAN", "NOMINAL"]);
-                    p.sort((a,b) => new Date(a.date) - new Date(b.date)).forEach(item => { 
-                        aoa.push([formatDateID(item.date), item.desc, item.amount]); 
-                    });
-                }
-
-                const ws = XLSX.utils.aoa_to_sheet(aoa);
-                ws['!cols'] = [{ wch: 8 }, { wch: 25 }, ...Array(allDates.length).fill({ wch: 15 }), { wch: 20 }];
-                XLSX.utils.book_append_sheet(wb, ws, `LAPORAN_${kls}`);
-            }); 
-            
-            let filename = `Laporan_Infaq_ELINA_${targetClass === 'ALL' ? 'Semua' : targetClass}_${getLocalYYYYMMDD(new Date())}.xlsx`; 
-            XLSX.writeFile(wb, filename);
-            Swal.fire({ icon: 'success', title: 'Berhasil!', text: 'Laporan telah disusun dengan rapi.', timer: 2000, showConfirmButton: false, customClass: { popup: 'rounded-3xl w-[80%] max-w-sm' } });
         }
     </script>
 </body>
