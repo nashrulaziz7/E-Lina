@@ -1123,13 +1123,90 @@
                         const canvas = document.createElement("canvas");
                         canvas.width = img.width; canvas.height = img.height;
                         const ctx = canvas.getContext("2d"); ctx.drawImage(img, 0, 0);
-                        resolve(canvas.toDataURL(format || "image/jpeg", 0.8));
+                        resolve({
+                            data: canvas.toDataURL(format || "image/jpeg", 0.8),
+                            ratio: img.height / img.width // Perhitungan Rasio yang aman
+                        });
                     } catch (e) { console.warn("Canvas terblokir", e); resolve(null); }
                 };
                 img.onerror = () => { console.warn(`Gagal memuat gambar: ${imageUrl}`); resolve(null); };
                 if (imageUrl.startsWith('http')) img.src = imageUrl + (imageUrl.includes('?') ? '&' : '?') + 'cb=' + new Date().getTime();
                 else img.src = imageUrl;
             });
+        }
+
+        async function processAdminPDF(targetClass, filterBySelectedMonths) {
+            const { jsPDF } = window.jspdf;
+            const pageWidth = 612.28; const pageHeight = 935.43;
+            const doc = new jsPDF('p', 'pt', [pageWidth, pageHeight]);
+            
+            let classesToProcess = targetClass === 'ALL' ? [...new Set(db.users.wali.map(w => w.kelas))] : [targetClass];
+            const printDate = new Date().toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric', hour: '2-digit', minute:'2-digit' });
+            const userName = session.user.nama || session.user.username || "Admin";
+
+            if (!cachedKopAtas) cachedKopAtas = await getBase64ImageOptimized(LINK_KOP_ATAS, "image/jpeg");
+            if (!cachedKopBawah) cachedKopBawah = await getBase64ImageOptimized(LINK_KOP_BAWAH, "image/png"); 
+
+            let hAtas = 80; let hBawah = 80;
+            let dataAtas = null; let dataBawah = null;
+            if (cachedKopAtas) { dataAtas = cachedKopAtas.data; hAtas = Math.min((pageWidth * cachedKopAtas.ratio), 130); }
+            if (cachedKopBawah) { dataBawah = cachedKopBawah.data; hBawah = Math.min((pageWidth * cachedKopBawah.ratio), 130); }
+
+            classesToProcess.forEach((kls, index) => {
+                if (index > 0) doc.addPage();
+                const nominal = getNominalKelas(kls);
+                const students = db.users.murid.filter(m => m.kelas === kls).sort((a,b) => String(a.presensi).localeCompare(String(b.presensi), undefined, {numeric: true}));
+                
+                let allDatesSet = new Set(); 
+                if (db.infaq[kls]) {
+                    Object.keys(db.infaq[kls]).forEach(d => {
+                        if (filterBySelectedMonths) { const mStr = d.slice(0, 7); if (session.selectedMonths.includes(mStr)) allDatesSet.add(d); } 
+                        else { allDatesSet.add(d); }
+                    });
+                }
+                let allDates = Array.from(allDatesSet).sort();
+
+                if (dataAtas) doc.addImage(dataAtas, 'JPEG', 0, 0, pageWidth, hAtas);
+                if (dataBawah) doc.addImage(dataBawah, 'PNG', 0, pageHeight - hBawah, pageWidth, hBawah);
+
+                let currentY = hAtas + 15;
+                doc.setFont('Helvetica', 'bold'); doc.setFontSize(13); doc.setTextColor(30, 41, 59); doc.text(`LAPORAN KEUANGAN INFAQ - KELAS ${kls}`, 40, currentY);
+                currentY += 14; doc.setFont('Helvetica', 'normal'); doc.setFontSize(9); doc.setTextColor(100, 116, 139); doc.text(`Dicetak pada : ${printDate} WIB`, 40, currentY); currentY += 12; doc.text(`Dicetak oleh : ${userName}`, 40, currentY);
+
+                let totalMasukKelas = 0; students.forEach(s => { allDates.forEach(d => { if (db.infaq[kls]?.[d]?.[s.presensi] === 'paid') totalMasukKelas += nominal; }); });
+                const p = db.pengeluaran[kls] || []; const totalKeluarKelas = p.reduce((sum, i) => sum + i.amount, 0);
+
+                currentY += 15; const boxW = (pageWidth - 80) / 3; const boxH = 45;
+                doc.setFillColor(59, 130, 246); doc.rect(40, currentY, boxW - 5, boxH, 'F'); doc.setTextColor(255); doc.setFontSize(7); doc.text("TOTAL MASUK", 50, currentY + 14); doc.setFontSize(11); doc.text(formatRupiah(totalMasukKelas), 50, currentY + 32);
+                doc.setFillColor(249, 115, 22); doc.rect(40 + boxW, currentY, boxW - 5, boxH, 'F'); doc.setTextColor(255); doc.setFontSize(7); doc.text("TOTAL KELUAR", 40 + boxW + 10, currentY + 14); doc.setFontSize(11); doc.text(formatRupiah(totalKeluarKelas), 40 + boxW + 10, currentY + 32);
+                doc.setFillColor(16, 185, 129); doc.rect(40 + (boxW * 2), currentY, boxW - 5, boxH, 'F'); doc.setTextColor(255); doc.setFontSize(7); doc.text("SISA SALDO", 40 + (boxW * 2) + 10, currentY + 14); doc.setFontSize(11); doc.text(formatRupiah(totalMasukKelas - totalKeluarKelas), 40 + (boxW * 2) + 10, currentY + 32);
+
+                currentY += boxH + 15;
+                let body = [];
+                students.forEach(s => {
+                    let row = [s.presensi, s.nama];
+                    allDates.forEach(d => { const stat = db.infaq[kls]?.[d]?.[s.presensi]; row.push(stat === 'paid' ? 'Lunas' : (stat === 'libur' ? 'Libur' : '-')); });
+                    body.push(row);
+                });
+
+                doc.autoTable({
+                    startY: currentY,
+                    head: [['No', 'Nama Siswa', ...allDates.map(d => formatDateID(d).slice(0,6))]],
+                    body: body, theme: 'striped', 
+                    styles: { fontSize: 7, cellPadding: 1.5 }, 
+                    headStyles: { fillColor: [30, 64, 175], fontSize: 7, cellPadding: 2 }, 
+                    alternateRowStyles: { fillColor: [240, 249, 255] }, 
+                    margin: { top: hAtas + 10, left: 40, right: 40, bottom: hBawah + 10 },
+                    didDrawPage: function (data) {
+                        if (data.pageNumber > 1) {
+                            if (dataAtas) doc.addImage(dataAtas, 'JPEG', 0, 0, pageWidth, hAtas);
+                            if (dataBawah) doc.addImage(dataBawah, 'PNG', 0, pageHeight - hBawah, pageWidth, hBawah);
+                        }
+                    }
+                });
+            });
+
+            return { doc, base64Atas: dataAtas, base64Bawah: dataBawah };
         }
 
         async function generateAdvancedWaliPDF(target, timeFilter) {
@@ -1149,8 +1226,10 @@
                     if (!cachedKopBawah) cachedKopBawah = await getBase64ImageOptimized(LINK_KOP_BAWAH, "image/png");
 
                     let hAtas = 80; let hBawah = 80;
-                    if (cachedKopAtas) { const imgA = new Image(); imgA.src = cachedKopAtas; hAtas = Math.min((pageWidth * imgA.height) / imgA.width, 130); }
-                    if (cachedKopBawah) { const imgB = new Image(); imgB.src = cachedKopBawah; hBawah = Math.min((pageWidth * imgB.height) / imgB.width, 130); }
+                    let dataAtas = null; let dataBawah = null;
+                    // AMAN DARI NAN CRASH:
+                    if (cachedKopAtas) { dataAtas = cachedKopAtas.data; hAtas = Math.min((pageWidth * cachedKopAtas.ratio), 130); }
+                    if (cachedKopBawah) { dataBawah = cachedKopBawah.data; hBawah = Math.min((pageWidth * cachedKopBawah.ratio), 130); }
 
                     // Tentukan rentang waktu
                     let monthsToProcess = [];
@@ -1163,14 +1242,12 @@
                         if(monthsToProcess.length === 0) monthsToProcess = [getLocalMonthStr()]; // Fallback jika kosong
                     }
 
-                    // ==========================================================
-                    // CABANG 1: CETAK BUKU INFAQ (HANYA 1 SISWA SAJA)
-                    // ==========================================================
+                    // CABANG 1: CETAK BUKU INFAQ (PER SISWA)
                     if (target !== 'ALL') {
                         const s = db.users.murid.find(m => m.kelas === kls && m.presensi === target);
                         
-                        if (cachedKopAtas) doc.addImage(cachedKopAtas, 'JPEG', 0, 0, pageWidth, hAtas);
-                        if (cachedKopBawah) doc.addImage(cachedKopBawah, 'PNG', 0, pageHeight - hBawah, pageWidth, hBawah);
+                        if (dataAtas) doc.addImage(dataAtas, 'JPEG', 0, 0, pageWidth, hAtas);
+                        if (dataBawah) doc.addImage(dataBawah, 'PNG', 0, pageHeight - hBawah, pageWidth, hBawah);
 
                         let currentY = hAtas + 25;
                         doc.setFont('Helvetica', 'bold'); doc.setFontSize(16); doc.setTextColor(30, 41, 59); doc.text(`BUKU CATATAN INFAQ SISWA`, pageWidth/2, currentY, {align: 'center'});
@@ -1194,6 +1271,7 @@
                             for(let i=0; i<5; i++) {
                                 if (fridays[i]) {
                                     const dStr = getLocalYYYYMMDD(fridays[i]);
+                                    // Menggunakan Optional Chaining (?.) untuk mencegah Crash Undefined
                                     const stat = db.infaq[kls]?.[dStr]?.[s.presensi];
                                     if (stat === 'paid') { row.push('LUNAS'); mTotal += nominal; totalSiswaMasuk += nominal; }
                                     else if (stat === 'libur') { row.push('LIBUR'); }
@@ -1213,7 +1291,13 @@
                             headStyles: { fillColor: [37, 99, 235], textColor: 255, halign: 'center', fontSize: 10, cellPadding: 4 },
                             bodyStyles: { halign: 'center', fontSize: 9, cellPadding: 3 },
                             columnStyles: { 0: { halign: 'left', fontStyle: 'bold' }, 6: { halign: 'right', fontStyle: 'bold', textColor: [22, 163, 74] } },
-                            margin: { left: 40, right: 40, bottom: hBawah + 10 }
+                            margin: { left: 40, right: 40, bottom: hBawah + 10 },
+                            didDrawPage: function (data) {
+                                if (data.pageNumber > 1) {
+                                    if (dataAtas) doc.addImage(dataAtas, 'JPEG', 0, 0, pageWidth, hAtas);
+                                    if (dataBawah) doc.addImage(dataBawah, 'PNG', 0, pageHeight - hBawah, pageWidth, hBawah);
+                                }
+                            }
                         });
 
                         doc.setFontSize(12); doc.setTextColor(30, 41, 59);
@@ -1223,14 +1307,12 @@
                         Swal.close(); return;
                     }
 
-                    // ==========================================================
-                    // CABANG 2: CETAK REKAP KELAS (BUKU RAPOR 2 SISWA PER HALAMAN)
-                    // ==========================================================
+                    // CABANG 2: CETAK REKAP SELURUH SISWA (2 SISWA PER HALAMAN)
                     const students = db.users.murid.filter(m => m.kelas === kls).sort((a,b) => String(a.presensi).localeCompare(String(b.presensi), undefined, {numeric: true}));
                     
                     // HALAMAN PERTAMA: SUMMARY KELAS
-                    if (cachedKopAtas) doc.addImage(cachedKopAtas, 'JPEG', 0, 0, pageWidth, hAtas);
-                    if (cachedKopBawah) doc.addImage(cachedKopBawah, 'PNG', 0, pageHeight - hBawah, pageWidth, hBawah);
+                    if (dataAtas) doc.addImage(dataAtas, 'JPEG', 0, 0, pageWidth, hAtas);
+                    if (dataBawah) doc.addImage(dataBawah, 'PNG', 0, pageHeight - hBawah, pageWidth, hBawah);
 
                     let currentY = hAtas + 15;
                     doc.setFont('Helvetica', 'bold'); doc.setFontSize(14); doc.setTextColor(30, 41, 59); doc.text(`LAPORAN REKAP INFAQ - KELAS ${kls}`, 40, currentY);
@@ -1264,8 +1346,8 @@
                         // Buat halaman baru jika sudah ada 2 siswa, atau ruang habis
                         if (studentCountOnPage === 2 || (currentY + 280 > pageHeight - hBawah)) {
                             doc.addPage();
-                            if (cachedKopAtas) doc.addImage(cachedKopAtas, 'JPEG', 0, 0, pageWidth, hAtas);
-                            if (cachedKopBawah) doc.addImage(cachedKopBawah, 'PNG', 0, pageHeight - hBawah, pageWidth, hBawah);
+                            if (dataAtas) doc.addImage(dataAtas, 'JPEG', 0, 0, pageWidth, hAtas);
+                            if (dataBawah) doc.addImage(dataBawah, 'PNG', 0, pageHeight - hBawah, pageWidth, hBawah);
                             currentY = hAtas + 30;
                             studentCountOnPage = 0;
                         }
@@ -1319,7 +1401,6 @@
                             margin: { left: 45, right: 45 },
                             tableWidth: pageWidth - 90,
                             didParseCell: function(data) {
-                                // Menebalkan baris Total
                                 if (data.row.index === body.length - 1) {
                                     data.cell.styles.fontStyle = 'bold';
                                     data.cell.styles.fillColor = [226, 232, 240];
