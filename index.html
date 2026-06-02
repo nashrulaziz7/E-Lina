@@ -21,7 +21,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>
     
     <!-- SheetJS (Excel) -->
-    <script src="https://cdn.sheetjs.com/xlsx-latest/package/dist/xlsx.full.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
     
     <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -1530,17 +1530,77 @@
         // EXCEL PARSING & DOWNLOAD SYSTEM (SheetJS)
         // =========================================================================
         function downloadFormatExcel() {
-            const wb = XLSX.utils.book_new(); 
-            const adminData = db.users.admin.map(a => ({ Username: a.username, Password_Kunci: a.kode })); 
-            XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(adminData), "ADMIN_CONFIG"); 
-            
-            const waliData = db.users.wali.map(w => ({ Kelas: w.kelas, Nama_Wali: w.nama, PIN_Login_Wali: w.kode, Nominal_Infaq_Default: getNominalKelas(w.kelas) })); 
-            XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(waliData.length > 0 ? waliData : [{Kelas:'4D', Nama_Wali:'Guru Contoh, S.Pd.', PIN_Login_Wali:'123', Nominal_Infaq_Default:5000}]), "WALI_KELAS_CONFIG"); 
-            
-            const muridData = db.users.murid.map(m => ({ Kelas: m.kelas, No_Presensi: m.presensi, Nama_Siswa: m.nama, Kode_PIN_Siswa: m.kode })); 
-            XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(muridData.length > 0 ? muridData : [{Kelas:'4D', No_Presensi:'01', Nama_Siswa:'Siswa Contoh A', Kode_PIN_Siswa:'111'}]), "WALI_MURID_CONFIG"); 
-            
-            XLSX.writeFile(wb, "ELINA_Database_Format_Sekolah.xlsx");
+            try {
+                // Pastikan pustaka XLSX telah berhasil dimuat oleh browser
+                if (typeof XLSX === 'undefined') {
+                    throw new Error("Pustaka SheetJS (XLSX) gagal dimuat. Periksa koneksi internet Anda lalu muat ulang halaman ini.");
+                }
+
+                // Tampilkan loading indikator agar pengguna mengetahui proses berjalan
+                Swal.fire({
+                    title: 'Menyiapkan Template...',
+                    text: 'Sedang memproses dan menyusun berkas Excel ELINA...',
+                    allowOutsideClick: false,
+                    didOpen: () => { Swal.showLoading(); }
+                });
+
+                const wb = XLSX.utils.book_new(); 
+                
+                // Ambil data admin atau gunakan data default jika kosong
+                const adminList = (db && db.users && Array.isArray(db.users.admin)) ? db.users.admin : [{ username: 'admin', kode: 'admin123' }];
+                const adminData = adminList.map(a => ({ Username: a.username, Password_Kunci: a.kode })); 
+                XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(adminData), "ADMIN_CONFIG"); 
+                
+                // Ambil data wali kelas atau gunakan contoh terstruktur jika kosong
+                const waliList = (db && db.users && Array.isArray(db.users.wali) && db.users.wali.length > 0) 
+                    ? db.users.wali 
+                    : [
+                        { kelas: '4D', nama: 'Budi Santoso, S.Pd.', kode: '123' },
+                        { kelas: '3D', nama: 'Siti Aminah, M.Pd.', kode: '123' }
+                    ];
+                const waliData = waliList.map(w => ({ 
+                    Kelas: w.kelas || '4D', 
+                    Nama_Wali: w.nama || 'Wali Kelas', 
+                    PIN_Login_Wali: w.kode || '123', 
+                    Nominal_Infaq_Default: getNominalKelas(w.kelas || '4D') 
+                })); 
+                XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(waliData), "WALI_KELAS_CONFIG"); 
+                
+                // Ambil data murid atau gunakan contoh terstruktur jika kosong
+                const muridList = (db && db.users && Array.isArray(db.users.murid) && db.users.murid.length > 0) 
+                    ? db.users.murid 
+                    : [
+                        { kelas: '4D', presensi: '01', nama: 'ADEEVA AFSHEEN ABDILLAH', kode: '111' },
+                        { kelas: '4D', presensi: '02', nama: 'ALILA KAIA MAULANA', kode: '222' }
+                    ];
+                const muridData = muridList.map(m => ({ 
+                    Kelas: m.kelas || '4D', 
+                    No_Presensi: m.presensi || '01', 
+                    Nama_Siswa: m.nama || 'Nama Siswa', 
+                    Kode_PIN_Siswa: m.kode || '111' 
+                })); 
+                XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(muridData), "WALI_MURID_CONFIG"); 
+                
+                // Tulis berkas Excel
+                XLSX.writeFile(wb, "ELINA_Database_Format_Sekolah.xlsx");
+                
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Template Berhasil Diunduh!',
+                    text: 'Silakan isi data sekolah Anda ke dalam file Excel tersebut, lalu unggah kembali melalui menu "Unggah".',
+                    confirmButtonText: 'Selesai',
+                    customClass: { popup: 'rounded-2xl w-[90%] max-w-sm' }
+                });
+            } catch (error) {
+                console.error("Unduh Excel gagal:", error);
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Gagal Mengunduh!',
+                    text: error.message || 'Terjadi kesalahan sistem saat memproses berkas Excel.',
+                    confirmButtonText: 'Tutup',
+                    customClass: { popup: 'rounded-2xl w-[90%] max-w-sm' }
+                });
+            }
         }
 
         async function uploadExcel(e) {
