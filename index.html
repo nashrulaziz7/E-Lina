@@ -90,7 +90,7 @@
 
     <!-- HEADER GLOBAL FIXED -->
     <header class="fixed top-0 left-0 w-full h-[50px] z-[100] bg-white/90 backdrop-blur-md border-b border-gray-200/50 shadow-sm flex items-center justify-between px-4 transition-all duration-300">
-        <div class="flex items-center gap-2">
+        <div id="header-brand" class="flex items-center gap-2 transition-all duration-300">
             <div class="w-6 h-6 bg-blue-900 rounded-lg flex items-center justify-center text-white font-black text-xs">K</div>
             <p class="text-[9px] font-black text-gray-800 tracking-[0.1em] uppercase">SDIT MUHAMMADIYAH AL KAUTSAR</p>
         </div>
@@ -115,7 +115,6 @@
             <div class="flex flex-col items-center mb-5 text-center">
                 <img src="LOGO LOGIN.png" alt="Logo SDIT Muhammadiyah Al Kautsar" class="w-24 h-24 object-contain mb-3 drop-shadow-md" onerror="this.onerror=null; this.src='https://placehold.co/100x100/1e3a8a/fff?text=Al+Kautsar';">
                 <div class="text-center">
-                    <p class="text-[10px] font-bold text-blue-900 uppercase tracking-[0.25em] leading-none mb-1">SDIT MUHAMMADIYAH AL KAUTSAR</p>
                     <h1 class="text-[3rem] font-tegas font-black tracking-tighter leading-none flex justify-center items-center uppercase">
                         <span class="text-transparent bg-clip-text bg-gradient-to-br from-blue-950 to-blue-600">E</span>
                         <span class="text-transparent bg-clip-text bg-gradient-to-br from-orange-500 to-amber-400">LINA</span>
@@ -285,22 +284,26 @@
 
             <div class="flex flex-col gap-2 mb-4 px-0.5">
                 <div class="flex gap-2 w-full">
-                    <div class="flex-1 bg-white border border-slate-200 p-2.5 rounded-[14px] flex items-center justify-between shadow-sm"><div class="flex items-center gap-1.5"><div class="w-5 h-5 bg-green-100 rounded-full flex justify-center items-center"><i class="fas fa-arrow-down text-green-600 text-[8px]"></i></div><span class="text-[9px] font-bold text-gray-500">MASUK</span></div><span id="wali-tot-masuk" class="text-xs font-black text-green-600">Rp 0</span></div>
-                    <div class="flex-1 bg-white border border-slate-200 p-2.5 rounded-[14px] flex items-center justify-between shadow-sm"><div class="flex items-center gap-1.5"><div class="w-5 h-5 bg-red-100 rounded-full flex justify-center items-center"><i class="fas fa-arrow-up text-red-600 text-[8px]"></i></div><span class="text-[9px] font-bold text-gray-500">KELUAR</span></div><span id="wali-tot-keluar" class="text-xs font-black text-red-600">Rp 0</span></div>
+                    <div class="flex-1 bg-emerald-50/95 border-2 border-emerald-200 p-2.5 rounded-[14px] flex items-center justify-between shadow-md"><div class="flex items-center gap-1.5"><div class="w-5 h-5 bg-green-100 rounded-full flex justify-center items-center"><i class="fas fa-arrow-down text-green-600 text-[8px]"></i></div><span class="text-[9px] font-bold text-green-700">MASUK</span></div><span id="wali-tot-masuk" class="text-xs font-black text-green-700">Rp 0</span></div>
+                    <div class="flex-1 bg-rose-50/95 border-2 border-rose-200 p-2.5 rounded-[14px] flex items-center justify-between shadow-md"><div class="flex items-center gap-1.5"><div class="w-5 h-5 bg-red-100 rounded-full flex justify-center items-center"><i class="fas fa-arrow-up text-red-600 text-[8px]"></i></div><span class="text-[9px] font-bold text-rose-700">KELUAR</span></div><span id="wali-tot-keluar" class="text-xs font-black text-rose-700">Rp 0</span></div>
                 </div>
                 <div class="w-full bg-gradient-to-r from-blue-900 to-blue-800 p-3 rounded-[14px] flex items-center justify-between shadow-md border border-blue-700"><div class="flex items-center gap-2"><div class="w-6 h-6 bg-white/20 rounded-full flex justify-center items-center backdrop-blur-sm"><i class="fas fa-wallet text-white text-[10px]"></i></div><span class="text-[10px] font-bold text-blue-50 tracking-wide uppercase">SISA SALDO KAS KELAS</span></div><span id="wali-tot-saldo" class="text-sm font-black text-white drop-shadow-sm">Rp 0</span></div>
             </div>
 
-            <div class="flex gap-2 mb-4 px-0.5">
-                <button onclick="openPengeluaranModal()" class="btn-click flex-1 bg-orange-500 hover:bg-orange-600 text-white py-2.5 rounded-xl font-bold shadow-sm text-[10px] uppercase tracking-wide"><i class="fas fa-minus-circle mr-1"></i> Catat Pengeluaran</button>
-                <button onclick="viewPengeluaranHistory()" class="btn-click flex-1 bg-white text-gray-700 border border-slate-200 py-2.5 rounded-xl font-bold shadow-sm text-[10px] uppercase tracking-wide"><i class="fas fa-history mr-1"></i> Riwayat Kas</button>
-                <button onclick="openWaliReportMenu()" class="btn-click flex-1 bg-blue-900 hover:bg-blue-950 text-white py-2.5 rounded-xl font-bold shadow-sm text-[10px] uppercase tracking-wide"><i class="fas fa-print mr-1"></i> Cetak Laporan PDF</button>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-2 mb-4 px-0.5">
+                <button onclick="openPengeluaranModal()" class="btn-click bg-orange-500 hover:bg-orange-600 text-white py-2.5 rounded-xl font-bold shadow-sm text-[10px] uppercase tracking-wide"><i class="fas fa-minus-circle mr-1"></i> Catat Pengeluaran</button>
+                <button onclick="viewPengeluaranHistory()" class="btn-click bg-indigo-50 hover:bg-indigo-100 text-indigo-700 border border-indigo-200 py-2.5 rounded-xl font-bold shadow-sm text-[10px] uppercase tracking-wide"><i class="fas fa-history mr-1"></i> Riwayat Kas</button>
+                <button onclick="manualSave()" class="btn-click bg-emerald-600 hover:bg-emerald-700 text-white py-2.5 rounded-xl font-bold shadow-md text-[10px] uppercase tracking-wide"><i class="fas fa-save mr-1"></i> Simpan Data</button>
+                <button onclick="openWaliReportMenu()" class="btn-click bg-blue-900 hover:bg-blue-950 text-white py-2.5 rounded-xl font-bold shadow-sm text-[10px] uppercase tracking-wide"><i class="fas fa-print mr-1"></i> Cetak Laporan PDF</button>
             </div>
 
             <div class="bg-white border border-slate-200 rounded-xl overflow-hidden shadow-sm flex flex-col">
                 <div class="p-2.5 bg-slate-50 border-b border-slate-200 flex justify-between items-center">
                     <h3 class="font-black text-gray-700 text-[11px] uppercase tracking-wide"><i class="fas fa-tasks text-blue-900 mr-1.5"></i> Checklist Infaq Jumat</h3>
-                    <button onclick="resetChecklist()" class="btn-click bg-red-50 text-red-600 px-2.5 py-1 rounded-lg border border-red-100 text-[9px] font-bold flex items-center gap-1 hover:bg-red-100 transition"><i class="fas fa-trash-alt"></i> Bersihkan</button>
+                    <div class="flex gap-1.5">
+                        <button id="btn-batal-reset" onclick="batalResetChecklist()" class="hidden btn-click bg-amber-500 hover:bg-amber-600 text-white px-2.5 py-1 rounded-lg text-[9px] font-bold flex items-center gap-1 shadow-sm transition"><i class="fas fa-undo"></i> Batal Reset</button>
+                        <button onclick="resetChecklist()" class="btn-click bg-red-500 hover:bg-red-600 text-white px-2.5 py-1 rounded-lg text-[9px] font-bold flex items-center gap-1 shadow-sm transition"><i class="fas fa-trash-alt"></i> Reset</button>
+                    </div>
                 </div>
                 <div class="overflow-x-auto hide-scroll w-full max-h-[80vh] overflow-y-auto relative bg-white">
                     <table class="w-full text-left text-xs border-separate border-spacing-0" id="wali-checklist-table"></table>
@@ -550,18 +553,23 @@
 
         function routeView() {
             ['view-login', 'view-admin', 'view-walikelas', 'view-walimurid'].forEach(id => { document.getElementById(id).classList.add('hidden'); });
+            const headerBrand = document.getElementById('header-brand');
             if (!session.user) { 
                 document.getElementById('view-login').classList.remove('hidden'); 
+                if (headerBrand) headerBrand.classList.add('invisible');
                 updateLoginDropdowns(); 
-            } else if (session.role === 'admin') { 
-                document.getElementById('view-admin').classList.remove('hidden'); 
-                setupAdminView(); 
-            } else if (session.role === 'wali') { 
-                document.getElementById('view-walikelas').classList.remove('hidden'); 
-                setupWaliView(); 
-            } else if (session.role === 'murid') { 
-                document.getElementById('view-walimurid').classList.remove('hidden'); 
-                setupMuridView(); 
+            } else {
+                if (headerBrand) headerBrand.classList.remove('invisible');
+                if (session.role === 'admin') { 
+                    document.getElementById('view-admin').classList.remove('hidden'); 
+                    setupAdminView(); 
+                } else if (session.role === 'wali') { 
+                    document.getElementById('view-walikelas').classList.remove('hidden'); 
+                    setupWaliView(); 
+                } else if (session.role === 'murid') { 
+                    document.getElementById('view-walimurid').classList.remove('hidden'); 
+                    setupMuridView(); 
+                }
             }
         }
 
@@ -595,7 +603,7 @@
                 const kelasSel = document.getElementById('wali-kelas'); 
                 const classes = [...new Set(db.users.wali.map(w => w.kelas))].sort();
                 kelasSel.innerHTML = '<option value="">--</option>' + classes.map(c => `<option value="${c}">${c}</option>`).join('');
-                document.getElementById('wali-nama').innerHTML = '<option value="">Pilih Wali Kelas</option>';
+                document.getElementById('wali-nama').innerHTML = '<option value="">Pilih Wali</option>';
             } else if (currentLoginTab === 'murid') {
                 const kelasSel = document.getElementById('murid-kelas'); 
                 const classes = [...new Set(db.users.murid.map(m => m.kelas))].sort();
@@ -791,6 +799,14 @@
             const students = db.users.murid.filter(m => m.kelas === kelas).sort((a,b) => String(a.presensi).localeCompare(String(b.presensi), undefined, {numeric: true}));
             if (!db.infaq[kelas]) db.infaq[kelas] = {};
 
+            // Dynamic visibility of "Batal Reset" button based on backup existence
+            const btnBatal = document.getElementById('btn-batal-reset');
+            if (localStorage.getItem('elina_backup_' + kelas)) {
+                if (btnBatal) btnBatal.classList.remove('hidden');
+            } else {
+                if (btnBatal) btnBatal.classList.add('hidden');
+            }
+
             let allFridays = getFridaysFromAcademicYear();
             const table = document.getElementById('wali-checklist-table');
             if (students.length === 0) { 
@@ -812,13 +828,14 @@
                 let hasLunas = students.length > 0 && students.every(st => db.infaq[kelas][fStr][st.presensi] === 'paid');
                 let hasLibur = students.length > 0 && students.every(st => db.infaq[kelas][fStr][st.presensi] === 'libur');
 
+                // Enlarge buttons inside table headers to w-7 h-7 for easy click target
                 let btnLunas = hasLunas 
-                    ? `<button onclick="toggleGlobalLunas('${kelas}', '${fStr}', true)" class="bg-green-600 text-white w-4.5 h-4.5 rounded flex items-center justify-center shadow-sm" title="Undo Semua"><i class="fas fa-undo text-[7px]"></i></button>`
-                    : `<button onclick="toggleGlobalLunas('${kelas}', '${fStr}', false)" class="bg-green-50 text-green-600 border border-green-200 hover:bg-green-100 w-4.5 h-4.5 rounded flex items-center justify-center transition" title="Lunas Semua"><i class="fas fa-check text-[7px]"></i></button>`;
+                    ? `<button onclick="toggleGlobalLunas('${kelas}', '${fStr}', true)" class="bg-green-600 text-white w-7 h-7 rounded-lg flex items-center justify-center shadow-sm" title="Undo Semua"><i class="fas fa-undo text-[9px]"></i></button>`
+                    : `<button onclick="toggleGlobalLunas('${kelas}', '${fStr}', false)" class="bg-green-50 text-green-600 border border-green-200 hover:bg-green-100 w-7 h-7 rounded-lg flex items-center justify-center transition" title="Lunas Semua"><i class="fas fa-check text-[9px]"></i></button>`;
                 
                 let btnLibur = hasLibur
-                    ? `<button onclick="toggleGlobalLibur('${kelas}', '${fStr}', true)" class="bg-red-600 text-white w-4.5 h-4.5 rounded flex items-center justify-center shadow-sm" title="Undo Semua"><i class="fas fa-undo text-[7px]"></i></button>`
-                    : `<button onclick="toggleGlobalLibur('${kelas}', '${fStr}', false)" class="bg-red-50 text-red-500 border border-red-200 hover:bg-red-100 w-4.5 h-4.5 rounded flex items-center justify-center transition" title="Libur Semua"><i class="fas fa-times text-[7px]"></i></button>`;
+                    ? `<button onclick="toggleGlobalLibur('${kelas}', '${fStr}', true)" class="bg-red-600 text-white w-7 h-7 rounded-lg flex items-center justify-center shadow-sm" title="Undo Semua"><i class="fas fa-undo text-[9px]"></i></button>`
+                    : `<button onclick="toggleGlobalLibur('${kelas}', '${fStr}', false)" class="bg-red-50 text-red-500 border border-red-200 hover:bg-red-100 w-7 h-7 rounded-lg flex items-center justify-center transition" title="Libur Semua"><i class="fas fa-times text-[9px]"></i></button>`;
 
                 thead += `<th class="p-1 border-b border-gray-200 text-center w-[60px] min-w-[60px] sticky top-0 z-30 bg-white shadow-[0_1px_0_#e2e8f0] border-r border-gray-100 whitespace-nowrap">
                     <span class="font-bold text-gray-800 text-[8px] block mb-1">Jum, ${dText}</span>
@@ -866,7 +883,7 @@
         function toggleInfaq(kelas, dateStr, presensi) {
             let current = db.infaq[kelas][dateStr][presensi];
             if (current === 'paid') delete db.infaq[kelas][dateStr][presensi]; else db.infaq[kelas][dateStr][presensi] = 'paid';
-            saveDB(); 
+            // We remove global auto-saving on click to make "Simpan Data" manual button feel important and secure!
             renderWaliChecklist();
         }
 
@@ -877,7 +894,6 @@
             } else { 
                 students.forEach(s => { db.infaq[kelas][dateStr][s.presensi] = 'paid'; }); 
             }
-            saveDB(); 
             renderWaliChecklist();
         }
 
@@ -888,25 +904,71 @@
             } else { 
                 students.forEach(s => { db.infaq[kelas][dateStr][s.presensi] = 'libur'; }); 
             }
-            saveDB(); 
             renderWaliChecklist();
+        }
+
+        function manualSave() {
+            saveDB();
+            Swal.fire({
+                icon: 'success',
+                title: 'Data Tersimpan!',
+                text: 'Perubahan checklist infaq kelas berhasil dikunci ke dalam server.',
+                showConfirmButton: false,
+                timer: 1200,
+                customClass: { popup: 'rounded-2xl w-[80%] max-w-xs' }
+            });
         }
 
         function resetChecklist() {
             const kelas = session.user.kelas;
             Swal.fire({
-                title: 'Kosongkan Semua?', 
-                text: "Semua rekap checklist lunas & libur infaq kelas ini akan dihapus permanen dari memori sistem!", 
-                icon: 'warning', showCancelButton: true, confirmButtonColor: '#ef4444', cancelButtonColor: '#64748b', confirmButtonText: 'Ya, Kosongkan!', cancelButtonText: 'Batal', 
+                title: 'Reset Checklist?', 
+                text: "Semua tanda lunas & libur infaq kelas ini akan dikosongkan. Anda dapat membatalkannya dengan tombol 'Batal Reset'!", 
+                icon: 'warning', 
+                showCancelButton: true, 
+                confirmButtonColor: '#ef4444', 
+                cancelButtonColor: '#64748b', 
+                confirmButtonText: 'Ya, Reset!', 
+                cancelButtonText: 'Batal', 
                 customClass: {popup: 'rounded-2xl w-[85%] max-w-sm p-4'}
             }).then((result) => { 
                 if (result.isConfirmed) { 
+                    // Make a backup copy before purging
+                    localStorage.setItem('elina_backup_' + kelas, JSON.stringify(db.infaq[kelas] || {}));
+                    
                     db.infaq[kelas] = {}; 
                     saveDB(); 
                     renderWaliChecklist(); 
-                    Swal.fire({icon: 'success', title: 'Data Terhapus!', showConfirmButton: false, timer: 1000, customClass: {popup: 'rounded-2xl w-[70%]'}}); 
+                    Swal.fire({
+                        icon: 'success', 
+                        title: 'Data Direset!', 
+                        text: 'Jika terjadi kesalahan, ketuk "Batal Reset" di kanan atas.',
+                        showConfirmButton: true,
+                        confirmButtonText: 'Selesai',
+                        customClass: {popup: 'rounded-2xl w-[85%] max-w-sm p-4'}
+                    }); 
                 } 
             });
+        }
+
+        function batalResetChecklist() {
+            const kelas = session.user.kelas;
+            const backupData = localStorage.getItem('elina_backup_' + kelas);
+            if (backupData) {
+                db.infaq[kelas] = JSON.parse(backupData);
+                // Clean the backup registry once applied
+                localStorage.removeItem('elina_backup_' + kelas);
+                saveDB();
+                renderWaliChecklist();
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Reset Dibatalkan!',
+                    text: 'Riwayat data infaq kelas berhasil dipulihkan sepenuhnya.',
+                    showConfirmButton: false,
+                    timer: 1500,
+                    customClass: { popup: 'rounded-2xl w-[85%] max-w-sm p-4' }
+                });
+            }
         }
 
         function updateWallet(kelas, totalMasuk) {
