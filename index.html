@@ -373,8 +373,10 @@
         async function loadDB() {
             if (SCRIPT_URL && SCRIPT_URL.includes("script.google.com")) {
                 try {
-                    Swal.fire({ title: 'Sinkronisasi...', allowOutsideClick: false, didOpen: () => { Swal.showLoading(); } });
-                    const response = await fetch(SCRIPT_URL); if (!response.ok) throw new Error("Jaringan error");
+                    Swal.fire({ title: 'Menyinkronkan Data...', allowOutsideClick: false, didOpen: () => { Swal.showLoading(); } });
+                    // Mencegah cache browser untuk menjamin Real-Time
+                    const response = await fetch(SCRIPT_URL + "?t=" + new Date().getTime()); 
+                    if (!response.ok) throw new Error("Jaringan error");
                     const text = await response.text(); if (text.trim().startsWith("<")) throw new Error("Akses Ditolak");
                     const cloudDB = JSON.parse(text);
                     if (cloudDB && cloudDB.users) { db = cloudDB; localStorage.setItem('elina_db', JSON.stringify(db)); }
@@ -396,21 +398,39 @@
         function showSyncingUI() {
             let el = document.getElementById('sync-indicator');
             if(!el) { el = document.createElement('div'); el.id = 'sync-indicator'; document.body.appendChild(el); }
-            el.innerHTML = '<i class="fas fa-sync fa-spin"></i> Menyimpan...';
+            el.innerHTML = '<i class="fas fa-sync fa-spin"></i> Menyinkronkan...';
             el.className = 'fixed bottom-4 right-4 bg-white/95 glass px-4 py-2 rounded-full shadow-lg text-[10px] font-bold text-blue-600 flex items-center z-[100] gap-1.5'; el.style.display = 'flex';
         }
 
         function hideSyncingUI() { let el = document.getElementById('sync-indicator'); if(el) el.style.display = 'none'; }
 
+        // SISTEM ANTREAN SYNC: Mencegah data gagal tersimpan ke Spreadsheet bila di-klik sangat cepat berturut-turut.
+        let isSyncing = false;
+        let pendingSync = false;
+
         async function saveDB() { 
             localStorage.setItem('elina_db', JSON.stringify(db)); 
             if (SCRIPT_URL && SCRIPT_URL.includes("script.google.com")) {
+                if (isSyncing) {
+                    pendingSync = true;
+                    return;
+                }
+                isSyncing = true;
                 showSyncingUI();
                 try {
                     await fetch(SCRIPT_URL, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify(db) });
                     let el = document.getElementById('sync-indicator');
-                    if(el) { el.innerHTML = '<i class="fas fa-check text-green-500"></i> Tersimpan'; el.classList.replace('text-blue-600', 'text-green-600'); setTimeout(hideSyncingUI, 1500); }
-                } catch (error) { hideSyncingUI(); }
+                    if(el) { el.innerHTML = '<i class="fas fa-check text-green-500"></i> Tersinkron'; el.classList.replace('text-blue-600', 'text-green-600'); setTimeout(hideSyncingUI, 1500); }
+                } catch (error) { 
+                    let el = document.getElementById('sync-indicator');
+                    if(el) { el.innerHTML = '<i class="fas fa-exclamation-triangle text-red-500"></i> Gagal'; el.classList.replace('text-blue-600', 'text-red-600'); setTimeout(hideSyncingUI, 1500); }
+                } finally {
+                    isSyncing = false;
+                    if (pendingSync) {
+                        pendingSync = false;
+                        await saveDB(); // Jalankan antrean yang tertunda agar data terbaru pasti masuk Google Sheets
+                    }
+                }
             }
         }
 
