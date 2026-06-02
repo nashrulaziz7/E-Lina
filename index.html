@@ -90,15 +90,12 @@
 
     <!-- HEADER GLOBAL FIXED -->
     <header class="fixed top-0 left-0 w-full h-[50px] z-[100] bg-white/90 backdrop-blur-md border-b border-gray-200/50 shadow-sm flex items-center justify-between px-4 transition-all duration-300">
-        <div id="header-brand" class="flex items-center gap-2 transition-all duration-300">
-            <div class="w-6 h-6 bg-blue-900 rounded-lg flex items-center justify-center text-white font-black text-xs">K</div>
-            <p class="text-[9px] font-black text-gray-800 tracking-[0.1em] uppercase">SDIT MUHAMMADIYAH AL KAUTSAR</p>
-        </div>
+        <!-- Logo K dan nama sekolah di bagian kiri telah dihapus dari seluruh halaman agar tampilan minimalis dan fokus -->
         <div class="flex flex-col items-center absolute left-1/2 -translate-x-1/2">
             <p class="text-[10px] font-bold text-blue-900 tracking-[0.2em] uppercase">ELINA <span class="text-orange-500 font-bold mx-1">|</span> BY ZIVI•AI</p>
             <div id="live-clock" class="text-[8px] font-bold text-gray-500 tracking-wide">Memuat...</div>
         </div>
-        <div>
+        <div class="ml-auto">
             <button onclick="showInstallPopup()" id="btn-install" class="bg-gradient-to-r from-orange-500 to-amber-500 text-white px-2.5 py-1 rounded-full text-[9px] font-black shadow-sm hover:scale-105 transition-transform flex items-center gap-1">
                 <i class="fas fa-download"></i> <span class="hidden md:inline">Pasang App</span>
             </button>
@@ -282,6 +279,7 @@
                 </div>
             </div>
 
+            <!-- Highly visible status containers with vivid pastel theme matching edited-image.png -->
             <div class="flex flex-col gap-2 mb-4 px-0.5">
                 <div class="flex gap-2 w-full">
                     <div class="flex-1 bg-emerald-50/95 border-2 border-emerald-200 p-2.5 rounded-[14px] flex items-center justify-between shadow-md"><div class="flex items-center gap-1.5"><div class="w-5 h-5 bg-green-100 rounded-full flex justify-center items-center"><i class="fas fa-arrow-down text-green-600 text-[8px]"></i></div><span class="text-[9px] font-bold text-green-700">MASUK</span></div><span id="wali-tot-masuk" class="text-xs font-black text-green-700">Rp 0</span></div>
@@ -556,13 +554,10 @@
 
         function routeView() {
             ['view-login', 'view-admin', 'view-walikelas', 'view-walimurid'].forEach(id => { document.getElementById(id).classList.add('hidden'); });
-            const headerBrand = document.getElementById('header-brand');
             if (!session.user) { 
                 document.getElementById('view-login').classList.remove('hidden'); 
-                if (headerBrand) headerBrand.classList.add('invisible');
                 updateLoginDropdowns(); 
             } else {
-                if (headerBrand) headerBrand.classList.remove('invisible');
                 if (session.role === 'admin') { 
                     document.getElementById('view-admin').classList.remove('hidden'); 
                     setupAdminView(); 
@@ -886,7 +881,6 @@
         function toggleInfaq(kelas, dateStr, presensi) {
             let current = db.infaq[kelas][dateStr][presensi];
             if (current === 'paid') delete db.infaq[kelas][dateStr][presensi]; else db.infaq[kelas][dateStr][presensi] = 'paid';
-            // We remove global auto-saving on click to make "Simpan Data" manual button feel important and secure!
             renderWaliChecklist();
         }
 
@@ -1670,7 +1664,7 @@
         function resetDatabase() {
             Swal.fire({
                 title: 'Hapus Bersih Database?',
-                html: 'Tindakan ini akan mengosongkan data <b>Siswa, Wali Kelas, Checklist, Arus Kas</b> secara permanen dari sistem Spreadsheet dan HP ini!<br><br><span class="text-red-600 font-bold">Hanya data login Admin standar yang tersisa.</span>',
+                html: 'Tindakan ini akan mengosongkan data <b>Siswa, Wali Kelas, Checklist, Arus Kas</b> secara permanen dari sistem Spreadsheet and HP ini!<br><br><span class="text-red-600 font-bold">Hanya data login Admin standar yang tersisa.</span>',
                 icon: 'warning', showCancelButton: true, confirmButtonColor: '#ef4444', cancelButtonColor: '#cbd5e1', confirmButtonText: 'Ya, Bersihkan Total!', cancelButtonText: 'Batal',
                 customClass: {popup: 'rounded-2xl w-[85%] max-w-sm p-4'}
             }).then(async (result) => {
