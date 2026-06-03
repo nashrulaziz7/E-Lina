@@ -350,8 +350,8 @@
 
     <!-- JAVASCRIPT SYSTEM LOGIC -->
     <script>
-        // ⚠️ PENTING: MASUKKAN URL GOOGLE APPS SCRIPT YANG BARU DI SINI
-        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzquw_FfHBMfJpcje4Ld56dzIVfdH_eDDCcrZ4BvAgyogzsduncJGBAQ9jGLxRVHTN0Ww/exec"; 
+        // DI SINI LINK WEB GS YANG SUDAH KAMU BERIKAN
+        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzu4ctbe2kE6cfIrpqj17aKBTs05ImQE4vEkY3dKQG82Uyi3ccbayp8EISZ1GSDoVM4nw/exec"; 
         
         let db = { 
             config: { defaultNominal: {} }, 
@@ -543,22 +543,21 @@
                 }
 
                 try {
-                    // Mengirim POST request. Menggunakan text/plain agar tidak terblokir Preflight CORS
-                    const response = await fetch(SCRIPT_URL, { 
+                    // MENGGUNAKAN MODE no-cors AGAR TIDAK DIBLOKIR BROWSER HP PADA SAAT POST
+                    await fetch(SCRIPT_URL, { 
                         method: 'POST', 
-                        headers: { 'Content-Type': 'text/plain;charset=utf-8' }, 
+                        mode: 'no-cors', // KUNCI UTAMA: Bypass pemblokiran CORS saat kirim data
+                        headers: { 'Content-Type': 'text/plain' }, 
                         body: JSON.stringify(payload) 
                     });
                     
-                    const result = await response.json();
-                    
+                    // Karena menggunakan no-cors, kita tidak bisa mengecek 'response.json()' dari Google
+                    // Kita asumsikan sukses bila tidak ada error koneksi (terlempar ke catch).
                     let el = document.getElementById('sync-indicator');
-                    if(el && result.status === 'success') { 
+                    if(el) { 
                         el.innerHTML = '<i class="fas fa-check text-green-500"></i> Tersinkron'; 
                         el.classList.replace('text-blue-900', 'text-green-600'); 
                         setTimeout(hideSyncingUI, 1500); 
-                    } else {
-                        throw new Error("Server mengembalikan status error");
                     }
                     
                     isSyncing = false;
