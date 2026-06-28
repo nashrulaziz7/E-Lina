@@ -6,6 +6,7 @@
     <title>TINTA - Master Vision</title>
     
     <script src="https://cdn.sheetjs.com/xlsx-latest/package/dist/xlsx.full.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
     
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800;900&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -62,9 +63,10 @@
         .z-col { position: sticky; z-index: 20; background-color: #ffffff; background-clip: padding-box; border-bottom: 1px solid #f1f5f9; }
         .z-intersect { position: sticky; top: 0; z-index: 40; background-color: #f8fafc; background-clip: padding-box; border-bottom: 1px solid #e2e8f0; }
         
-        .pos-no { left: 0; width: 22px; min-width: 22px; max-width: 22px; }
-        .pos-nama { left: 22px; width: 105px; min-width: 105px; max-width: 105px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-        .pos-total { left: 127px; width: 55px; min-width: 55px; max-width: 55px; box-shadow: inset -1px 0 0 #e2e8f0, 2px 0 4px -2px rgba(0,0,0,0.08); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+        /* KUNCI LEBAR KOLOM ANTI-BOCOR (STICKY SCROLL SEMPURNA) */
+        .pos-no { left: 0; width: 25px; min-width: 25px; max-width: 25px; }
+        .pos-nama { left: 25px; width: 110px; min-width: 110px; max-width: 110px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+        .pos-total { left: 135px; width: 60px; min-width: 60px; max-width: 60px; box-shadow: inset -1px 0 0 #e2e8f0, 2px 0 4px -2px rgba(0,0,0,0.08); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 
         .walas-tr .z-col { transition: background-color 0.2s; }
         .walas-tr .z-col.pos-total { background-color: #f4f7fb; }
@@ -86,6 +88,9 @@
         .dynamic-input-row { animation: slideDown 0.3s ease; }
         @keyframes slideDown { from { opacity: 0; transform: translateY(-5px); } to { opacity: 1; transform: translateY(0); } }
 
+        /* ========================================================
+           PDF PRINT STYLES NATIVE HTML
+           ======================================================== */
         #pdf-render-container { display: none; }
         
         @media print {
@@ -93,34 +98,18 @@
             body > *:not(#pdf-render-container) { display: none !important; }
             
             #pdf-render-container {
-                position: absolute !important;
-                left: 0 !important;
-                top: 0 !important;
-                display: block !important;
-                width: 100% !important;
-                background-color: white;
+                position: absolute !important; left: 0 !important; top: 0 !important; display: block !important; width: 100% !important; background-color: white;
             }
             .pdf-page-container {
-                width: 215.9mm;
-                height: 330.2mm; /* F4 Portrait */
-                page-break-after: always;
-                margin: 0;
-                padding: 0;
-                position: relative;
-                box-sizing: border-box;
-                overflow: hidden;
-                background-color: white;
+                width: 215.9mm; height: 330.2mm; /* F4 Portrait */
+                page-break-after: always; margin: 0; padding: 0; position: relative; box-sizing: border-box; overflow: hidden; background-color: white;
             }
-            @page {
-                size: 215.9mm 330.2mm; /* F4 Portrait */
-                margin: 0mm !important; 
-            }
+            @page { size: 215.9mm 330.2mm; margin: 0mm !important; }
             
             .kop-img { width: 100%; height: auto; display: block; margin: 0; padding: 0; border: none; outline: none; }
             .kop-footer { width: 100%; height: auto; display: block; position: absolute; bottom: 0; left: 0; }
             .pdf-content { padding: 0 15mm; position: relative; z-index: 10; margin-top: 10px; }
             
-            /* Dibuat sangat padat untuk memuat 35 siswa */
             .title-h2 { font-size: 13px; font-weight: 800; margin: 0 0 2px 0; color: #1e3a8a; text-transform: uppercase; font-family: Arial, sans-serif; }
             .title-date { font-size: 8px; margin: 0 0 6px 0; color: #64748b; font-family: Arial, sans-serif;}
             
@@ -132,44 +121,22 @@
             .sum-label { font-size: 6.5px; font-weight: 400; text-transform: uppercase; display: block; margin-bottom: 2px; letter-spacing: 0.5px; }
             .sum-value { font-size: 13px; font-weight: normal; }
             
-            .legend-container { display: flex; gap: 12px; align-items: center; margin-bottom: 6px; background-color: #f8fafc; padding: 3px 8px; border-radius: 6px; border: 1px solid #e2e8f0; width: fit-content; }
+            .legend-container { display: flex; gap: 12px; align-items: center; margin-bottom: 6px; background-color: #f8fafc; padding: 4px 10px; border-radius: 6px; border: 1px solid #e2e8f0; width: fit-content; }
             .legend-item { font-size: 8px; font-weight: 700; color: #475569; display: flex; align-items: center; gap: 4px; }
             .legend-box { width: 10px; height: 10px; border-radius: 2px; }
 
             .student-badge { 
-                background: linear-gradient(90deg, #1e3a8a, #3b82f6);
-                color: white; 
-                padding: 6px 12px; 
-                font-size: 10px; 
-                font-weight: 800; 
-                margin-bottom: 8px; 
-                display: block; 
-                width: 100%; 
-                box-sizing: border-box; 
-                border-radius: 6px;
-                border-left: 6px solid #fbbf24;
+                background: linear-gradient(90deg, #1e3a8a, #3b82f6); color: white; padding: 6px 12px; font-size: 10px; font-weight: 800; margin-bottom: 8px; display: block; width: 100%; box-sizing: border-box; border-radius: 6px; border-left: 6px solid #fbbf24;
             }
 
             .nama-siswa-pill { 
-                background: #eff6ff;
-                color: #1e3a8a; 
-                padding: 1px 4px; 
-                border-radius: 4px; 
-                font-weight: 800; 
-                display: inline-block; 
-                border-left: 2px solid #3b82f6;
-                white-space: nowrap;
-                overflow: hidden;
-                text-overflow: ellipsis;
-                max-width: 120px;
-                font-size: 7.5px;
-                line-height: 1;
+                background: #eff6ff; color: #1e3a8a; padding: 2px 6px; border-radius: 4px; font-weight: 800; display: inline-block; border-left: 3px solid #3b82f6; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 125px; font-size: 7.5px; line-height: 1.2; box-shadow: 0 1px 2px rgba(0,0,0,0.05);
             }
             
-            /* Table Rekap Kelas (Admin) - Sangat Padat */
+            /* Table Rekap Kelas (Admin) */
             .table-admin { width: 100%; border-collapse: separate; border-spacing: 0; font-size: 7.5px; text-align: center; border: 1px solid #e2e8f0; }
             .table-admin th { padding: 4px 2px; font-weight: 600; border: 1px solid white; background-color: #1e3a8a; color: white; border-radius: 2px; font-size: 8px; }
-            .table-admin td { padding: 3px 1px; color: #475569; border-bottom: 1px solid #f1f5f9; border-top: none; height: 14px; }
+            .table-admin td { padding: 3px 1px; color: #475569; border-bottom: 1px solid #f1f5f9; border-top: none; height: 13.5px; }
             .table-admin tbody tr:nth-child(even) td { background-color: #f8fafc !important; }
             .table-admin tbody tr:nth-child(odd) td { background-color: white !important; }
             .text-left { text-align: left !important; padding-left: 6px !important; }
@@ -177,19 +144,20 @@
             .val-bold { font-weight: 800; color: #1e3a8a; }
             
             /* Table Persiswa (Walas) 2 KOLOM */
-            .table-siswa { width: 100%; border-collapse: collapse; font-size: 8.5px; text-align: center; }
-            .table-siswa th { padding: 6px 2px; color: #475569; font-weight: 700; border-bottom: 1px solid #e2e8f0; }
-            .table-siswa td { padding: 5px 2px; color: #334155; border-bottom: 1px solid #f1f5f9; }
+            .table-siswa { width: 100%; border-collapse: collapse; font-size: 8px; text-align: center; }
+            .table-siswa th { padding: 5px 2px; color: #475569; font-weight: 700; border-bottom: 1px solid #e2e8f0; font-size: 8.5px; }
+            .table-siswa td { padding: 4px 2px; color: #334155; border-bottom: 1px solid #f1f5f9; }
             .table-siswa tbody tr:nth-child(even) td { background-color: #f8fafc !important; }
-            .pill-lunas { background-color: #22c55e; color: white; padding: 3px 0; border-radius: 3px; font-size: 6.5px; font-weight: 800; display: inline-block; text-align: center; width: 32px; }
-            .pill-libur { background-color: #ef4444; color: white; padding: 3px 0; border-radius: 3px; font-size: 6.5px; font-weight: 800; display: inline-block; text-align: center; width: 32px; }
-            .pill-empty { background-color: #f1f5f9; color: #94a3b8; padding: 3px 0; border-radius: 3px; font-size: 6.5px; font-weight: 800; display: inline-block; border: 1px solid #cbd5e1; text-align: center; width: 32px; }
+            .pill-lunas { background-color: #22c55e; color: white; padding: 2px 0; border-radius: 3px; font-size: 6px; font-weight: 800; display: inline-block; text-align: center; width: 34px; }
+            .pill-libur { background-color: #ef4444; color: white; padding: 2px 0; border-radius: 3px; font-size: 6px; font-weight: 800; display: inline-block; text-align: center; width: 34px; }
+            .pill-empty { background-color: #f1f5f9; color: #94a3b8; padding: 2px 0; border-radius: 3px; font-size: 6px; font-weight: 800; display: inline-block; border: 1px solid #cbd5e1; text-align: center; width: 34px; }
             .row-total td { background-color: #f1f5f9 !important; font-weight: 800; color: #0f172a; border-top: 1px solid #cbd5e1; border-bottom: none; }
         }
     </style>
 </head>
 <body>
 
+    <!-- HEADER GLOBAL -->
     <div class="fixed top-0 left-0 w-full z-50 bg-white/95 backdrop-blur border-b border-slate-200 shadow-sm flex items-center justify-center h-[60px]">
         <div class="text-center flex flex-col items-center justify-center mt-1">
             <h1 class="text-[12px] font-black text-[#1e3a8a] tracking-widest uppercase flex items-center">
@@ -208,6 +176,7 @@
         </button>
     </div>
 
+    <!-- VIEW 1: LOGIN -->
     <div id="view-login" class="min-h-[100dvh] w-screen relative flex flex-col items-center origin-center pt-[60px]">
         <div class="fine-grid"></div>
         <div class="bg-clean-lines"></div>
@@ -331,6 +300,8 @@
         </div>
     </div>
 
+
+    <!-- VIEW 2: ADMIN -->
     <div id="view-dashboard-admin" class="hidden w-full min-h-[100dvh] pb-8 relative origin-top pt-[60px]" style="background-color: #f1f5f9;">
         <main class="relative max-w-md mx-auto w-full">
             <div class="sticky top-[60px] z-[40] bg-[#f1f5f9] px-3 pt-3 pb-3 shadow-sm border-b border-slate-200">
@@ -418,6 +389,8 @@
         </main>
     </div>
 
+
+    <!-- VIEW 3: WALAS -->
     <div id="view-dashboard-walas" class="hidden w-full min-h-[100dvh] pb-8 relative origin-top font-['Inter'] pt-[60px]" style="background-color: #f8fafc;">
         <main class="p-3 relative max-w-md mx-auto w-full">
             <div class="bg-white rounded-2xl p-3 shadow-sm border border-slate-100 flex items-center gap-3 mb-3 mt-2">
@@ -492,6 +465,7 @@
         </main>
     </div>
 
+    <!-- VIEW 4: WARID -->
     <div id="view-dashboard-warid" class="hidden w-full min-h-[100dvh] pb-8 relative origin-top font-['Inter'] pt-[60px]" style="background-color: #f8fafc;">
         <main class="p-4 relative max-w-md mx-auto w-full">
             <div class="bg-white rounded-2xl p-4 shadow-sm border border-slate-100 flex items-center justify-between mb-4 mt-2">
@@ -539,11 +513,54 @@
 
     <!-- FUN POPUP (SWEET ALERT CUSTOM) -->
     <div id="fun-popup-overlay" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-[99999] flex justify-center items-center opacity-0 pointer-events-none transition-opacity duration-300 px-4">
-        <div id="fun-popup-card" class="bg-white rounded-3xl p-6 pt-8 max-w-[280px] w-full transform scale-75 opacity-0 transition-all duration-300 text-center relative mt-8 border-2">
+        <div id="fun-popup-card" class="bg-white rounded-3xl p-6 pt-8 max-w-[280px] w-full transform scale-75 opacity-0 transition-all duration-300 text-center relative mt-8 border-2 shadow-2xl">
             <div id="fun-popup-icon" class="absolute -top-8 left-1/2 transform -translate-x-1/2 text-[55px] drop-shadow-[0_10px_10px_rgba(0,0,0,0.2)] z-10 whitespace-nowrap animate-bounce">🚀</div>
             <h3 id="fun-popup-title" class="text-[17px] font-black text-slate-800 mb-1 mt-2">Judul</h3>
             <p id="fun-popup-msg" class="text-[11px] font-bold text-slate-500 mb-5 leading-relaxed">Pesan</p>
             <button onclick="closeFunPop()" id="fun-popup-btn" class="w-full py-3.5 rounded-xl font-black text-[12px] text-white shadow-lg transition transform active:scale-95">OKE</button>
+        </div>
+    </div>
+
+    <!-- POPUP WELCOME KHUSUS (ONBOARDING) -->
+    <div id="welcome-popup-overlay" class="fixed inset-0 bg-slate-900/80 backdrop-blur-md z-[999999] flex justify-center items-center opacity-0 pointer-events-none transition-opacity duration-500 px-4">
+        <div class="bg-white rounded-3xl p-6 max-w-[340px] w-full transform scale-95 transition-transform duration-500 relative overflow-hidden shadow-[0_20px_60px_rgba(0,0,0,0.4)]">
+            <div class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-blue-600 to-[#ea580c]"></div>
+            <div class="text-center mb-5 mt-2">
+                <div class="w-16 h-16 bg-blue-50 text-blue-600 rounded-2xl flex items-center justify-center text-3xl mx-auto mb-3 shadow-inner border border-blue-100"><i class="fa-solid fa-rocket"></i></div>
+                <h2 class="text-[18px] font-black text-slate-800">Selamat Datang di TINTA!</h2>
+                <p class="text-[11px] font-bold text-slate-500 mt-1">Sistem Tabungan Infaq Terpadu Level Dewa 🚀</p>
+            </div>
+            <div class="space-y-3 mb-6">
+                <div class="flex items-start gap-3 bg-slate-50 p-3 rounded-xl border border-slate-100">
+                    <div class="w-8 h-8 rounded-full bg-green-100 text-green-600 flex items-center justify-center shrink-0"><i class="fa-solid fa-bolt"></i></div>
+                    <div><h4 class="text-[11px] font-black text-slate-700">Kecepatan Cahaya</h4><p class="text-[9px] text-slate-500 font-medium">Navigasi instan tanpa loading muter-muter yang bikin emosi.</p></div>
+                </div>
+                <div class="flex items-start gap-3 bg-slate-50 p-3 rounded-xl border border-slate-100">
+                    <div class="w-8 h-8 rounded-full bg-orange-100 text-[#ea580c] flex items-center justify-center shrink-0"><i class="fa-solid fa-print"></i></div>
+                    <div><h4 class="text-[11px] font-black text-slate-700">Cetak PDF Otomatis</h4><p class="text-[9px] text-slate-500 font-medium">Laporan KOP resmi 2 kolom anti-terpotong (Native Print).</p></div>
+                </div>
+                <div class="flex items-start gap-3 bg-slate-50 p-3 rounded-xl border border-slate-100">
+                    <div class="w-8 h-8 rounded-full bg-purple-100 text-purple-600 flex items-center justify-center shrink-0"><i class="fa-solid fa-shield-halved"></i></div>
+                    <div><h4 class="text-[11px] font-black text-slate-700">Database Canggih</h4><p class="text-[9px] text-slate-500 font-medium">Data aman tersinkronisasi realtime ke server Google.</p></div>
+                </div>
+            </div>
+            <button onclick="closeWelcomePopup()" class="w-full py-3.5 bg-gradient-to-r from-[#1e3a8a] to-[#3b82f6] text-white rounded-xl font-black text-[12px] shadow-lg hover:shadow-xl transition-all active:scale-95">MULAI PENGALAMAN BARU</button>
+        </div>
+    </div>
+
+    <!-- POPUP INSTALL INSTAN (PWA) -->
+    <div id="install-popup-overlay" class="fixed inset-0 bg-slate-900/70 backdrop-blur-sm z-[999998] flex justify-center items-end sm:items-center opacity-0 pointer-events-none transition-opacity duration-300 sm:px-4 pb-4 sm:pb-0">
+        <div class="bg-white rounded-[2rem] sm:rounded-3xl p-6 w-full max-w-[340px] transform translate-y-10 sm:translate-y-0 sm:scale-95 transition-all duration-300 relative shadow-2xl">
+            <button onclick="closeInstallPopup()" class="absolute top-4 right-4 w-7 h-7 bg-slate-100 text-slate-400 rounded-full flex items-center justify-center hover:bg-slate-200 transition"><i class="fa-solid fa-xmark text-[10px]"></i></button>
+            <div class="flex items-center gap-4 mb-4 mt-2">
+                <img src="LOGO LOGIN.png" class="w-14 h-14 object-contain drop-shadow" onerror="this.src='https://placehold.co/100x100/ffffff/1e3a8a?text=LOGO'">
+                <div>
+                    <h3 class="text-[15px] font-black text-slate-800 leading-tight">Install TINTA App</h3>
+                    <p class="text-[10px] font-bold text-slate-500 mt-0.5">Akses secepat kilat (Fullscreen)</p>
+                </div>
+            </div>
+            <p class="text-[11px] text-slate-600 mb-5 font-medium leading-relaxed">Pasang aplikasi TINTA di layar utama perangkat Anda untuk pengalaman super cepat tanpa gangguan browser!</p>
+            <button onclick="triggerNativeInstall()" class="w-full py-3.5 bg-gradient-to-r from-[#10b981] to-[#059669] text-white rounded-xl font-black text-[12px] shadow-[0_4px_15px_rgba(16,185,129,0.3)] hover:shadow-[0_6px_20px_rgba(16,185,129,0.4)] transition-all active:scale-95 flex items-center justify-center gap-2"><i class="fa-solid fa-download"></i> INSTALL SEKARANG (INSTAN)</button>
         </div>
     </div>
 
@@ -573,10 +590,86 @@
         </div>
     </div>
 
-    <!-- CONTAINER RENDER PDF -->
+    <!-- CONTAINER RENDER PDF NATIVE HTML -->
     <div id="pdf-render-container"></div>
 
     <script>
+        // --- MESIN PWA INSTAN INSTALL (INJECTOR BAYANGAN) ---
+        let deferredPrompt;
+        try {
+            const manifestJSON = {
+                "name": "TINTA - Master Vision", "short_name": "TINTA",
+                "start_url": window.location.href, "display": "standalone",
+                "background_color": "#f8fafc", "theme_color": "#1e3a8a",
+                "icons": [{"src": "https://placehold.co/192x192/1e3a8a/ffffff?text=TINTA", "sizes": "192x192", "type": "image/png"}]
+            };
+            const manifestBlob = new Blob([JSON.stringify(manifestJSON)], {type: 'application/json'});
+            document.head.insertAdjacentHTML('beforeend', `<link rel="manifest" href="${URL.createObjectURL(manifestBlob)}">`);
+
+            if ('serviceWorker' in navigator) {
+                const swCode = "self.addEventListener('install', e => self.skipWaiting()); self.addEventListener('fetch', e => {});";
+                const swBlob = new Blob([swCode], {type: 'application/javascript'});
+                navigator.serviceWorker.register(URL.createObjectURL(swBlob)).catch(e => console.log("PWA Sandbox Restriction Bypassed"));
+            }
+        } catch(e) { console.log("PWA Engine Bypass"); }
+
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+        });
+
+        // --- SISTEM PENYAMBUTAN (ONBOARDING) & INSTALL ---
+        window.addEventListener('DOMContentLoaded', () => {
+            setTimeout(() => {
+                if(!sessionStorage.getItem('tinta_welcomed')) {
+                    showWelcomePopup();
+                } else {
+                    checkAndShowInstall();
+                }
+            }, 600);
+        });
+
+        function showWelcomePopup() {
+            const overlay = document.getElementById('welcome-popup-overlay');
+            overlay.classList.remove('opacity-0', 'pointer-events-none');
+            overlay.querySelector('div').classList.remove('scale-95');
+        }
+
+        function closeWelcomePopup() {
+            sessionStorage.setItem('tinta_welcomed', 'true');
+            const overlay = document.getElementById('welcome-popup-overlay');
+            overlay.querySelector('div').classList.add('scale-95');
+            overlay.classList.add('opacity-0', 'pointer-events-none');
+            setTimeout(checkAndShowInstall, 500); 
+        }
+
+        function checkAndShowInstall() {
+            if (deferredPrompt) {
+                const overlay = document.getElementById('install-popup-overlay');
+                overlay.classList.remove('opacity-0', 'pointer-events-none');
+                overlay.querySelector('div').classList.remove('translate-y-10', 'scale-95');
+            }
+        }
+
+        function triggerNativeInstall() {
+            closeInstallPopup();
+            if (deferredPrompt) {
+                deferredPrompt.prompt();
+                deferredPrompt.userChoice.then((choiceResult) => {
+                    deferredPrompt = null;
+                });
+            }
+        }
+
+        function closeInstallPopup() {
+            const overlay = document.getElementById('install-popup-overlay');
+            overlay.querySelector('div').classList.add('translate-y-10', 'scale-95');
+            overlay.classList.add('opacity-0', 'pointer-events-none');
+        }
+
+        // ==========================================
+        // SISTEM DATABASE MASTER
+        // ==========================================
         const GAS_URL = "https://script.google.com/macros/s/AKfycbwcBuNRtC9EUE8YYeRw6yB9CJvy9peqVl_2n6WU8AyyGIuPFXoZcSxYMXS0tq_fyasXxw/exec";
 
         const DAFTAR_KELAS = ["1A", "1B", "1C", "1D", "1 ICP A", "1 ICP B", "2A", "2B", "2C", "2D", "2 ICP A", "2 ICP B", "3A", "3B", "3C", "3D", "3 ICP A", "4A", "4B", "4C", "4D", "5A", "5B", "5C", "5D", "6A", "6B", "6C", "6D"];
@@ -585,9 +678,12 @@
 
         let academicWeeks = [];
         function generateAcademicWeeks() {
-            let currentDate = new Date(); 
-            let startYear = currentDate.getMonth() < 6 ? currentDate.getFullYear() - 1 : currentDate.getFullYear();
-            currentDate = new Date(startYear, 6, 1); 
+            let currentDate = new Date();
+            let year = currentDate.getFullYear();
+            if (currentDate.getMonth() < 6) year -= 1; // Jika Januari-Juni, maka tahun ajaran dimulai Juli tahun lalu
+            
+            // Set ke 1 Juli tahun ajaran ini, lalu cari hari Jumat pertama
+            currentDate = new Date(year, 6, 1); 
             while(currentDate.getDay() !== 5) { currentDate.setDate(currentDate.getDate() + 1); } 
             
             const monthNames = ["Jul", "Agt", "Sep", "Okt", "Nov", "Des", "Jan", "Feb", "Mar", "Apr", "Mei", "Jun"];
@@ -598,16 +694,13 @@
                 const mKey = monthNames.includes("Agt") && mIdx === 7 ? "Agt" : monthNames.find(m => longMonthNames[mIdx].startsWith(m)) || "Jul";
                 
                 const yy = String(currentDate.getFullYear()).slice(-2);
-                let nextWeek = new Date(currentDate); nextWeek.setDate(nextWeek.getDate() + 7);
-                let isLast = nextWeek.getMonth() !== mIdx; 
-
                 academicWeeks.push({ 
                     dateStr: `Jum, ${currentDate.getDate()}`, 
                     monthStr: `${mKey} ${yy}`, 
                     monthKey: mKey, 
                     monthLong: longMonthNames[mIdx] + " " + currentDate.getFullYear(), 
                     dateNum: String(currentDate.getDate()).padStart(2, '0'), 
-                    isLastWeek: isLast,
+                    fullYear: currentDate.getFullYear(),
                     id: i 
                 });
                 currentDate.setDate(currentDate.getDate() + 7);
@@ -615,20 +708,28 @@
         }
         generateAcademicWeeks();
 
+        // Warna Pastel Super Cantik untuk setiap bulan (Checklist & PDF)
+        const pastelColors = {
+            "Jul": { bg: "bg-[#fdf4ff]", border: "border-[#f0abfc]", hexBg: "#fdf4ff", hexBorder: "#f0abfc" }, // Fuchsia muda
+            "Agt": { bg: "bg-[#fff7ed]", border: "border-[#fdba74]", hexBg: "#fff7ed", hexBorder: "#fdba74" }, // Orange muda
+            "Sep": { bg: "bg-[#f0fdf4]", border: "border-[#86efac]", hexBg: "#f0fdf4", hexBorder: "#86efac" }, // Hijau muda
+            "Okt": { bg: "bg-[#fef2f2]", border: "border-[#fca5a5]", hexBg: "#fef2f2", hexBorder: "#fca5a5" }, // Merah muda
+            "Nov": { bg: "bg-[#f0f9ff]", border: "border-[#7dd3fc]", hexBg: "#f0f9ff", hexBorder: "#7dd3fc" }, // Biru langit
+            "Des": { bg: "bg-[#fefce8]", border: "border-[#fde047]", hexBg: "#fefce8", hexBorder: "#fde047" }, // Kuning muda
+            "Jan": { bg: "bg-[#faf5ff]", border: "border-[#d8b4fe]", hexBg: "#faf5ff", hexBorder: "#d8b4fe" }, // Ungu muda
+            "Feb": { bg: "bg-[#f0fdfa]", border: "border-[#5eead4]", hexBg: "#f0fdfa", hexBorder: "#5eead4" }, // Teal muda
+            "Mar": { bg: "bg-[#fff1f2]", border: "border-[#fda4af]", hexBg: "#fff1f2", hexBorder: "#fda4af" }, // Rose muda
+            "Apr": { bg: "bg-[#eff6ff]", border: "border-[#93c5fd]", hexBg: "#eff6ff", hexBorder: "#93c5fd" }, // Biru muda
+            "Mei": { bg: "bg-[#ecfdf5]", border: "border-[#6ee7b7]", hexBg: "#ecfdf5", hexBorder: "#6ee7b7" }, // Emerald muda
+            "Jun": { bg: "bg-[#f5f3ff]", border: "border-[#c4b5fd]", hexBg: "#f5f3ff", hexBorder: "#c4b5fd" }  // Violet muda
+        };
+
         let kelasWalasAktif = ""; let kelasWaridAktif = ""; let siswaWaridIdx = -1; let checklistState = {}; let tempPengeluaranRows = []; let excelPayload = null; 
         let onConfirmAction = null;
 
         function formatRp(angka) { 
             if(angka === 0 || !angka) return "0";
             return new Intl.NumberFormat('id-ID', { minimumFractionDigits: 0 }).format(angka); 
-        }
-
-        // Warna Pastel Ceria Per Bulan
-        function getMonthBg(monthKey) {
-            const m = ["Jul", "Agt", "Sep", "Okt", "Nov", "Des", "Jan", "Feb", "Mar", "Apr", "Mei", "Jun"];
-            const colors = ["bg-red-50", "bg-orange-50", "bg-amber-50", "bg-green-50", "bg-emerald-50", "bg-teal-50", "bg-cyan-50", "bg-sky-50", "bg-blue-50", "bg-indigo-50", "bg-purple-50", "bg-fuchsia-50"];
-            const idx = m.indexOf(monthKey);
-            return idx !== -1 ? colors[idx] : "bg-white";
         }
 
         async function fetchGAS(payload) {
@@ -657,7 +758,7 @@
                     if (res.master.walas) {
                         res.master.walas.forEach(w => { 
                             DB.guru[w.kelas] = w.nama; 
-                            DB.walasPassword[w.kelas] = w.password; 
+                            DB.walasPassword[w.kelas] = w.password; // KUNCI WALAS
                             if (w.nominal) DB.nominalDefault[w.kelas] = parseInt(w.nominal); 
                             if (w.kelas && !DAFTAR_KELAS.includes(w.kelas)) DAFTAR_KELAS.push(w.kelas); 
                         });
@@ -730,6 +831,9 @@
 
         function cariSiswa() { const input = document.getElementById('search-siswa').value.toLowerCase(); const items = document.querySelectorAll('.item-siswa-admin'); items.forEach(item => { item.style.display = item.querySelector('.nama-siswa-admin').innerText.toLowerCase().includes(input) ? '' : 'none'; }); }
 
+        // ==========================================
+        // SISTEM DIRECT DOWNLOAD PDF NATIVE (ANTI-BLANK)
+        // ==========================================
         function checkHighlight(cb) {
             const label = cb.closest('label'); const indicator = label.querySelector('.input-indicator');
             if (cb.checked) {
@@ -774,12 +878,12 @@
                 <div class="flex flex-col h-full max-h-[60vh]">
                     <div class="mb-3 flex items-center justify-between bg-slate-50 p-3 rounded-xl border border-slate-200">
                         <span class="text-[11px] font-black text-slate-700">PILIH SEMUA KELAS</span>
-                        <input type="checkbox" class="w-5 h-5 accent-blue-600 rounded cursor-pointer" onchange="toggleAllAdminPrint(this.checked)">
+                        <input type="checkbox" class="w-5 h-5 accent-blue-600 rounded cursor-pointer" id="cb-admin-all" onchange="toggleAllAdminPrint(this.checked)">
                     </div>
                     <div class="flex-1 overflow-y-auto custom-scrollbar pr-1 mb-3">
                         ${listHtml}
                     </div>
-                    <button onclick="prosesCetakAdmin()" class="w-full bg-[#1e3a8a] text-white py-3.5 rounded-xl font-black text-[12px] shadow-md hover:bg-blue-900 transition flex items-center justify-center gap-2"><i class="fa-solid fa-print"></i> CETAK REKAP KELAS</button>
+                    <button onclick="prosesCetakAdmin()" class="w-full bg-[#1e3a8a] text-white py-3.5 rounded-xl font-black text-[12px] shadow-md hover:bg-blue-900 transition flex items-center justify-center gap-2"><i class="fa-solid fa-print"></i> CETAK REKAP SEKARANG</button>
                 </div>
             `;
             modal.classList.add('active');
@@ -805,24 +909,26 @@
                 `;
             });
 
+            // TOMBOL CETAK DIPISAH AGAR LEBIH JELAS
             body.innerHTML = `
                 <div class="flex flex-col h-full max-h-[70vh]">
-                    <div class="mb-3 flex items-center justify-between bg-slate-50 p-3 rounded-xl border border-slate-200 shadow-sm">
+                    <div class="mb-3 flex items-center justify-between bg-slate-50 p-3 rounded-xl border border-slate-200">
                         <span class="text-[11px] font-black text-slate-700">PILIH SEMUA SISWA</span>
-                        <input type="checkbox" class="w-5 h-5 accent-orange-600 rounded cursor-pointer" onchange="toggleAllWalasPrint(this.checked)">
+                        <input type="checkbox" class="w-5 h-5 accent-orange-600 rounded cursor-pointer" id="cb-walas-all" onchange="toggleAllWalasPrint(this.checked)">
                     </div>
-                    <div class="flex-1 overflow-y-auto custom-scrollbar pr-1 mb-3 border-b border-slate-100 pb-2">
+                    <div class="flex-1 overflow-y-auto custom-scrollbar pr-1 mb-4 border-b border-slate-100 pb-2">
                         ${listSiswa || '<p class="text-center text-[10px] font-bold text-slate-400">Belum ada siswa</p>'}
                     </div>
-                    <div class="flex gap-2 mt-2">
-                        <button onclick="prosesCetakWalasRekap()" class="flex-1 bg-[#1e3a8a] text-white py-3.5 rounded-xl font-black text-[10px] shadow-md hover:bg-blue-900 transition flex items-center justify-center gap-2"><i class="fa-solid fa-table"></i> 1. CETAK REKAP KELAS</button>
-                        <button onclick="prosesCetakWalasSiswa()" class="flex-1 bg-[#ea580c] text-white py-3.5 rounded-xl font-black text-[10px] shadow-md hover:bg-orange-700 transition flex items-center justify-center gap-2"><i class="fa-solid fa-file-pdf"></i> 2. CETAK LAPORAN SISWA</button>
+                    <div class="flex gap-2">
+                        <button onclick="prosesCetakWalasRekap()" class="flex-1 bg-[#1e3a8a] text-white py-3.5 rounded-xl font-black text-[10px] shadow-md hover:bg-blue-900 transition flex flex-col items-center justify-center gap-1 leading-tight"><i class="fa-solid fa-table text-[14px]"></i> CETAK REKAP KELAS</button>
+                        <button onclick="prosesCetakWalasSiswa()" class="flex-1 bg-[#ea580c] text-white py-3.5 rounded-xl font-black text-[10px] shadow-md hover:bg-orange-700 transition flex flex-col items-center justify-center gap-1 leading-tight"><i class="fa-solid fa-file-pdf text-[14px]"></i> CETAK LAPORAN SISWA</button>
                     </div>
                 </div>
             `;
             modal.classList.add('active');
         }
 
+        // PRELOADER PINTAR: Menunggu gambar selesai didownload sebelum menjepret PDF
         function preloadImagesAndPrint() {
             return new Promise((resolve) => {
                 let img1 = new Image(); let img2 = new Image(); let loaded = 0;
@@ -832,6 +938,7 @@
             });
         }
 
+        // MESIN NATIVE PRINT BYPASS SANDBOX (MEMBUKA TAB BARU JIKA DIBLOKIR)
         async function executeNativePrint(filename, htmlContent) {
             closeModal();
             const container = document.getElementById('pdf-render-container');
@@ -839,25 +946,24 @@
             const originalTitle = document.title;
             document.title = filename;
 
-            sweetPop('success', 'Menyiapkan Dokumen...', ['Sistem sedang menata kertas dan memastikan KOP terpasang sempurna. Mohon tunggu! 🚀', 'Sabar ya bosku, tabel sedang dirapihkan! ⚡']);
+            sweetPop('success', 'Menyiapkan Dokumen...', ['Sistem sedang menata kertas dan KOP. Mohon tunggu! 🚀', 'Sabar ya bosku, tabel sedang dirapihkan! ⚡']);
 
-            // TUNGGU KOP TER-LOAD 100% BARU PRINT
+            // TUNGGU KOP 100% TERLOAD
             await preloadImagesAndPrint();
 
             setTimeout(() => {
                 try {
                     window.print();
-                    document.title = originalTitle;
-                    container.innerHTML = '';
-                    closeFunPop();
+                    document.title = originalTitle; container.innerHTML = ''; closeFunPop();
                 } catch(e) {
+                    // JURUS BYPASS SANDBOX! Buka di Tab Baru jika Canvas memblokir fungsi window.print
                     const newWin = window.open('', '_blank');
                     if(newWin) {
                         newWin.document.write(`<html><head><title>${filename}</title><style>${document.querySelector('style').innerHTML}</style></head><body onload="window.print(); window.close();">${htmlContent}</body></html>`);
                         newWin.document.close();
                         document.title = originalTitle; container.innerHTML = ''; closeFunPop();
                     } else {
-                        sweetPop('warning', 'Terblokir Canvas!', ['Wah, Tab Barunya diblokir browser. Coba buka TINTA di tab baru (Fullscreen) lalu cetak lagi ya! 🛑']);
+                        sweetPop('warning', 'Terblokir Canvas!', ['Wah, Tab Barunya diblokir browser. Buka aplikasi TINTA di Tab Baru secara Fullscreen ya! 🛑']);
                         document.title = originalTitle; container.innerHTML = '';
                     }
                 }
@@ -870,30 +976,42 @@
             
             let filename = cbs.length > 1 ? 'Laporan_Rekap_Infaq_Semua_Kelas' : `Laporan_Rekap_Infaq_Kelas_${cbs[0].value}`;
             let finalHTML = '';
-            for (let i = 0; i < cbs.length; i++) { finalHTML += await generateClassRecapHTML(cbs[i].value); }
+            
+            showToast("Mengambil data terbaru...");
+            for (let i = 0; i < cbs.length; i++) { 
+                await fetchKelasData(cbs[i].value); 
+                finalHTML += generateClassRecapHTML(cbs[i].value); 
+            }
             executeNativePrint(filename, finalHTML);
         }
 
         async function prosesCetakWalasRekap() {
+            // CETAK REKAP AKAN SELALU MENGAMBIL SELURUH SISWA YANG DICENTANG
             const cbs = document.querySelectorAll('.cb-walas-print:checked');
-            if (cbs.length === 0) return sweetPop('warning', 'Pilih Siswa Dulu!', ['Centang minimal 1 siswa untuk dicetak rekapnya! 🖨️']);
+            if (cbs.length === 0) return sweetPop('warning', 'Pilih Siswa Dulu!', ['Gimana mau cetak rekap kalau siswanya belum dicentang bos? 🖨️']);
 
-            let indices = Array.from(cbs).map(cb => parseInt(cb.value));
+            let indicesToPrint = Array.from(cbs).map(cb => parseInt(cb.value));
             let filename = `Laporan_Rekap_Infaq_Kelas_${kelasWalasAktif}`;
             
-            let finalHTML = await generateClassRecapHTML(kelasWalasAktif, indices);
+            showToast("Memuat laporan kelas...");
+            await fetchKelasData(kelasWalasAktif); 
+            let finalHTML = generateClassRecapHTML(kelasWalasAktif, indicesToPrint); 
             executeNativePrint(filename, finalHTML);
         }
 
         async function prosesCetakWalasSiswa() {
+            // CETAK LAPORAN INDIVIDU JUGA BERDASARKAN CENTANG
             const cbs = document.querySelectorAll('.cb-walas-print:checked');
-            if (cbs.length === 0) return sweetPop('warning', 'Pilih Siswa Dulu!', ['Gimana mau cetak kalau siswanya belum dicentang? 🖨️']);
+            if (cbs.length === 0) return sweetPop('warning', 'Pilih Siswa Dulu!', ['Gimana mau cetak laporan kalau siswanya belum dicentang bos? 🖨️']);
             
             let studentNameClean = DB.siswa[kelasWalasAktif][parseInt(cbs[0].value)].nama.replace(/[^a-zA-Z0-9]/g, '_');
             let filename = cbs.length > 1 
                 ? `Laporan_Infaq_Beberapa_Siswa_Kelas_${kelasWalasAktif}` 
                 : `Laporan_Infaq_${studentNameClean}_Kelas_${kelasWalasAktif}`;
 
+            showToast("Memuat laporan siswa...");
+            await fetchKelasData(kelasWalasAktif); 
+            
             let finalHTML = '';
             for (let i = 0; i < cbs.length; i++) { 
                 finalHTML += generateStudentReportHTML(kelasWalasAktif, parseInt(cbs[i].value)); 
@@ -901,13 +1019,17 @@
             executeNativePrint(filename, finalHTML);
         }
 
-        async function generateClassRecapHTML(kelas, selectedIndices = null) {
-            await fetchKelasData(kelas);
+        // ==========================================
+        // GENERATOR HTML PDF (LEVEL DEWA MUTLAK)
+        // ==========================================
+        
+        function generateClassRecapHTML(kelas, selectedIndices = null) {
             const dataSiswa = DB.siswa[kelas] || []; 
             const nominal = DB.nominalDefault[kelas] || 0; 
             const totalKeluar = DB.pengeluaran[kelas] || 0;
-            
             let totalMasukKelasKeseluruhan = 0; 
+
+            // Hitung total uang keseluruhan di kelas (meski siswa tidak di-print)
             dataSiswa.forEach((_, idx) => {
                 const cAll = checklistState[kelas][idx] || new Array(52).fill(0);
                 totalMasukKelasKeseluruhan += Object.values(cAll).filter(v => v === 1).length * nominal;
@@ -923,47 +1045,56 @@
                 for(let i=0; i<dataSiswa.length; i++) indicesToPrint.push(i);
             }
             
-            indicesToPrint.forEach((idx, iterIndex) => {
-                const s = dataSiswa[idx];
-                if(s) {
-                    let rowHtml = `<tr><td>${String(s.no || idx+1).padStart(2, '0')}</td>`;
-                    const checks = checklistState[kelas][idx] || new Array(52).fill(0);
-                    let totalSiswa = 0;
-                    let monthlyData = {"Jul":0, "Agt":0, "Sep":0, "Okt":0, "Nov":0, "Des":0, "Jan":0, "Feb":0, "Mar":0, "Apr":0, "Mei":0, "Jun":0};
-                    
-                    academicWeeks.forEach(w => {
-                        const mKey = w.monthKey; 
-                        if (checks[w.id] === 1) { 
-                            if(monthlyData[mKey] !== undefined) { monthlyData[mKey] += nominal; } 
-                            totalSiswa += nominal; 
-                        }
-                    });
+            // HALAMAN 1: TABEL REKAP 35 SISWA
+            const maxRowsPage1 = 35; // DIKUNCI 35 SISWA AGAR TIDAK MENABRAK KOP
+            for(let i=0; i<maxRowsPage1; i++) {
+                if(i < indicesToPrint.length) {
+                    let idx = indicesToPrint[i];
+                    const s = dataSiswa[idx];
+                    if(s) {
+                        let rowHtml = `<tr><td>${String(s.no || idx+1).padStart(2, '0')}</td>`;
+                        const checks = checklistState[kelas][idx] || new Array(52).fill(0);
+                        let totalSiswa = 0;
+                        let monthlyData = {"Jul":0, "Agt":0, "Sep":0, "Okt":0, "Nov":0, "Des":0, "Jan":0, "Feb":0, "Mar":0, "Apr":0, "Mei":0, "Jun":0};
+                        
+                        academicWeeks.forEach(w => {
+                            const mKey = w.monthKey; 
+                            if (checks[w.id] === 1) { 
+                                if(monthlyData[mKey] !== undefined) { monthlyData[mKey] += nominal; } 
+                                totalSiswa += nominal; 
+                            }
+                        });
 
-                    rowHtml += `<td class="text-left"><div class="nama-siswa-pill">${s.nama}</div></td>`;
-                    monthHeaders.forEach(m => {
-                        let val = monthlyData[m] === 0 ? "0" : (monthlyData[m]/1000).toString(); 
-                        let valClass = monthlyData[m] === 0 ? "val-zero" : "";
-                        rowHtml += `<td class="${valClass}">${val}</td>`;
-                    });
-                    let totalStr = totalSiswa === 0 ? "0" : formatRp(totalSiswa);
-                    rowHtml += `<td class="val-bold">${totalStr}</td></tr>`;
+                        rowHtml += `<td class="text-left"><div class="nama-siswa-pill">${s.nama}</div></td>`;
+                        monthHeaders.forEach(m => {
+                            let val = monthlyData[m] === 0 ? "0" : (monthlyData[m]/1000).toString(); 
+                            let valClass = monthlyData[m] === 0 ? "val-zero" : "";
+                            rowHtml += `<td class="${valClass}">${val}</td>`;
+                        });
+                        let totalStr = totalSiswa === 0 ? "0" : formatRp(totalSiswa);
+                        rowHtml += `<td class="val-bold">${totalStr}</td></tr>`;
+                        tableRows += rowHtml;
+                    }
+                } else {
+                    // Baris Kosong Pengisi Ruang agar tabel rapih dan border terbentuk sempurna
+                    let rowHtml = `<tr><td></td><td class="text-left"></td>`;
+                    monthHeaders.forEach(m => { rowHtml += `<td></td>`; });
+                    rowHtml += `<td></td></tr>`;
                     tableRows += rowHtml;
                 }
-            });
-
-            if (tableRows === '') {
-                tableRows = `<tr><td colspan="14" style="padding: 20px; text-align: center; color: #94a3b8; font-style: italic;">Tidak ada data siswa yang dipilih.</td></tr>`;
             }
 
             const saldo = totalMasukKelasKeseluruhan - totalKeluar;
-            
+
+            // HALAMAN 2: DAFTAR PENGELUARAN KHUSUS (FULL WIDTH & ESTETIK SHAPE PER BULAN)
             let expRowsHTML = '';
             const riwayat = DB.riwayatPengeluaran[kelas] || [];
             if(riwayat.length === 0) {
-                expRowsHTML = `<div style="text-align: center; color: #94a3b8; font-style: italic; padding: 15px; border: 1px dashed #cbd5e1; border-radius: 8px;">Belum ada pengeluaran kelas.</div>`;
+                expRowsHTML = `<div style="text-align: center; color: #94a3b8; font-style: italic; padding: 20px; border: 2px dashed #e2e8f0; border-radius: 12px; margin-top: 20px; font-size: 12px;">Belum ada catatan pengeluaran kelas.</div>`;
             } else {
                 let groupedExp = {};
                 riwayat.forEach(r => {
+                    // Mengelompokkan berdasarkan Bulan & Tahun
                     let mYear = r.fullDate ? r.fullDate.split(' ').slice(1).join(' ') : r.date;
                     if(!groupedExp[mYear]) groupedExp[mYear] = [];
                     groupedExp[mYear].push(r);
@@ -977,24 +1108,27 @@
                         monthTotal += r.amount;
                         let bgRow = i % 2 === 0 ? '#ffffff' : '#f8fafc';
                         rowsHtml += `<tr style="background-color: ${bgRow};">
-                            <td style="width: 20%; text-align: left; padding: 6px 8px; border-bottom: 1px solid #f1f5f9;">${r.fullDate || r.date}</td>
-                            <td style="text-align: left; padding: 6px 8px; border-bottom: 1px solid #f1f5f9; color: #334155;">${r.ket}</td>
-                            <td style="width: 25%; text-align: right; padding: 6px 8px; border-bottom: 1px solid #f1f5f9; color: #dc2626; font-weight: 700;">${formatRp(r.amount)}</td>
+                            <td style="width: 20%; text-align: left; padding: 8px 12px; border-bottom: 1px solid #f1f5f9; color: #64748b; font-weight: 600;">${r.fullDate || r.date}</td>
+                            <td style="text-align: left; padding: 8px 12px; border-bottom: 1px solid #f1f5f9; color: #334155; font-size: 10px;">${r.ket}</td>
+                            <td style="width: 25%; text-align: right; padding: 8px 12px; border-bottom: 1px solid #f1f5f9; color: #dc2626; font-weight: 800; font-size: 10px;">${formatRp(r.amount)}</td>
                         </tr>`;
                     });
                     
                     let mKey = mYear.substring(0, 3);
-                    let monthColors = {"Jul":"#fef2f2", "Agt":"#fff7ed", "Sep":"#fffbeb", "Okt":"#f0fdf4", "Nov":"#ecfdf5", "Des":"#f0fdfa", "Jan":"#ecfeff", "Feb":"#f0f9ff", "Mar":"#eff6ff", "Apr":"#eef2ff", "Mei":"#faf5ff", "Jun":"#fdf4ff"};
-                    let borderColors = {"Jul":"#ef4444", "Agt":"#f97316", "Sep":"#f59e0b", "Okt":"#22c55e", "Nov":"#10b981", "Des":"#14b8a6", "Jan":"#06b6d4", "Feb":"#0ea5e9", "Mar":"#3b82f6", "Apr":"#6366f1", "Mei":"#a855f7", "Jun":"#d946ef"};
+                    let monthColors = {"Jul":"#fdf4ff", "Agt":"#fff7ed", "Sep":"#f0fdf4", "Okt":"#fef2f2", "Nov":"#f0f9ff", "Des":"#fefce8", "Jan":"#faf5ff", "Feb":"#f0fdfa", "Mar":"#fff1f2", "Apr":"#eff6ff", "Mei":"#ecfdf5", "Jun":"#f5f3ff"};
+                    let borderColors = {"Jul":"#f0abfc", "Agt":"#fdba74", "Sep":"#86efac", "Okt":"#fca5a5", "Nov":"#7dd3fc", "Des":"#fde047", "Jan":"#d8b4fe", "Feb":"#5eead4", "Mar":"#fda4af", "Apr":"#93c5fd", "Mei":"#6ee7b7", "Jun":"#c4b5fd"};
                     
                     let bgC = monthColors[mKey] || "#f1f5f9";
-                    let bdC = borderColors[mKey] || "#64748b";
+                    let bdC = borderColors[mKey] || "#cbd5e1";
 
                     expRowsHTML += `
-                    <div style="margin-bottom: 10px; border: 1px solid ${bdC}; border-radius: 8px; overflow: hidden; page-break-inside: avoid; box-shadow: 0 2px 4px rgba(0,0,0,0.02);">
-                        <div style="background-color: ${bgC}; color: ${bdC}; padding: 6px 12px; font-size: 10px; font-weight: 900; display: flex; justify-content: space-between; border-bottom: 1px solid ${bdC};">
-                            <span style="text-transform: uppercase;">BULAN ${mYear}</span>
-                            <span>Total: Rp ${formatRp(monthTotal)}</span>
+                    <div style="margin-bottom: 15px; border: 2px solid ${bdC}; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.02); page-break-inside: avoid;">
+                        <div style="background-color: ${bgC}; color: #334155; padding: 10px 15px; font-size: 12px; font-weight: 900; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid ${bdC};">
+                            <span style="text-transform: uppercase; display: flex; align-items: center; gap: 8px;">
+                                <div style="width: 14px; height: 14px; background-color: ${bdC}; border-radius: 4px;"></div>
+                                BULAN ${mYear}
+                            </span>
+                            <span style="color: #ea580c; font-size: 13px;">Total: Rp ${formatRp(monthTotal)}</span>
                         </div>
                         <table style="width: 100%; border-collapse: collapse; font-size: 9px;">
                             <tbody>${rowsHtml}</tbody>
@@ -1004,7 +1138,7 @@
             }
 
             return `
-            <!-- HALAMAN 1: REKAP SISWA (PADAT 35 BARIS) -->
+            <!-- HALAMAN 1: TABEL REKAP 35 SISWA -->
             <div class="pdf-page-container">
                 <img src="KOP TINTA ATAS PUTIH.jpg" class="kop-img">
                 <div class="pdf-content">
@@ -1048,14 +1182,14 @@
                 <img src="KOP TINTA BAWAH.png" class="kop-footer">
             </div>
 
-            <!-- HALAMAN 2: PENGELUARAN KELAS -->
+            <!-- HALAMAN 2: RINCIAN PENGELUARAN -->
             <div class="pdf-page-container">
                 <img src="KOP TINTA ATAS PUTIH.jpg" class="kop-img">
                 <div class="pdf-content">
                     <h2 class="title-h2">RINCIAN PENGELUARAN KAS - KELAS ${kelas}</h2>
                     <p class="title-date">Dicetak Oleh Administrator Sekolah pada: ${new Date().toLocaleDateString('id-ID', {day:'numeric', month:'long', year:'numeric'})} WIB</p>
                     
-                    <div style="font-size: 11px; font-weight: 800; margin-bottom: 8px; color: #0f172a; margin-top: 10px; border-left: 3px solid #ea580c; padding-left: 6px;">Daftar Pengeluaran Kelas (${kelas}):</div>
+                    <div style="font-size: 13px; font-weight: 800; margin-bottom: 12px; color: #0f172a; margin-top: 15px; border-left: 4px solid #ea580c; padding-left: 8px;">Daftar Pengeluaran Kelas:</div>
                     ${expRowsHTML}
                 </div>
                 <img src="KOP TINTA BAWAH.png" class="kop-footer">
@@ -1080,6 +1214,7 @@
             let monthData = {}; 
             months.forEach(m => monthData[m] = { weeks: [], total: 0 });
 
+            // Pengelompokan Data Bulanan Siswa
             academicWeeks.forEach(w => {
                 const mKey = w.monthKey;
                 if (monthData[mKey]) {
@@ -1099,7 +1234,7 @@
 
             function buildRow(m) {
                 const d = monthData[m];
-                let yearLabel = (m==="Jan"||m==="Feb"||m==="Mar"||m==="Apr"||m==="Mei"||m==="Jun") ? "2026" : "2025";
+                let yearLabel = academicWeeks.find(w => w.monthKey === m)?.fullYear || "2025";
                 let totalRowStr = d.total === 0 ? `<span style="color:#2563eb; font-weight:800;">0</span>` : `<span style="color:#2563eb; font-weight:800;">${formatRp(d.total)}</span>`;
                 return `<tr>
                     <td style="text-align: left; font-weight: 800; color: #0f172a;">${m} <br><span style="font-size:7px; color:#64748b;">${yearLabel}</span></td>
@@ -1116,52 +1251,42 @@
             const sem2 = ["Jan", "Feb", "Mar", "Apr", "Mei", "Jun"];
             let sem1Rows = sem1.map(buildRow).join('');
             let sem2Rows = sem2.map(buildRow).join('');
-            
             let totalAnanda = Object.values(checks).filter(v => v===1).length * nominal;
 
-            let expRowsHTML = '';
+            // SISTEM 2 KOLOM PENGELUARAN (KIRI KE KANAN)
             const riwayat = DB.riwayatPengeluaran[kelas] || [];
+            let expRowsHTML = '';
             if(riwayat.length === 0) {
-                expRowsHTML = `<div style="text-align: center; color: #94a3b8; font-style: italic; padding: 15px; border: 1px dashed #cbd5e1; border-radius: 8px;">Belum ada pengeluaran kelas.</div>`;
+                expRowsHTML = `<tr><td colspan="6" style="text-align: center; color: #94a3b8; font-style: italic; padding: 15px;">Belum ada pengeluaran kelas.</td></tr>`;
             } else {
-                let groupedExp = {};
-                riwayat.forEach(r => {
-                    let mYear = r.fullDate ? r.fullDate.split(' ').slice(1).join(' ') : r.date;
-                    if(!groupedExp[mYear]) groupedExp[mYear] = [];
-                    groupedExp[mYear].push(r);
-                });
-
-                for (let mYear in groupedExp) {
-                    let rows = groupedExp[mYear];
-                    let rowsHtml = '';
-                    let monthTotal = 0;
-                    rows.forEach((r, i) => {
-                        monthTotal += r.amount;
-                        let bgRow = i % 2 === 0 ? '#ffffff' : '#f8fafc';
-                        rowsHtml += `<tr style="background-color: ${bgRow};">
-                            <td style="width: 20%; text-align: left; padding: 6px 8px; border-bottom: 1px solid #f1f5f9;">${r.fullDate || r.date}</td>
-                            <td style="text-align: left; padding: 6px 8px; border-bottom: 1px solid #f1f5f9; color: #334155;">${r.ket}</td>
-                            <td style="width: 25%; text-align: right; padding: 6px 8px; border-bottom: 1px solid #f1f5f9; color: #dc2626; font-weight: 700;">${formatRp(r.amount)}</td>
-                        </tr>`;
-                    });
+                // Membagi riwayat menjadi 2 array: Kiri dan Kanan (diurutkan secara zig-zag mendatar)
+                for (let i = 0; i < riwayat.length; i += 2) {
+                    let itemKiri = riwayat[i];
+                    let itemKanan = riwayat[i+1];
                     
-                    let mKey = mYear.substring(0, 3);
-                    let monthColors = {"Jul":"#fef2f2", "Agt":"#fff7ed", "Sep":"#fffbeb", "Okt":"#f0fdf4", "Nov":"#ecfdf5", "Des":"#f0fdfa", "Jan":"#ecfeff", "Feb":"#f0f9ff", "Mar":"#eff6ff", "Apr":"#eef2ff", "Mei":"#faf5ff", "Jun":"#fdf4ff"};
-                    let borderColors = {"Jul":"#ef4444", "Agt":"#f97316", "Sep":"#f59e0b", "Okt":"#22c55e", "Nov":"#10b981", "Des":"#14b8a6", "Jan":"#06b6d4", "Feb":"#0ea5e9", "Mar":"#3b82f6", "Apr":"#6366f1", "Mei":"#a855f7", "Jun":"#d946ef"};
-                    
-                    let bgC = monthColors[mKey] || "#f1f5f9";
-                    let bdC = borderColors[mKey] || "#64748b";
+                    let monthKiri = itemKiri.date.substring(0, 2); // Ambil "06" dari "06/26"
+                    let monthNamesArr = ["Jan", "Feb", "Mar", "Apr", "Mei", "Jun", "Jul", "Agt", "Sep", "Okt", "Nov", "Des"];
+                    let mKeyKiri = monthNamesArr[parseInt(monthKiri)-1];
+                    let badgeKiri = `<span style="background-color: ${pastelColors[mKeyKiri]?.hexBg || '#f1f5f9'}; color: ${pastelColors[mKeyKiri]?.hexBorder || '#94a3b8'}; padding: 3px 8px; border-radius: 4px; font-weight: 900; font-size: 7.5px;">${itemKiri.date}</span>`;
 
-                    expRowsHTML += `
-                    <div style="margin-bottom: 10px; border: 1px solid ${bdC}; border-radius: 8px; overflow: hidden; page-break-inside: avoid; box-shadow: 0 2px 4px rgba(0,0,0,0.02);">
-                        <div style="background-color: ${bgC}; color: ${bdC}; padding: 6px 12px; font-size: 10px; font-weight: 900; display: flex; justify-content: space-between; border-bottom: 1px solid ${bdC};">
-                            <span style="text-transform: uppercase;">BULAN ${mYear}</span>
-                            <span>Total: Rp ${formatRp(monthTotal)}</span>
-                        </div>
-                        <table style="width: 100%; border-collapse: collapse; font-size: 9px;">
-                            <tbody>${rowsHtml}</tbody>
-                        </table>
-                    </div>`;
+                    let cellKananHtml = `<td></td><td></td><td></td>`; // Kosong jika ganjil
+                    if (itemKanan) {
+                        let monthKanan = itemKanan.date.substring(0, 2);
+                        let mKeyKanan = monthNamesArr[parseInt(monthKanan)-1];
+                        let badgeKanan = `<span style="background-color: ${pastelColors[mKeyKanan]?.hexBg || '#f1f5f9'}; color: ${pastelColors[mKeyKanan]?.hexBorder || '#94a3b8'}; padding: 3px 8px; border-radius: 4px; font-weight: 900; font-size: 7.5px;">${itemKanan.date}</span>`;
+                        cellKananHtml = `
+                            <td style="padding-left: 10px;">${badgeKanan}</td>
+                            <td style="text-align: left;">${itemKanan.ket}</td>
+                            <td style="color: #dc2626; font-weight: 800; text-align: right; padding-right: 15px;">${formatRp(itemKanan.amount)}</td>
+                        `;
+                    }
+
+                    expRowsHTML += `<tr>
+                        <td>${badgeKiri}</td>
+                        <td style="text-align: left;">${itemKiri.ket}</td>
+                        <td style="color: #dc2626; font-weight: 800; text-align: right; padding-right: 15px;">${formatRp(itemKiri.amount)}</td>
+                        ${cellKananHtml}
+                    </tr>`;
                 }
             }
 
@@ -1207,9 +1332,11 @@
                         No: ${String(s.no || siswaIdx+1).padStart(2, '0')} &nbsp;|&nbsp; Nama Siswa: ${s.nama}
                     </div>
                     
-                    <div style="display: flex; justify-content: space-between; gap: 12px; position: relative;">
-                        <!-- Divider Tengah -->
-                        <div style="position: absolute; left: 50%; top: 0; bottom: 0; width: 1.5px; background: linear-gradient(to bottom, transparent, #e2e8f0 5%, #e2e8f0 95%, transparent); transform: translateX(-50%);"></div>
+                    <!-- TABEL INFAQ 2 KOLOM SUPER LEGA -->
+                    <div style="display: flex; justify-content: space-between; position: relative;">
+                        <!-- Garis Tengah -->
+                        <div style="position: absolute; left: 50%; top: 0; bottom: 0; width: 1px; background-color: #e2e8f0; transform: translateX(-50%);"></div>
+                        
                         <div style="width: 48%;">
                             <table class="table-siswa">
                                 ${tableHeaderInfaq}
@@ -1224,30 +1351,46 @@
                         </div>
                     </div>
                     
-                    <table class="table-siswa" style="margin-top: 2px; margin-bottom: 6px;">
+                    <table class="table-siswa" style="margin-top: 2px; margin-bottom: 8px;">
                         <tr class="row-total">
-                            <td style="text-align: left; padding: 6px 8px;">TOTAL KESELURUHAN INFAQ ANANDA</td>
+                            <td style="text-align: left; padding: 8px 10px;">TOTAL KESELURUHAN INFAQ ANANDA</td>
                             <td style="color: #22c55e; text-align: right; padding-right: 15px; width: 25%; font-size: 11px;">${formatRp(totalAnanda)}</td>
                         </tr>
                     </table>
                     
-                    <div style="font-size: 11px; font-weight: 800; margin-bottom: 8px; color: #0f172a; margin-top: 10px; border-left: 3px solid #ea580c; padding-left: 6px;">Daftar Pengeluaran Kelas:</div>
-                    ${expRowsHTML}
+                    <!-- TABEL PENGELUARAN 2 KOLOM -->
+                    <div style="font-size: 11px; font-weight: 800; margin-bottom: 6px; color: #0f172a; border-left: 3px solid #ea580c; padding-left: 6px;">Daftar Pengeluaran Kelas:</div>
+                    <table class="table-siswa" style="margin-bottom: 0;">
+                        <thead>
+                            <tr>
+                                <th style="width: 15%;">Tanggal</th>
+                                <th style="text-align: left;">Keterangan</th>
+                                <th style="width: 15%; text-align: right; padding-right: 15px;">Biaya</th>
+                                <th style="width: 15%; padding-left: 10px;">Tanggal</th>
+                                <th style="text-align: left;">Keterangan</th>
+                                <th style="width: 15%; text-align: right; padding-right: 15px;">Biaya</th>
+                            </tr>
+                        </thead>
+                        <tbody>${expRowsHTML}</tbody>
+                    </table>
                 </div>
                 <img src="KOP TINTA BAWAH.png" class="kop-footer">
             </div>
             `;
         }
 
+        // --- DASHBOARD WALI KELAS LOGIC ---
         function initDashboardWalas(kelas) {
             kelasWalasAktif = kelas;
             document.getElementById('walas-nama-guru').innerText = "Wali Kelas: " + (DB.guru[kelas] || "Guru"); document.getElementById('walas-nama-kelas').innerText = `KELAS ${kelas.toUpperCase()}`;
             const trHead = document.getElementById('walas-table-header-row');
             let htmlHead = `<th class="py-2.5 px-1 text-center z-intersect pos-no bg-[#f8fafc]">NO</th><th class="py-2.5 px-1 z-intersect pos-nama bg-[#f8fafc] uppercase text-left">NAMA LENGKAP</th><th class="py-2.5 px-0 text-center text-[#1e3a8a] z-intersect pos-total bg-[#eff6ff] uppercase">TOT</th>`;
             academicWeeks.forEach(week => {
-                const bgClass = getMonthBg(week.monthKey);
-                const borderClass = week.isLastWeek ? "border-r-2 border-r-slate-300" : "border-r border-r-slate-200";
-                htmlHead += `<th class="py-1.5 px-0.5 text-center ${borderClass} border-b border-t-0 min-w-[42px] align-top z-head ${bgClass}"><div class="text-[7px] font-black text-slate-400 uppercase mb-0.5">${week.monthStr}</div><div class="text-[8px] font-bold text-slate-800 mb-1.5">${week.dateStr}</div><div class="flex justify-center gap-0.5"><button onclick="checkAll(${week.id})" class="w-[14px] h-[14px] rounded border border-green-200 text-green-500 flex items-center justify-center bg-green-50 hover:bg-green-100 transition"><i class="fa-solid fa-check text-[6px]"></i></button><button onclick="crossAll(${week.id})" class="w-[14px] h-[14px] rounded border border-red-200 text-red-500 flex items-center justify-center bg-red-50 hover:bg-red-100 transition"><i class="fa-solid fa-xmark text-[6px]"></i></button></div></th>`;
+                const pastel = pastelColors[week.monthKey] || {bg: 'bg-white', border: 'border-slate-200'};
+                const isEndOfMonth = (week.dateNum >= 22 && week.id < 51 && academicWeeks[week.id + 1].monthKey !== week.monthKey);
+                const borderClass = isEndOfMonth ? "border-r-[3px] border-r-[#94a3b8]" : `border-r border-r-slate-200`;
+                
+                htmlHead += `<th class="py-1.5 px-0.5 text-center ${borderClass} border-b border-t-0 min-w-[42px] align-top z-head ${pastel.bg}"><div class="text-[7px] font-black text-slate-400 uppercase mb-0.5">${week.monthStr}</div><div class="text-[8px] font-bold text-slate-800 mb-1.5">${week.dateStr}</div><div class="flex justify-center gap-0.5"><button onclick="checkAll(${week.id})" class="w-[14px] h-[14px] rounded border border-green-200 text-green-500 flex items-center justify-center bg-green-50 hover:bg-green-100 transition"><i class="fa-solid fa-check text-[6px]"></i></button><button onclick="crossAll(${week.id})" class="w-[14px] h-[14px] rounded border border-red-200 text-red-500 flex items-center justify-center bg-red-50 hover:bg-red-100 transition"><i class="fa-solid fa-xmark text-[6px]"></i></button></div></th>`;
             });
             trHead.innerHTML = htmlHead;
             if(!checklistState[kelas]) { checklistState[kelas] = {}; (DB.siswa[kelas] || []).forEach((_, i) => { checklistState[kelas][i] = new Array(52).fill(0); }); }
@@ -1265,11 +1408,13 @@
                 let checkBoxesHtml = '';
                 academicWeeks.forEach(w => {
                     const state = checks[w.id] || 0;
-                    const bgClass = getMonthBg(w.monthKey);
-                    const borderClass = w.isLastWeek ? "border-r-2 border-r-slate-300" : "border-r border-r-slate-200";
-                    checkBoxesHtml += `<td class="py-2.5 px-0.5 text-center border-b ${borderClass} ${bgClass}"><div id="cell-${idx}-${w.id}" onclick="toggleCheckManual(${idx}, ${w.id})" class="mx-auto cursor-pointer transition-colors ${getCellClass(state)}">${getCellIcon(state)}</div></td>`;
+                    const pastel = pastelColors[w.monthKey] || {bg: 'bg-white'};
+                    const isEndOfMonth = (w.dateNum >= 22 && w.id < 51 && academicWeeks[w.id + 1].monthKey !== w.monthKey);
+                    const borderClass = isEndOfMonth ? "border-r-[3px] border-r-[#94a3b8]" : "border-r border-r-white";
+
+                    checkBoxesHtml += `<td class="py-2.5 px-0.5 text-center border-b border-white ${borderClass} ${pastel.bg}"><div id="cell-${idx}-${w.id}" onclick="toggleCheckManual(${idx}, ${w.id})" class="mx-auto cursor-pointer transition-colors ${getCellClass(state)}">${getCellIcon(state)}</div></td>`;
                 });
-                html += `<tr class="walas-tr"><td class="py-2 px-1 text-center z-col pos-no text-slate-400 font-bold border-b border-slate-100 text-[9px]">${String(s.no || idx+1).padStart(2, '0')}</td><td class="py-2 px-1 z-col pos-nama text-slate-800 border-b border-slate-100 text-[10px]"><div class="truncate max-w-[95px]">${s.nama || s.class}</div></td><td class="py-2 px-1 text-center ${totalColor} font-black z-col pos-total border-b border-slate-100 text-[10px]"><span id="total-siswa-${idx}">${formatRp(totalInfaq)}</span></td>${checkBoxesHtml}</tr>`;
+                html += `<tr class="walas-tr"><td class="py-2 px-1 text-center z-col pos-no text-slate-400 font-bold border-b border-slate-100 text-[9px]">${String(s.no || idx+1).padStart(2, '0')}</td><td class="py-2 px-1 z-col pos-nama text-slate-800 border-b border-slate-100 text-[10px]">${s.nama || s.class}</td><td class="py-2 px-1 text-center ${totalColor} font-black z-col pos-total border-b border-slate-100 text-[10px]"><span id="total-siswa-${idx}">${formatRp(totalInfaq)}</span></td>${checkBoxesHtml}</tr>`;
             });
             tbody.innerHTML = html;
         }
@@ -1277,7 +1422,7 @@
         function getCellClass(state) {
             if(state === 1) return "w-[18px] h-[18px] rounded border border-green-500 bg-green-100 text-green-600 flex items-center justify-center";
             if(state === 2) return "w-[18px] h-[18px] rounded border border-red-500 bg-red-100 text-red-600 flex items-center justify-center";
-            return "w-[18px] h-[18px] rounded border border-slate-300 bg-slate-50 hover:bg-slate-100 flex items-center justify-center";
+            return "w-[18px] h-[18px] rounded border border-slate-300 bg-white/70 hover:bg-white flex items-center justify-center";
         }
         function getCellIcon(state) {
             if(state === 1) return '<i class="fa-solid fa-check text-[10px]"></i>';
@@ -1365,6 +1510,7 @@
             document.getElementById('walas-stat-masuk').innerText = "Rp " + formatRp(totalMasuk); document.getElementById('walas-stat-keluar').innerText = "Rp " + formatRp(totalKeluar); document.getElementById('walas-stat-saldo').innerText = "Rp " + formatRp(saldo);
         }
 
+        // --- DASHBOARD WALI MURID LOGIC ---
         function initDashboardWarid(kelas, idxSiswa) {
             kelasWaridAktif = kelas; siswaWaridIdx = idxSiswa; const student = DB.siswa[kelas][idxSiswa];
             document.getElementById('warid-nama-siswa').innerText = student.nama || student.class; document.getElementById('warid-info-siswa').innerText = `Kelas ${kelas} | No Presensi: ${String(student.no || idxSiswa+1).padStart(2, '0')}`;
@@ -1484,6 +1630,7 @@
         }
 
 
+        // --- SISTEM MODAL ADMIN LOGIC ---
         function openMenuModal(type) {
             const modal = document.getElementById('global-modal'); const title = document.getElementById('modal-title'); const desc = document.getElementById('modal-desc'); const body = document.getElementById('modal-body');
             let html = ''; desc.classList.add('hidden'); 
@@ -1513,6 +1660,7 @@
             body.innerHTML = html; modal.classList.add('active');
         }
 
+        // --- UPLOAD EXCEL HANDLER ---
         function handleFileUpload(e) {
             const file = e.target.files[0]; if(!file) return;
             const reader = new FileReader();
@@ -1762,14 +1910,9 @@
             const btn = document.getElementById('fun-popup-btn');
 
             titleEl.innerText = title;
+            if (Array.isArray(msg)) { msgEl.innerText = msg[Math.floor(Math.random() * msg.length)]; } else { msgEl.innerText = msg; }
 
-            if (Array.isArray(msg)) {
-                msgEl.innerText = msg[Math.floor(Math.random() * msg.length)];
-            } else {
-                msgEl.innerText = msg;
-            }
-
-            card.className = "bg-white rounded-3xl p-6 pt-8 max-w-[280px] w-full transform scale-75 opacity-0 transition-all duration-300 text-center relative mt-8 border-2";
+            card.className = "bg-white rounded-3xl p-6 pt-8 max-w-[280px] w-full transform scale-75 opacity-0 transition-all duration-300 text-center relative mt-8 border-2 shadow-2xl";
             icon.className = "absolute -top-8 left-1/2 transform -translate-x-1/2 text-[55px] drop-shadow-[0_10px_10px_rgba(0,0,0,0.2)] z-10 whitespace-nowrap animate-bounce";
 
             const successPool = [
@@ -1777,13 +1920,11 @@
                 { emojis: "🚀✨", glow: "border-blue-400 shadow-[0_0_40px_rgba(96,165,250,0.5)]", btnClass: "bg-gradient-to-r from-blue-400 to-blue-600 hover:from-blue-500 hover:to-blue-700 shadow-[0_4px_15px_rgba(59,130,246,0.4)]", btnText: "GACOR KANG! ⚡" },
                 { emojis: "🏆🎉", glow: "border-yellow-400 shadow-[0_0_40px_rgba(250,204,21,0.5)]", btnClass: "bg-gradient-to-r from-yellow-400 to-yellow-600 hover:from-yellow-500 hover:to-yellow-700 shadow-[0_4px_15px_rgba(234,179,8,0.4)]", btnText: "GOKIL PARAH! 🤘" }
             ];
-
             const errorPool = [
                 { emojis: "🫵🤣", glow: "border-red-400 shadow-[0_0_40px_rgba(248,113,113,0.5)]", btnClass: "bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 shadow-[0_4px_15px_rgba(239,68,68,0.4)]", btnText: "YAHAHAHA LAWAK LU! 🤡" },
                 { emojis: "🙈💦", glow: "border-rose-400 shadow-[0_0_40px_rgba(251,113,133,0.5)]", btnClass: "bg-gradient-to-r from-rose-400 to-rose-600 hover:from-rose-500 hover:to-rose-700 shadow-[0_4px_15px_rgba(244,63,94,0.4)]", btnText: "YAH KELESET BOS! 😅" },
                 { emojis: "😅🔧", glow: "border-slate-400 shadow-[0_0_40px_rgba(148,163,184,0.5)]", btnClass: "bg-gradient-to-r from-slate-500 to-slate-700 hover:from-slate-600 hover:to-slate-800 shadow-[0_4px_15px_rgba(100,116,139,0.4)]", btnText: "CEK LAGI DONG! 🛠️" }
             ];
-
             const warningPool = [
                 { emojis: "🧐🚩", glow: "border-orange-400 shadow-[0_0_40px_rgba(251,146,60,0.5)]", btnClass: "bg-gradient-to-r from-orange-400 to-orange-600 hover:from-orange-500 hover:to-orange-700 shadow-[0_4px_15px_rgba(249,115,22,0.4)]", btnText: "SIAP LAKSANAKAN! 🫡" },
                 { emojis: "🤔🚨", glow: "border-amber-400 shadow-[0_0_40px_rgba(251,191,36,0.5)]", btnClass: "bg-gradient-to-r from-amber-400 to-amber-600 hover:from-amber-500 hover:to-amber-700 shadow-[0_4px_15px_rgba(245,158,11,0.4)]", btnText: "NGEREM DULU MANG! 🛑" }
@@ -1898,12 +2039,7 @@
 
             } else {
                 btn.innerHTML = originalContent; btn.disabled = false; 
-                const pesanError = [
-                    'Yahahaha, kata sandinya salah nih! Lupa ingatan yak?',
-                    'Eits, sandinya meleset bos! Coba pelan-pelan ngetiknya.',
-                    'Akses ditolak! Sandinya nggak cocok nih, jangan ngasal dong.',
-                    'Waduh, pintu nggak mau kebuka. Sandinya salah tuh!'
-                ];
+                const pesanError = ['Yahahaha, kata sandinya salah nih! Lupa ingatan yak?', 'Eits, sandinya meleset bos! Coba pelan-pelan ngetiknya.', 'Akses ditolak! Sandinya nggak cocok nih, jangan ngasal dong.', 'Waduh, pintu nggak mau kebuka. Sandinya salah tuh!'];
                 sweetPop('error', 'Akses Ditolak Bro!', pesanError);
             }
         }
