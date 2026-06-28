@@ -557,11 +557,11 @@
 
     <!-- FUN POPUP (SWEET ALERT CUSTOM) -->
     <div id="fun-popup-overlay" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-[99999] flex justify-center items-center opacity-0 pointer-events-none transition-opacity duration-300 px-4">
-        <div id="fun-popup-card" class="bg-white rounded-3xl p-6 pt-8 max-w-[280px] w-full transform scale-75 opacity-0 transition-all duration-300 text-center relative mt-8 border-2">
-            <div id="fun-popup-icon" class="absolute -top-8 left-1/2 transform -translate-x-1/2 text-[55px] drop-shadow-[0_10px_10px_rgba(0,0,0,0.2)] z-10 whitespace-nowrap animate-bounce">🚀</div>
-            <h3 id="fun-popup-title" class="text-[17px] font-black text-slate-800 mb-1 mt-2">Judul</h3>
-            <p id="fun-popup-msg" class="text-[11px] font-bold text-slate-500 mb-5 leading-relaxed">Pesan</p>
-            <button onclick="closeFunPop()" id="fun-popup-btn" class="w-full py-3.5 rounded-xl font-black text-[12px] text-white shadow-lg transition transform active:scale-95">OKE</button>
+        <div id="fun-popup-card" class="bg-white rounded-[2rem] p-6 pt-10 max-w-[290px] w-full transform scale-75 opacity-0 transition-all duration-400 text-center relative border-[3px]">
+            <div id="fun-popup-icon" class="absolute -top-10 left-1/2 transform -translate-x-1/2 text-[55px] drop-shadow-[0_10px_10px_rgba(0,0,0,0.2)] animate-bounce flex gap-1 z-10 whitespace-nowrap"></div>
+            <h3 id="fun-popup-title" class="text-[18px] font-black text-slate-800 mb-2 mt-1">Judul</h3>
+            <p id="fun-popup-msg" class="text-[12px] font-bold text-slate-500 mb-6 leading-relaxed px-2">Pesan</p>
+            <button onclick="closeFunPop()" id="fun-popup-btn" class="w-full py-3.5 rounded-xl font-black text-[12px] tracking-wider text-white shadow-lg transition transform active:scale-95">OKE</button>
         </div>
     </div>
 
@@ -596,13 +596,6 @@
 
     <script>
         const GAS_URL = "https://script.google.com/macros/s/AKfycbwcBuNRtC9EUE8YYeRw6yB9CJvy9peqVl_2n6WU8AyyGIuPFXoZcSxYMXS0tq_fyasXxw/exec";
-
-        // ==========================================
-        // KONFIGURASI URL KOP (PASTIKAN FILE ADA DI GITHUB)
-        // ==========================================
-        const KOP_ATAS_URL = "KOP TINTA ATAS PUTIH.jpg"; 
-        const KOP_BAWAH_URL = "KOP TINTA BAWAH.png"; 
-        // ==========================================
 
         const DAFTAR_KELAS = ["1A", "1B", "1C", "1D", "1 ICP A", "1 ICP B", "2A", "2B", "2C", "2D", "2 ICP A", "2 ICP B", "3A", "3B", "3C", "3D", "3 ICP A", "4A", "4B", "4C", "4D", "5A", "5B", "5C", "5D", "6A", "6B", "6C", "6D"];
         const DB = { guru: {}, nominalDefault: {}, siswa: {}, pengeluaran: {}, riwayatPengeluaran: {}, walasPassword: {} };
@@ -742,7 +735,7 @@
         function cariSiswa() { const input = document.getElementById('search-siswa').value.toLowerCase(); const items = document.querySelectorAll('.item-siswa-admin'); items.forEach(item => { item.style.display = item.querySelector('.nama-siswa-admin').innerText.toLowerCase().includes(input) ? '' : 'none'; }); }
 
         // ==========================================
-        // SISTEM CETAK PDF NATIVE (JURUS DEWA ANTI-BLANK)
+        // SISTEM CETAK PDF NATIVE 
         // ==========================================
         function checkHighlight(cb) {
             const label = cb.closest('label'); const indicator = label.querySelector('.input-indicator');
@@ -838,7 +831,6 @@
             modal.classList.add('active');
         }
 
-        // FUNGSI INTI CETAK: MENUNGGU GAMBAR 100% SEBELUM PRINT!
         async function executeNativePrint(filename, htmlContent) {
             closeModal();
             sweetPop('warning', 'Sabar Bosku! 🚀', ['Lagi nunggu KOP Resmi merapat...', 'Tahan bentar, lagi nempelin KOP ke kertas F4! 📄']);
@@ -849,7 +841,6 @@
             const originalTitle = document.title;
             document.title = filename;
 
-            // DETEKSI SEMUA GAMBAR KOP DI DALAM CONTAINER PDF
             const images = container.querySelectorAll('img');
             let loadedImages = 0;
             
@@ -863,22 +854,21 @@
                     checkImageLoad();
                 } else {
                     img.addEventListener('load', checkImageLoad);
-                    img.addEventListener('error', checkImageLoad); // Tetap lanjut meski gagal agar proses tidak nge-hang
+                    img.addEventListener('error', checkImageLoad);
                 }
             });
 
             function checkImageLoad() {
                 loadedImages++;
-                // JIKA SEMUA GAMBAR KOP SUDAH BERHASIL DI-LOAD DARI GITHUB
                 if (loadedImages === images.length) {
-                    setTimeout(triggerPrint, 500); // Beri jeda 0.5 detik ekstra agar browser menggambar dengan sempurna
+                    setTimeout(triggerPrint, 500); 
                 }
             }
 
             function triggerPrint() {
-                closeFunPop(); // Tutup pop up loading "Sabar bosku"
+                closeFunPop(); 
                 setTimeout(() => {
-                    window.print(); // MUNCULKAN JENDELA PRINT NATIVE
+                    window.print();
                     document.title = originalTitle;
                     container.innerHTML = '';
                 }, 300);
@@ -887,7 +877,7 @@
 
         async function prosesCetakAdmin() {
             const cbs = document.querySelectorAll('.cb-admin-print:checked');
-            if (cbs.length === 0) return sweetPop('warning', 'Pilih Dulu Bos!', ['Centang dulu dong kelas yang mau dicetak! 🖨️']);
+            if (cbs.length === 0) return sweetPop('warning', 'Cetak Apaan Nih?', 'Centang dulu dong kelas yang mau dicetak! 🖨️');
             
             let filename = cbs.length > 1 ? 'Laporan_Rekap_Infaq_Semua_Kelas' : `Laporan_Rekap_Infaq_Kelas_${cbs[0].value}`;
             let finalHTML = '';
@@ -903,7 +893,7 @@
 
         async function prosesCetakWalasSiswa() {
             const cbs = document.querySelectorAll('.cb-walas-print:checked');
-            if (cbs.length === 0) return sweetPop('warning', 'Pilih Siswa Dulu!', ['Gimana mau cetak kalau siswanya belum dicentang? 🖨️']);
+            if (cbs.length === 0) return sweetPop('warning', 'Pilih Siswa Dulu!', 'Gimana mau cetak kalau siswanya belum dicentang? 🖨️');
             
             let studentNameClean = DB.siswa[kelasWalasAktif][parseInt(cbs[0].value)].nama.replace(/[^a-zA-Z0-9]/g, '_');
             let filename = cbs.length > 1 
@@ -915,9 +905,6 @@
             executeNativePrint(filename, finalHTML);
         }
 
-        // ==========================================
-        // GENERATOR HTML PDF (TIDAK ADA PERUBAHAN DESAIN, SUDAH DEWA)
-        // ==========================================
         async function generateClassRecapHTML(kelas) {
             await fetchKelasData(kelas);
             const dataSiswa = DB.siswa[kelas] || []; 
@@ -967,7 +954,7 @@
             
             return `
             <div class="pdf-page-container">
-                <img src="${KOP_ATAS_URL}" class="kop-img">
+                <img src="KOP TINTA ATAS PUTIH.jpg" class="kop-img">
                 <div class="pdf-content">
                     <h2 class="title-h2">LAPORAN REKAP ADMINISTRATOR INFAQ - KELAS ${kelas}</h2>
                     <p class="title-date">Dicetak Oleh Administrator Sekolah pada: ${new Date().toLocaleDateString('id-ID', {day:'numeric', month:'long', year:'numeric'})} WIB</p>
@@ -1007,7 +994,7 @@
                     </table>
                 </div>
                 <p style="font-size: 8px; font-style: italic; color: #94a3b8; text-align: left; margin-top: 15px; padding-left: 15mm; font-weight: normal;">Sistem Infaq Sekolah Digital TINTA - Cetakan Sah Terverifikasi Sistem Otomatis</p>
-                <img src="${KOP_BAWAH_URL}" class="kop-footer">
+                <img src="KOP TINTA BAWAH.png" class="kop-footer">
             </div>
             `;
         }
@@ -1047,14 +1034,12 @@
                 }
             });
 
-            let tableRows = '';
-            months.forEach(m => {
+            function buildRow(m) {
                 const d = monthData[m];
                 let yearLabel = (m==="Jan"||m==="Feb"||m==="Mar"||m==="Apr"||m==="Mei"||m==="Jun") ? "2026" : "2025";
                 let totalRowStr = d.total === 0 ? `<span style="color:#2563eb; font-weight:800;">0</span>` : `<span style="color:#2563eb; font-weight:800;">${formatRp(d.total)}</span>`;
-                
-                tableRows += `<tr>
-                    <td style="text-align: left; font-weight: 700; color: #0f172a;">${m} ${yearLabel}</td>
+                return `<tr>
+                    <td style="text-align: left; font-weight: 800; color: #0f172a;">${m} ${yearLabel}</td>
                     <td>${d.weeks[0]||`<span class="pill-empty">-</span>`}</td>
                     <td>${d.weeks[1]||`<span class="pill-empty">-</span>`}</td>
                     <td>${d.weeks[2]||`<span class="pill-empty">-</span>`}</td>
@@ -1062,26 +1047,49 @@
                     <td>${d.weeks[4]||`<span class="pill-empty">-</span>`}</td>
                     <td>${totalRowStr}</td>
                 </tr>`;
-            });
+            }
+
+            const sem1 = ["Jul", "Agt", "Sep", "Okt", "Nov", "Des"];
+            const sem2 = ["Jan", "Feb", "Mar", "Apr", "Mei", "Jun"];
+            let sem1Rows = sem1.map(buildRow).join('');
+            let sem2Rows = sem2.map(buildRow).join('');
             
             let totalAnanda = Object.values(checks).filter(v => v===1).length * nominal;
-            tableRows += `<tr class="row-total">
-                <td colspan="6" style="text-align: left; padding: 12px 5px;">TOTAL KESELURUHAN</td>
-                <td style="color: #22c55e;">${formatRp(totalAnanda)}</td>
-            </tr>`;
 
-            let expRows = ''; const riwayat = DB.riwayatPengeluaran[kelas] || [];
+            let expRowsLeft = ''; let expRowsRight = ''; 
+            const riwayat = DB.riwayatPengeluaran[kelas] || [];
             if(riwayat.length === 0) { 
-                expRows = `<tr><td colspan="3" style="text-align: center; color: #94a3b8; font-style: italic;">Belum ada pengeluaran kelas.</td></tr>`; 
+                expRowsLeft = `<tr><td colspan="3" style="text-align: center; color: #94a3b8; font-style: italic;">Belum ada pengeluaran kelas.</td></tr>`; 
+                expRowsRight = `<tr><td colspan="3" style="text-align: center; color: #94a3b8; font-style: italic;">-</td></tr>`; 
             } else { 
-                riwayat.forEach(r => { 
-                    expRows += `<tr><td>${r.date || r.fullDate}</td><td style="text-align: left;">${r.ket}</td><td class="pengeluaran-val">${formatRp(r.amount)}</td></tr>`; 
+                let mid = Math.ceil(riwayat.length / 2);
+                riwayat.forEach((r, i) => { 
+                    let rHtml = `<tr><td>${r.date || r.fullDate}</td><td style="text-align: left;">${r.ket}</td><td class="pengeluaran-val">${formatRp(r.amount)}</td></tr>`; 
+                    if(i < mid) expRowsLeft += rHtml; else expRowsRight += rHtml;
                 }); 
             }
 
+            const tableHeaderInfaq = `
+                <thead>
+                    <tr>
+                        <th style="width: 20%; text-align: left;">Bulan</th>
+                        <th>P1</th><th>P2</th><th>P3</th><th>P4</th><th>P5</th>
+                        <th style="width: 15%;">Total</th>
+                    </tr>
+                </thead>`;
+
+            const tableHeaderExp = `
+                <thead>
+                    <tr>
+                        <th style="width: 25%; text-align: left;">Tanggal</th>
+                        <th style="text-align: left;">Keterangan</th>
+                        <th style="width: 25%; text-align: right;">Biaya</th>
+                    </tr>
+                </thead>`;
+
             return `
             <div class="pdf-page-container">
-                <img src="${KOP_ATAS_URL}" class="kop-img">
+                <img src="KOP TINTA ATAS PUTIH.jpg" class="kop-img">
                 <div class="pdf-content">
                     <h2 class="title-h2">LAPORAN KEUANGAN INFAQ - KELAS ${kelas}</h2>
                     <p class="title-date">Dicetak pada: ${new Date().toLocaleDateString('id-ID', {day:'numeric', month:'long', year:'numeric'})} pukul ${String(new Date().getHours()).padStart(2,'0')}.${String(new Date().getMinutes()).padStart(2,'0')} WIB</p>
@@ -1112,34 +1120,46 @@
                         No: ${String(s.no || siswaIdx+1).padStart(2, '0')} &nbsp;|&nbsp; Nama Siswa: ${s.nama}
                     </div>
                     
-                    <table class="table-siswa">
-                        <thead>
-                            <tr>
-                                <th style="width: 18%; text-align: left;">Bulan</th>
-                                <th>Pekan 1</th>
-                                <th>Pekan 2</th>
-                                <th>Pekan 3</th>
-                                <th>Pekan 4</th>
-                                <th>Pekan 5</th>
-                                <th style="width: 15%;">Total (Rp)</th>
-                            </tr>
-                        </thead>
-                        <tbody>${tableRows}</tbody>
+                    <div style="display: flex; justify-content: space-between; gap: 8px;">
+                        <div style="width: 49.5%;">
+                            <table class="table-siswa">
+                                ${tableHeaderInfaq}
+                                <tbody>${sem1Rows}</tbody>
+                            </table>
+                        </div>
+                        <div style="width: 49.5%;">
+                            <table class="table-siswa">
+                                ${tableHeaderInfaq}
+                                <tbody>${sem2Rows}</tbody>
+                            </table>
+                        </div>
+                    </div>
+                    
+                    <table class="table-siswa" style="margin-top: 2px;">
+                        <tr class="row-total">
+                            <td style="text-align: left; padding: 10px 8px;">TOTAL KESELURUHAN INFAQ ANANDA</td>
+                            <td style="color: #22c55e; text-align: right; padding-right: 15px; width: 25%;">${formatRp(totalAnanda)}</td>
+                        </tr>
                     </table>
                     
-                    <div style="font-size: 11px; font-weight: 800; margin-bottom: 8px; color: #0f172a; margin-top: 15px;">Daftar Pengeluaran Kelas:</div>
-                    <table class="table-pengeluaran">
-                        <thead>
-                            <tr>
-                                <th style="width: 25%; text-align: left;">Tanggal</th>
-                                <th style="text-align: left;">Keterangan Pengeluaran</th>
-                                <th style="width: 25%; text-align: right;">Nominal (Rp)</th>
-                            </tr>
-                        </thead>
-                        <tbody>${expRows}</tbody>
-                    </table>
+                    <div style="font-size: 11px; font-weight: 800; margin-bottom: 6px; color: #0f172a; margin-top: 10px; border-left: 3px solid #ea580c; padding-left: 6px;">Daftar Pengeluaran Kelas:</div>
+                    
+                    <div style="display: flex; justify-content: space-between; gap: 8px;">
+                        <div style="width: 49.5%;">
+                            <table class="table-pengeluaran">
+                                ${tableHeaderExp}
+                                <tbody>${expRowsLeft}</tbody>
+                            </table>
+                        </div>
+                        <div style="width: 49.5%;">
+                            <table class="table-pengeluaran">
+                                ${tableHeaderExp}
+                                <tbody>${expRowsRight}</tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
-                <img src="${KOP_BAWAH_URL}" class="kop-footer">
+                <img src="KOP TINTA BAWAH.png" class="kop-footer">
             </div>
             `;
         }
@@ -1668,31 +1688,26 @@
 
             titleEl.innerText = title;
 
-            // Handle variasi pesan (Array)
-            if (Array.isArray(msg)) {
-                msgEl.innerText = msg[Math.floor(Math.random() * msg.length)];
-            } else {
-                msgEl.innerText = msg;
-            }
+            if (Array.isArray(msg)) { msgEl.innerText = msg[Math.floor(Math.random() * msg.length)]; } 
+            else { msgEl.innerText = msg; }
 
-            card.className = "bg-white rounded-3xl p-6 pt-8 max-w-[280px] w-full transform scale-75 opacity-0 transition-all duration-300 text-center relative mt-8 border-2";
-            icon.className = "absolute -top-8 left-1/2 transform -translate-x-1/2 text-[55px] drop-shadow-[0_10px_10px_rgba(0,0,0,0.2)] z-10 whitespace-nowrap animate-bounce";
-
+            card.className = "bg-white rounded-[2rem] p-6 pt-10 max-w-[290px] w-full transform scale-75 opacity-0 transition-all duration-400 text-center relative border-[3px]";
+            
             const successPool = [
-                { emojis: "😎🔥", glow: "border-green-400 shadow-[0_0_40px_rgba(74,222,128,0.5)]", btnClass: "bg-gradient-to-r from-green-400 to-green-600 hover:from-green-500 hover:to-green-700 shadow-[0_4px_15px_rgba(34,197,94,0.4)]", btnText: "MENYALA ABANGKU! 🚀" },
-                { emojis: "🚀✨", glow: "border-blue-400 shadow-[0_0_40px_rgba(96,165,250,0.5)]", btnClass: "bg-gradient-to-r from-blue-400 to-blue-600 hover:from-blue-500 hover:to-blue-700 shadow-[0_4px_15px_rgba(59,130,246,0.4)]", btnText: "GACOR KANG! ⚡" },
-                { emojis: "🏆🎉", glow: "border-yellow-400 shadow-[0_0_40px_rgba(250,204,21,0.5)]", btnClass: "bg-gradient-to-r from-yellow-400 to-yellow-600 hover:from-yellow-500 hover:to-yellow-700 shadow-[0_4px_15px_rgba(234,179,8,0.4)]", btnText: "GOKIL PARAH! 🤘" }
+                { emojis: "😎🔥", glow: "border-green-400 shadow-[0_0_40px_rgba(74,222,128,0.4)]", btnClass: "bg-gradient-to-r from-green-500 to-emerald-400 hover:shadow-green-500/40", btnText: "MANTAP BOSS! 🚀" },
+                { emojis: "🚀✨", glow: "border-blue-400 shadow-[0_0_40px_rgba(96,165,250,0.4)]", btnClass: "bg-gradient-to-r from-blue-500 to-cyan-400 hover:shadow-blue-500/40", btnText: "GACOR KANG! ⚡" },
+                { emojis: "🏆🎉", glow: "border-yellow-400 shadow-[0_0_40px_rgba(250,204,21,0.4)]", btnClass: "bg-gradient-to-r from-yellow-500 to-amber-400 hover:shadow-yellow-500/40", btnText: "GOKIL PARAH! 🤘" }
             ];
 
             const errorPool = [
-                { emojis: "🫵🤣", glow: "border-red-400 shadow-[0_0_40px_rgba(248,113,113,0.5)]", btnClass: "bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 shadow-[0_4px_15px_rgba(239,68,68,0.4)]", btnText: "YAHAHAHA LAWAK LU! 🤣" },
-                { emojis: "🙈💦", glow: "border-rose-400 shadow-[0_0_40px_rgba(251,113,133,0.5)]", btnClass: "bg-gradient-to-r from-rose-400 to-rose-600 hover:from-rose-500 hover:to-rose-700 shadow-[0_4px_15px_rgba(244,63,94,0.4)]", btnText: "YAH KELESET BOS! 😅" },
-                { emojis: "😅🔧", glow: "border-slate-400 shadow-[0_0_40px_rgba(148,163,184,0.5)]", btnClass: "bg-gradient-to-r from-slate-500 to-slate-700 hover:from-slate-600 hover:to-slate-800 shadow-[0_4px_15px_rgba(100,116,139,0.4)]", btnText: "CEK LAGI DONG! 🛠️" }
+                { emojis: "🫵🤣", glow: "border-red-400 shadow-[0_0_40px_rgba(248,113,113,0.4)]", btnClass: "bg-gradient-to-r from-red-500 to-rose-400 hover:shadow-red-500/40", btnText: "YAHAHAHA LAWAK LU!" },
+                { emojis: "🙈💦", glow: "border-rose-400 shadow-[0_0_40px_rgba(251,113,133,0.4)]", btnClass: "bg-gradient-to-r from-rose-500 to-pink-400 hover:shadow-rose-500/40", btnText: "YAH KELESET BOS! 😅" },
+                { emojis: "😅🔧", glow: "border-slate-400 shadow-[0_0_40px_rgba(148,163,184,0.4)]", btnClass: "bg-gradient-to-r from-slate-600 to-gray-500 hover:shadow-slate-500/40", btnText: "CEK LAGI DONG! 🛠️" }
             ];
 
             const warningPool = [
-                { emojis: "🧐🚩", glow: "border-orange-400 shadow-[0_0_40px_rgba(251,146,60,0.5)]", btnClass: "bg-gradient-to-r from-orange-400 to-orange-600 hover:from-orange-500 hover:to-orange-700 shadow-[0_4px_15px_rgba(249,115,22,0.4)]", btnText: "SIAP LAKSANAKAN! 🫡" },
-                { emojis: "🤔🚨", glow: "border-amber-400 shadow-[0_0_40px_rgba(251,191,36,0.5)]", btnClass: "bg-gradient-to-r from-amber-400 to-amber-600 hover:from-amber-500 hover:to-amber-700 shadow-[0_4px_15px_rgba(245,158,11,0.4)]", btnText: "NGEREM DULU MANG! 🛑" }
+                { emojis: "🧐🚩", glow: "border-orange-400 shadow-[0_0_40px_rgba(251,146,60,0.4)]", btnClass: "bg-gradient-to-r from-orange-500 to-amber-400 hover:shadow-orange-500/40", btnText: "SIAP LAKSANAKAN!" },
+                { emojis: "🤔🚨", glow: "border-amber-400 shadow-[0_0_40px_rgba(251,191,36,0.4)]", btnClass: "bg-gradient-to-r from-amber-500 to-yellow-400 hover:shadow-amber-500/40", btnText: "NGEREM DULU MANG!" }
             ];
 
             let selectedTheme;
@@ -1701,9 +1716,11 @@
             else selectedTheme = warningPool[Math.floor(Math.random() * warningPool.length)];
 
             icon.innerText = selectedTheme.emojis;
+            icon.className = "absolute -top-10 left-1/2 transform -translate-x-1/2 text-[55px] drop-shadow-[0_10px_10px_rgba(0,0,0,0.2)] animate-bounce flex gap-1 z-10 whitespace-nowrap";
+            
             card.classList.add(...selectedTheme.glow.split(' '));
             
-            btn.className = `w-full py-3.5 rounded-xl font-black text-[12px] text-white transition transform active:scale-95 ${selectedTheme.btnClass}`;
+            btn.className = `w-full py-3.5 rounded-xl font-black text-[12px] tracking-wider text-white shadow-lg transition transform active:scale-95 ${selectedTheme.btnClass}`;
             btn.innerText = selectedTheme.btnText;
 
             overlay.classList.remove('opacity-0', 'pointer-events-none');
@@ -1781,7 +1798,6 @@
             }
 
             if (isSuccess) {
-                // EKSEKUSI LANGSUNG KECEPATAN CAHAYA (NO DELAY!)
                 btn.innerHTML = originalContent; btn.disabled = false;
                 if (roleName === 'Wali Kelas') DB.guru[selectedKelasWalas] = namaGuru;
 
@@ -1816,7 +1832,6 @@
         }
 
         function logoutApp(viewId) {
-            // LOGOUT LANGSUNG (NO DELAY!)
             const loginView = document.getElementById('view-login'); const dashView = document.getElementById(viewId); const btnRefresh = document.getElementById('btn-global-refresh');
             dashView.classList.add('hidden'); loginView.classList.remove('hidden'); btnRefresh.classList.add('hidden');
             document.body.style.backgroundColor = '#f8fafc';
