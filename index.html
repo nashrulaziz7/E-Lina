@@ -553,7 +553,7 @@
         <div class="bg-white rounded-[2rem] sm:rounded-3xl p-6 w-full max-w-[340px] transform translate-y-10 sm:translate-y-0 sm:scale-95 transition-all duration-300 relative shadow-2xl">
             <button onclick="closeInstallPopup()" class="absolute top-4 right-4 w-7 h-7 bg-slate-100 text-slate-400 rounded-full flex items-center justify-center hover:bg-slate-200 transition"><i class="fa-solid fa-xmark text-[10px]"></i></button>
             <div class="flex items-center gap-4 mb-4 mt-2">
-                <img src="LOGO LOGIN.png" class="w-14 h-14 object-contain drop-shadow" onerror="this.src='https://placehold.co/100x100/ffffff/1e3a8a?text=LOGO'">
+                <img src="TINTA.png" class="w-14 h-14 object-contain drop-shadow" onerror="this.src='https://placehold.co/100x100/ffffff/1e3a8a?text=TINTA'">
                 <div>
                     <h3 class="text-[15px] font-black text-slate-800 leading-tight">Install TINTA App</h3>
                     <p class="text-[10px] font-bold text-slate-500 mt-0.5">Akses secepat kilat (Fullscreen)</p>
@@ -601,7 +601,7 @@
                 "name": "TINTA - Master Vision", "short_name": "TINTA",
                 "start_url": window.location.href, "display": "standalone",
                 "background_color": "#f8fafc", "theme_color": "#1e3a8a",
-                "icons": [{"src": "https://placehold.co/192x192/1e3a8a/ffffff?text=TINTA", "sizes": "192x192", "type": "image/png"}]
+                "icons": [{"src": "TINTA.png", "sizes": "512x512", "type": "image/png"}]
             };
             const manifestBlob = new Blob([JSON.stringify(manifestJSON)], {type: 'application/json'});
             document.head.insertAdjacentHTML('beforeend', `<link rel="manifest" href="${URL.createObjectURL(manifestBlob)}">`);
@@ -609,9 +609,9 @@
             if ('serviceWorker' in navigator) {
                 const swCode = "self.addEventListener('install', e => self.skipWaiting()); self.addEventListener('fetch', e => {});";
                 const swBlob = new Blob([swCode], {type: 'application/javascript'});
-                navigator.serviceWorker.register(URL.createObjectURL(swBlob)).catch(e => console.log("PWA Sandbox Restriction Bypassed"));
+                navigator.serviceWorker.register(URL.createObjectURL(swBlob)).catch(e => console.log("PWA Engine Bypassed Silently"));
             }
-        } catch(e) { console.log("PWA Engine Bypass"); }
+        } catch(e) { console.log("PWA Setup Bypassed"); }
 
         window.addEventListener('beforeinstallprompt', (e) => {
             e.preventDefault();
@@ -680,9 +680,8 @@
         function generateAcademicWeeks() {
             let currentDate = new Date();
             let year = currentDate.getFullYear();
-            if (currentDate.getMonth() < 6) year -= 1; // Jika Januari-Juni, maka tahun ajaran dimulai Juli tahun lalu
+            if (currentDate.getMonth() < 6) year -= 1; 
             
-            // Set ke 1 Juli tahun ajaran ini, lalu cari hari Jumat pertama
             currentDate = new Date(year, 6, 1); 
             while(currentDate.getDay() !== 5) { currentDate.setDate(currentDate.getDate() + 1); } 
             
@@ -708,20 +707,19 @@
         }
         generateAcademicWeeks();
 
-        // Warna Pastel Super Cantik untuk setiap bulan (Checklist & PDF)
         const pastelColors = {
-            "Jul": { bg: "bg-[#fdf4ff]", border: "border-[#f0abfc]", hexBg: "#fdf4ff", hexBorder: "#f0abfc" }, // Fuchsia muda
-            "Agt": { bg: "bg-[#fff7ed]", border: "border-[#fdba74]", hexBg: "#fff7ed", hexBorder: "#fdba74" }, // Orange muda
-            "Sep": { bg: "bg-[#f0fdf4]", border: "border-[#86efac]", hexBg: "#f0fdf4", hexBorder: "#86efac" }, // Hijau muda
-            "Okt": { bg: "bg-[#fef2f2]", border: "border-[#fca5a5]", hexBg: "#fef2f2", hexBorder: "#fca5a5" }, // Merah muda
-            "Nov": { bg: "bg-[#f0f9ff]", border: "border-[#7dd3fc]", hexBg: "#f0f9ff", hexBorder: "#7dd3fc" }, // Biru langit
-            "Des": { bg: "bg-[#fefce8]", border: "border-[#fde047]", hexBg: "#fefce8", hexBorder: "#fde047" }, // Kuning muda
-            "Jan": { bg: "bg-[#faf5ff]", border: "border-[#d8b4fe]", hexBg: "#faf5ff", hexBorder: "#d8b4fe" }, // Ungu muda
-            "Feb": { bg: "bg-[#f0fdfa]", border: "border-[#5eead4]", hexBg: "#f0fdfa", hexBorder: "#5eead4" }, // Teal muda
-            "Mar": { bg: "bg-[#fff1f2]", border: "border-[#fda4af]", hexBg: "#fff1f2", hexBorder: "#fda4af" }, // Rose muda
-            "Apr": { bg: "bg-[#eff6ff]", border: "border-[#93c5fd]", hexBg: "#eff6ff", hexBorder: "#93c5fd" }, // Biru muda
-            "Mei": { bg: "bg-[#ecfdf5]", border: "border-[#6ee7b7]", hexBg: "#ecfdf5", hexBorder: "#6ee7b7" }, // Emerald muda
-            "Jun": { bg: "bg-[#f5f3ff]", border: "border-[#c4b5fd]", hexBg: "#f5f3ff", hexBorder: "#c4b5fd" }  // Violet muda
+            "Jul": { bg: "bg-[#fdf4ff]", border: "border-[#f0abfc]", hexBg: "#fdf4ff", hexBorder: "#f0abfc" }, 
+            "Agt": { bg: "bg-[#fff7ed]", border: "border-[#fdba74]", hexBg: "#fff7ed", hexBorder: "#fdba74" }, 
+            "Sep": { bg: "bg-[#f0fdf4]", border: "border-[#86efac]", hexBg: "#f0fdf4", hexBorder: "#86efac" }, 
+            "Okt": { bg: "bg-[#fef2f2]", border: "border-[#fca5a5]", hexBg: "#fef2f2", hexBorder: "#fca5a5" }, 
+            "Nov": { bg: "bg-[#f0f9ff]", border: "border-[#7dd3fc]", hexBg: "#f0f9ff", hexBorder: "#7dd3fc" }, 
+            "Des": { bg: "bg-[#fefce8]", border: "border-[#fde047]", hexBg: "#fefce8", hexBorder: "#fde047" }, 
+            "Jan": { bg: "bg-[#faf5ff]", border: "border-[#d8b4fe]", hexBg: "#faf5ff", hexBorder: "#d8b4fe" }, 
+            "Feb": { bg: "bg-[#f0fdfa]", border: "border-[#5eead4]", hexBg: "#f0fdfa", hexBorder: "#5eead4" }, 
+            "Mar": { bg: "bg-[#fff1f2]", border: "border-[#fda4af]", hexBg: "#fff1f2", hexBorder: "#fda4af" }, 
+            "Apr": { bg: "bg-[#eff6ff]", border: "border-[#93c5fd]", hexBg: "#eff6ff", hexBorder: "#93c5fd" }, 
+            "Mei": { bg: "bg-[#ecfdf5]", border: "border-[#6ee7b7]", hexBg: "#ecfdf5", hexBorder: "#6ee7b7" }, 
+            "Jun": { bg: "bg-[#f5f3ff]", border: "border-[#c4b5fd]", hexBg: "#f5f3ff", hexBorder: "#c4b5fd" }  
         };
 
         let kelasWalasAktif = ""; let kelasWaridAktif = ""; let siswaWaridIdx = -1; let checklistState = {}; let tempPengeluaranRows = []; let excelPayload = null; 
@@ -758,7 +756,7 @@
                     if (res.master.walas) {
                         res.master.walas.forEach(w => { 
                             DB.guru[w.kelas] = w.nama; 
-                            DB.walasPassword[w.kelas] = w.password; // KUNCI WALAS
+                            DB.walasPassword[w.kelas] = w.password; 
                             if (w.nominal) DB.nominalDefault[w.kelas] = parseInt(w.nominal); 
                             if (w.kelas && !DAFTAR_KELAS.includes(w.kelas)) DAFTAR_KELAS.push(w.kelas); 
                         });
@@ -909,7 +907,6 @@
                 `;
             });
 
-            // TOMBOL CETAK DIPISAH AGAR LEBIH JELAS
             body.innerHTML = `
                 <div class="flex flex-col h-full max-h-[70vh]">
                     <div class="mb-3 flex items-center justify-between bg-slate-50 p-3 rounded-xl border border-slate-200">
@@ -920,8 +917,8 @@
                         ${listSiswa || '<p class="text-center text-[10px] font-bold text-slate-400">Belum ada siswa</p>'}
                     </div>
                     <div class="flex gap-2">
-                        <button onclick="prosesCetakWalasRekap()" class="flex-1 bg-[#1e3a8a] text-white py-3.5 rounded-xl font-black text-[10px] shadow-md hover:bg-blue-900 transition flex flex-col items-center justify-center gap-1 leading-tight"><i class="fa-solid fa-table text-[14px]"></i> CETAK REKAP KELAS</button>
-                        <button onclick="prosesCetakWalasSiswa()" class="flex-1 bg-[#ea580c] text-white py-3.5 rounded-xl font-black text-[10px] shadow-md hover:bg-orange-700 transition flex flex-col items-center justify-center gap-1 leading-tight"><i class="fa-solid fa-file-pdf text-[14px]"></i> CETAK LAPORAN SISWA</button>
+                        <button onclick="prosesCetakWalasRekap()" class="flex-1 bg-[#1e3a8a] text-white py-3.5 rounded-xl font-black text-[10px] shadow-md hover:bg-blue-900 transition flex flex-col items-center justify-center gap-1 leading-tight"><i class="fa-solid fa-table text-[14px]"></i> 1. CETAK REKAP KELAS</button>
+                        <button onclick="prosesCetakWalasSiswa()" class="flex-1 bg-[#ea580c] text-white py-3.5 rounded-xl font-black text-[10px] shadow-md hover:bg-orange-700 transition flex flex-col items-center justify-center gap-1 leading-tight"><i class="fa-solid fa-file-pdf text-[14px]"></i> 2. CETAK LAPORAN SISWA</button>
                     </div>
                 </div>
             `;
@@ -986,7 +983,6 @@
         }
 
         async function prosesCetakWalasRekap() {
-            // CETAK REKAP AKAN SELALU MENGAMBIL SELURUH SISWA YANG DICENTANG
             const cbs = document.querySelectorAll('.cb-walas-print:checked');
             if (cbs.length === 0) return sweetPop('warning', 'Pilih Siswa Dulu!', ['Gimana mau cetak rekap kalau siswanya belum dicentang bos? 🖨️']);
 
@@ -1000,7 +996,6 @@
         }
 
         async function prosesCetakWalasSiswa() {
-            // CETAK LAPORAN INDIVIDU JUGA BERDASARKAN CENTANG
             const cbs = document.querySelectorAll('.cb-walas-print:checked');
             if (cbs.length === 0) return sweetPop('warning', 'Pilih Siswa Dulu!', ['Gimana mau cetak laporan kalau siswanya belum dicentang bos? 🖨️']);
             
@@ -1029,7 +1024,6 @@
             const totalKeluar = DB.pengeluaran[kelas] || 0;
             let totalMasukKelasKeseluruhan = 0; 
 
-            // Hitung total uang keseluruhan di kelas (meski siswa tidak di-print)
             dataSiswa.forEach((_, idx) => {
                 const cAll = checklistState[kelas][idx] || new Array(52).fill(0);
                 totalMasukKelasKeseluruhan += Object.values(cAll).filter(v => v === 1).length * nominal;
@@ -1045,8 +1039,7 @@
                 for(let i=0; i<dataSiswa.length; i++) indicesToPrint.push(i);
             }
             
-            // HALAMAN 1: TABEL REKAP 35 SISWA
-            const maxRowsPage1 = 35; // DIKUNCI 35 SISWA AGAR TIDAK MENABRAK KOP
+            const maxRowsPage1 = 35; 
             for(let i=0; i<maxRowsPage1; i++) {
                 if(i < indicesToPrint.length) {
                     let idx = indicesToPrint[i];
@@ -1076,7 +1069,6 @@
                         tableRows += rowHtml;
                     }
                 } else {
-                    // Baris Kosong Pengisi Ruang agar tabel rapih dan border terbentuk sempurna
                     let rowHtml = `<tr><td></td><td class="text-left"></td>`;
                     monthHeaders.forEach(m => { rowHtml += `<td></td>`; });
                     rowHtml += `<td></td></tr>`;
@@ -1086,7 +1078,6 @@
 
             const saldo = totalMasukKelasKeseluruhan - totalKeluar;
 
-            // HALAMAN 2: DAFTAR PENGELUARAN KHUSUS (FULL WIDTH & ESTETIK SHAPE PER BULAN)
             let expRowsHTML = '';
             const riwayat = DB.riwayatPengeluaran[kelas] || [];
             if(riwayat.length === 0) {
@@ -1094,7 +1085,6 @@
             } else {
                 let groupedExp = {};
                 riwayat.forEach(r => {
-                    // Mengelompokkan berdasarkan Bulan & Tahun
                     let mYear = r.fullDate ? r.fullDate.split(' ').slice(1).join(' ') : r.date;
                     if(!groupedExp[mYear]) groupedExp[mYear] = [];
                     groupedExp[mYear].push(r);
@@ -1214,7 +1204,6 @@
             let monthData = {}; 
             months.forEach(m => monthData[m] = { weeks: [], total: 0 });
 
-            // Pengelompokan Data Bulanan Siswa
             academicWeeks.forEach(w => {
                 const mKey = w.monthKey;
                 if (monthData[mKey]) {
@@ -1253,23 +1242,21 @@
             let sem2Rows = sem2.map(buildRow).join('');
             let totalAnanda = Object.values(checks).filter(v => v===1).length * nominal;
 
-            // SISTEM 2 KOLOM PENGELUARAN (KIRI KE KANAN)
             const riwayat = DB.riwayatPengeluaran[kelas] || [];
             let expRowsHTML = '';
             if(riwayat.length === 0) {
                 expRowsHTML = `<tr><td colspan="6" style="text-align: center; color: #94a3b8; font-style: italic; padding: 15px;">Belum ada pengeluaran kelas.</td></tr>`;
             } else {
-                // Membagi riwayat menjadi 2 array: Kiri dan Kanan (diurutkan secara zig-zag mendatar)
                 for (let i = 0; i < riwayat.length; i += 2) {
                     let itemKiri = riwayat[i];
                     let itemKanan = riwayat[i+1];
                     
-                    let monthKiri = itemKiri.date.substring(0, 2); // Ambil "06" dari "06/26"
+                    let monthKiri = itemKiri.date.substring(0, 2); 
                     let monthNamesArr = ["Jan", "Feb", "Mar", "Apr", "Mei", "Jun", "Jul", "Agt", "Sep", "Okt", "Nov", "Des"];
                     let mKeyKiri = monthNamesArr[parseInt(monthKiri)-1];
                     let badgeKiri = `<span style="background-color: ${pastelColors[mKeyKiri]?.hexBg || '#f1f5f9'}; color: ${pastelColors[mKeyKiri]?.hexBorder || '#94a3b8'}; padding: 3px 8px; border-radius: 4px; font-weight: 900; font-size: 7.5px;">${itemKiri.date}</span>`;
 
-                    let cellKananHtml = `<td></td><td></td><td></td>`; // Kosong jika ganjil
+                    let cellKananHtml = `<td></td><td></td><td></td>`; 
                     if (itemKanan) {
                         let monthKanan = itemKanan.date.substring(0, 2);
                         let mKeyKanan = monthNamesArr[parseInt(monthKanan)-1];
@@ -1332,9 +1319,7 @@
                         No: ${String(s.no || siswaIdx+1).padStart(2, '0')} &nbsp;|&nbsp; Nama Siswa: ${s.nama}
                     </div>
                     
-                    <!-- TABEL INFAQ 2 KOLOM SUPER LEGA -->
                     <div style="display: flex; justify-content: space-between; position: relative;">
-                        <!-- Garis Tengah -->
                         <div style="position: absolute; left: 50%; top: 0; bottom: 0; width: 1px; background-color: #e2e8f0; transform: translateX(-50%);"></div>
                         
                         <div style="width: 48%;">
@@ -1358,7 +1343,6 @@
                         </tr>
                     </table>
                     
-                    <!-- TABEL PENGELUARAN 2 KOLOM -->
                     <div style="font-size: 11px; font-weight: 800; margin-bottom: 6px; color: #0f172a; border-left: 3px solid #ea580c; padding-left: 6px;">Daftar Pengeluaran Kelas:</div>
                     <table class="table-siswa" style="margin-bottom: 0;">
                         <thead>
@@ -1910,9 +1894,14 @@
             const btn = document.getElementById('fun-popup-btn');
 
             titleEl.innerText = title;
-            if (Array.isArray(msg)) { msgEl.innerText = msg[Math.floor(Math.random() * msg.length)]; } else { msgEl.innerText = msg; }
 
-            card.className = "bg-white rounded-3xl p-6 pt-8 max-w-[280px] w-full transform scale-75 opacity-0 transition-all duration-300 text-center relative mt-8 border-2 shadow-2xl";
+            if (Array.isArray(msg)) {
+                msgEl.innerText = msg[Math.floor(Math.random() * msg.length)];
+            } else {
+                msgEl.innerText = msg;
+            }
+
+            card.className = "bg-white rounded-3xl p-6 pt-8 max-w-[280px] w-full transform scale-75 opacity-0 transition-all duration-300 text-center relative mt-8 border-2";
             icon.className = "absolute -top-8 left-1/2 transform -translate-x-1/2 text-[55px] drop-shadow-[0_10px_10px_rgba(0,0,0,0.2)] z-10 whitespace-nowrap animate-bounce";
 
             const successPool = [
@@ -1920,11 +1909,13 @@
                 { emojis: "🚀✨", glow: "border-blue-400 shadow-[0_0_40px_rgba(96,165,250,0.5)]", btnClass: "bg-gradient-to-r from-blue-400 to-blue-600 hover:from-blue-500 hover:to-blue-700 shadow-[0_4px_15px_rgba(59,130,246,0.4)]", btnText: "GACOR KANG! ⚡" },
                 { emojis: "🏆🎉", glow: "border-yellow-400 shadow-[0_0_40px_rgba(250,204,21,0.5)]", btnClass: "bg-gradient-to-r from-yellow-400 to-yellow-600 hover:from-yellow-500 hover:to-yellow-700 shadow-[0_4px_15px_rgba(234,179,8,0.4)]", btnText: "GOKIL PARAH! 🤘" }
             ];
+
             const errorPool = [
                 { emojis: "🫵🤣", glow: "border-red-400 shadow-[0_0_40px_rgba(248,113,113,0.5)]", btnClass: "bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 shadow-[0_4px_15px_rgba(239,68,68,0.4)]", btnText: "YAHAHAHA LAWAK LU! 🤡" },
                 { emojis: "🙈💦", glow: "border-rose-400 shadow-[0_0_40px_rgba(251,113,133,0.5)]", btnClass: "bg-gradient-to-r from-rose-400 to-rose-600 hover:from-rose-500 hover:to-rose-700 shadow-[0_4px_15px_rgba(244,63,94,0.4)]", btnText: "YAH KELESET BOS! 😅" },
                 { emojis: "😅🔧", glow: "border-slate-400 shadow-[0_0_40px_rgba(148,163,184,0.5)]", btnClass: "bg-gradient-to-r from-slate-500 to-slate-700 hover:from-slate-600 hover:to-slate-800 shadow-[0_4px_15px_rgba(100,116,139,0.4)]", btnText: "CEK LAGI DONG! 🛠️" }
             ];
+
             const warningPool = [
                 { emojis: "🧐🚩", glow: "border-orange-400 shadow-[0_0_40px_rgba(251,146,60,0.5)]", btnClass: "bg-gradient-to-r from-orange-400 to-orange-600 hover:from-orange-500 hover:to-orange-700 shadow-[0_4px_15px_rgba(249,115,22,0.4)]", btnText: "SIAP LAKSANAKAN! 🫡" },
                 { emojis: "🤔🚨", glow: "border-amber-400 shadow-[0_0_40px_rgba(251,191,36,0.5)]", btnClass: "bg-gradient-to-r from-amber-400 to-amber-600 hover:from-amber-500 hover:to-amber-700 shadow-[0_4px_15px_rgba(245,158,11,0.4)]", btnText: "NGEREM DULU MANG! 🛑" }
@@ -2039,7 +2030,12 @@
 
             } else {
                 btn.innerHTML = originalContent; btn.disabled = false; 
-                const pesanError = ['Yahahaha, kata sandinya salah nih! Lupa ingatan yak?', 'Eits, sandinya meleset bos! Coba pelan-pelan ngetiknya.', 'Akses ditolak! Sandinya nggak cocok nih, jangan ngasal dong.', 'Waduh, pintu nggak mau kebuka. Sandinya salah tuh!'];
+                const pesanError = [
+                    'Yahahaha, kata sandinya salah nih! Lupa ingatan yak?',
+                    'Eits, sandinya meleset bos! Coba pelan-pelan ngetiknya.',
+                    'Akses ditolak! Sandinya nggak cocok nih, jangan ngasal dong.',
+                    'Waduh, pintu nggak mau kebuka. Sandinya salah tuh!'
+                ];
                 sweetPop('error', 'Akses Ditolak Bro!', pesanError);
             }
         }
