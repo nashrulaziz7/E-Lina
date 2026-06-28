@@ -58,15 +58,15 @@
         .walas-btn-action { transition: transform 0.1s; }
         .walas-btn-action:active { transform: scale(0.95); }
         
-        .table-container { max-height: 420px; overflow-y: auto; overflow-x: auto; position: relative; background: white; }
+        .table-container { max-height: 460px; overflow-y: auto; overflow-x: auto; position: relative; background: white; }
         .z-head { position: sticky; top: 0; z-index: 30; background-color: #f8fafc; background-clip: padding-box; border-bottom: 1px solid #e2e8f0; }
         .z-col { position: sticky; z-index: 20; background-color: #ffffff; background-clip: padding-box; border-bottom: 1px solid #f1f5f9; }
         .z-intersect { position: sticky; top: 0; z-index: 40; background-color: #f8fafc; background-clip: padding-box; border-bottom: 1px solid #e2e8f0; }
         
         /* KUNCI LEBAR KOLOM ANTI-BOCOR (STICKY SCROLL SEMPURNA) */
         .pos-no { left: 0; width: 25px; min-width: 25px; max-width: 25px; }
-        .pos-nama { left: 25px; width: 110px; min-width: 110px; max-width: 110px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-        .pos-total { left: 135px; width: 60px; min-width: 60px; max-width: 60px; box-shadow: inset -1px 0 0 #e2e8f0, 2px 0 4px -2px rgba(0,0,0,0.08); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+        .pos-nama { left: 25px; width: 140px; min-width: 140px; max-width: 140px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+        .pos-total { left: 165px; width: 60px; min-width: 60px; max-width: 60px; box-shadow: inset -1px 0 0 #e2e8f0, 2px 0 4px -2px rgba(0,0,0,0.08); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 
         .walas-tr .z-col { transition: background-color 0.2s; }
         .walas-tr .z-col.pos-total { background-color: #f4f7fb; }
@@ -121,7 +121,7 @@
             .sum-label { font-size: 6.5px; font-weight: 400; text-transform: uppercase; display: block; margin-bottom: 2px; letter-spacing: 0.5px; }
             .sum-value { font-size: 13px; font-weight: normal; }
             
-            .legend-container { display: flex; gap: 12px; align-items: center; margin-bottom: 6px; background-color: #f8fafc; padding: 4px 10px; border-radius: 6px; border: 1px solid #e2e8f0; width: fit-content; }
+            .legend-container { display: flex; gap: 12px; align-items: center; margin-bottom: 6px; background-color: #ffffff; padding: 4px 10px; border-radius: 6px; border: 1px solid #e2e8f0; width: fit-content; }
             .legend-item { font-size: 8px; font-weight: 700; color: #475569; display: flex; align-items: center; gap: 4px; }
             .legend-box { width: 10px; height: 10px; border-radius: 2px; }
 
@@ -130,28 +130,30 @@
             }
 
             .nama-siswa-pill { 
-                background: #eff6ff; color: #1e3a8a; padding: 2px 6px; border-radius: 4px; font-weight: 800; display: inline-block; border-left: 3px solid #3b82f6; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 125px; font-size: 7.5px; line-height: 1.2; box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+                color: #1e3a8a; padding: 2px 0px; font-weight: 800; display: inline-block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 140px; font-size: 8px; line-height: 1.2;
             }
             
             /* Table Rekap Kelas (Admin) */
             .table-admin { width: 100%; border-collapse: separate; border-spacing: 0; font-size: 7.5px; text-align: center; border: 1px solid #e2e8f0; }
             .table-admin th { padding: 4px 2px; font-weight: 600; border: 1px solid white; background-color: #1e3a8a; color: white; border-radius: 2px; font-size: 8px; }
-            .table-admin td { padding: 3px 1px; color: #475569; border-bottom: 1px solid #f1f5f9; border-top: none; height: 13.5px; }
+            .table-admin td { padding: 2px 1px; color: #475569; border-bottom: 1px solid #f1f5f9; border-top: none; height: 13px; }
             .table-admin tbody tr:nth-child(even) td { background-color: #f8fafc !important; }
             .table-admin tbody tr:nth-child(odd) td { background-color: white !important; }
             .text-left { text-align: left !important; padding-left: 6px !important; }
             .val-zero { color: #cbd5e1 !important; }
             .val-bold { font-weight: 800; color: #1e3a8a; }
             
-            /* Table Persiswa (Walas) 2 KOLOM */
-            .table-siswa { width: 100%; border-collapse: collapse; font-size: 8px; text-align: center; }
-            .table-siswa th { padding: 5px 2px; color: #475569; font-weight: 700; border-bottom: 1px solid #e2e8f0; font-size: 8.5px; }
-            .table-siswa td { padding: 4px 2px; color: #334155; border-bottom: 1px solid #f1f5f9; }
+            /* Table Persiswa (Walas) 2 KOLOM RAPI */
+            .table-siswa { width: 100%; border-collapse: collapse; font-size: 7.5px; text-align: center; }
+            .table-siswa th { padding: 4px 1px; color: #475569; font-weight: 800; border-bottom: 1px solid #e2e8f0; font-size: 7.5px; text-align: center; }
+            .table-siswa td { padding: 3px 1px; color: #334155; border-bottom: 1px solid #f1f5f9; vertical-align: middle; }
             .table-siswa tbody tr:nth-child(even) td { background-color: #f8fafc !important; }
-            .pill-lunas { background-color: #22c55e; color: white; padding: 2px 0; border-radius: 3px; font-size: 6px; font-weight: 800; display: inline-block; text-align: center; width: 34px; }
-            .pill-libur { background-color: #ef4444; color: white; padding: 2px 0; border-radius: 3px; font-size: 6px; font-weight: 800; display: inline-block; text-align: center; width: 34px; }
-            .pill-empty { background-color: #f1f5f9; color: #94a3b8; padding: 2px 0; border-radius: 3px; font-size: 6px; font-weight: 800; display: inline-block; border: 1px solid #cbd5e1; text-align: center; width: 34px; }
-            .row-total td { background-color: #f1f5f9 !important; font-weight: 800; color: #0f172a; border-top: 1px solid #cbd5e1; border-bottom: none; }
+            .table-siswa tbody tr:nth-child(odd) td { background-color: #ffffff !important; }
+            
+            .pill-lunas { background-color: #22c55e; color: white; padding: 2.5px 0; border-radius: 3px; font-size: 7px; font-weight: 800; display: inline-block; text-align: center; width: 36px; }
+            .pill-libur { background-color: #ef4444; color: white; padding: 2.5px 0; border-radius: 3px; font-size: 7px; font-weight: 800; display: inline-block; text-align: center; width: 36px; }
+            .pill-empty { background-color: #f1f5f9; color: #cbd5e1; padding: 2.5px 0; border-radius: 3px; font-size: 7px; font-weight: 800; display: inline-block; border: 1px solid #e2e8f0; text-align: center; width: 36px; }
+            .row-total td { background-color: #f8fafc !important; font-weight: 800; color: #0f172a; border-top: 1px solid #cbd5e1; border-bottom: none; font-size: 8px; padding: 6px 2px; }
         }
     </style>
 </head>
@@ -181,7 +183,7 @@
         <div class="fine-grid"></div>
         <div class="bg-clean-lines"></div>
 
-        <div class="relative z-10 w-full max-w-[420px] px-5 pt-8 pb-8 flex flex-col items-center flex-1 justify-center">
+        <div class="relative z-10 w-full max-w-[420px] md:max-w-[460px] px-5 pt-8 pb-8 flex flex-col items-center flex-1 justify-center">
             <div class="flex flex-col items-center mb-6 w-full">
                 <img src="LOGO LOGIN.png" alt="Logo Al Kautsar" class="h-14 object-contain mb-3 drop-shadow-sm" onerror="this.src='https://placehold.co/100x100/ffffff/1e3a8a?text=LOGO'">
                 <div class="w-full flex justify-center items-center mb-1">
@@ -190,7 +192,7 @@
                 <p class="text-[8px] sm:text-[9px] font-bold tracking-[0.15em] text-slate-500 mt-1 uppercase text-center w-full whitespace-nowrap">Tabungan Infaq Terpadu Al Kautsar</p>
             </div>
 
-            <div id="mainCard" class="w-full main-card p-4 sm:p-6 pb-6">
+            <div id="mainCard" class="w-full main-card p-4 sm:p-6 pb-6 shadow-xl md:shadow-2xl">
                 <div id="cardHeaderGradient" class="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-[#1e3a8a] via-[#3b82f6] to-[#93c5fd]"></div>
                 <div class="bg-slate-200/50 rounded-xl p-1 flex relative mb-6 shadow-inner z-10 border border-white/50">
                     <div id="tabIndicator" class="tab-indicator transform translate-x-[100%]"></div>
@@ -303,160 +305,179 @@
 
     <!-- VIEW 2: ADMIN -->
     <div id="view-dashboard-admin" class="hidden w-full min-h-[100dvh] pb-8 relative origin-top pt-[60px]" style="background-color: #f1f5f9;">
-        <main class="relative max-w-md mx-auto w-full">
-            <div class="sticky top-[60px] z-[40] bg-[#f1f5f9] px-3 pt-3 pb-3 shadow-sm border-b border-slate-200">
-                <section class="section-shape flex items-center gap-3 !mt-0">
-                    <img src="TINTA.png" class="w-12 h-auto object-contain" onerror="this.src='https://placehold.co/100x30/ffffff/1e3a8a?text=LOGO'">
-                    <div class="flex-1">
-                        <h2 class="text-[13px] font-black text-slate-800">Panel Administrator</h2>
-                        <p class="text-[10px] font-bold text-[#ea580c] uppercase">Super User</p>
-                    </div>
-                    <button onclick="logoutApp('view-dashboard-admin')" class="w-8 h-8 rounded-full border border-red-500 text-red-500 flex items-center justify-center bg-[#fef2f2] hover:bg-red-100 transition shadow-sm" title="Keluar"><i class="fa-solid fa-power-off text-[13px]"></i></button>
-                </section>
+        <!-- Container Desktop Lebih Lebar -->
+        <main class="relative max-w-7xl mx-auto w-full px-4 md:px-8 pt-4">
+            
+            <!-- Grid Layout untuk Bagian Atas di Desktop -->
+            <div class="md:grid md:grid-cols-12 md:gap-5 mb-4">
+                
+                <!-- Kolom Kiri Desktop -->
+                <div class="md:col-span-5 lg:col-span-4 space-y-4">
+                    <section class="section-shape flex items-center gap-3 !mt-0 !mb-0 shadow-sm">
+                        <img src="TINTA.png" class="w-12 h-auto object-contain" onerror="this.src='https://placehold.co/100x30/ffffff/1e3a8a?text=LOGO'">
+                        <div class="flex-1">
+                            <h2 class="text-[13px] font-black text-slate-800">Panel Administrator</h2>
+                            <p class="text-[10px] font-bold text-[#ea580c] uppercase">Super User</p>
+                        </div>
+                        <button onclick="logoutApp('view-dashboard-admin')" class="w-8 h-8 rounded-full border border-red-500 text-red-500 flex items-center justify-center bg-[#fef2f2] hover:bg-red-100 transition shadow-sm" title="Keluar"><i class="fa-solid fa-power-off text-[13px]"></i></button>
+                    </section>
 
-                <section class="section-shape">
-                    <span class="section-title">Manajemen Sistem</span>
-                    <div class="grid grid-cols-5 gap-1">
-                        <div class="flex flex-col items-center gap-1 admin-icon-btn" onclick="openMenuModal('template')">
-                            <div class="w-10 h-10 rounded-full bg-blue-50 text-[#1e3a8a] flex items-center justify-center text-[14px]"><i class="fa-solid fa-file-lines"></i></div>
-                            <span class="text-[8px] font-black text-slate-700">Template</span>
+                    <section class="section-shape !mb-0 shadow-sm">
+                        <span class="section-title">Manajemen Sistem</span>
+                        <div class="grid grid-cols-5 gap-1">
+                            <div class="flex flex-col items-center gap-1 admin-icon-btn" onclick="openMenuModal('template')">
+                                <div class="w-10 h-10 rounded-full bg-blue-50 text-[#1e3a8a] flex items-center justify-center text-[14px]"><i class="fa-solid fa-file-lines"></i></div>
+                                <span class="text-[8px] font-black text-slate-700">Template</span>
+                            </div>
+                            <div class="flex flex-col items-center gap-1 admin-icon-btn" onclick="openMenuModal('unggah')">
+                                <div class="w-10 h-10 rounded-full bg-indigo-50 text-indigo-600 flex items-center justify-center text-[14px]"><i class="fa-solid fa-cloud-arrow-up"></i></div>
+                                <span class="text-[8px] font-black text-slate-700">Unggah</span>
+                            </div>
+                            <div class="flex flex-col items-center gap-1 admin-icon-btn" onclick="openMenuModal('nominal')">
+                                <div class="w-10 h-10 rounded-full bg-orange-50 text-[#ea580c] flex items-center justify-center text-[14px]"><i class="fa-solid fa-coins"></i></div>
+                                <span class="text-[8px] font-black text-slate-700">Nominal</span>
+                            </div>
+                            <div class="flex flex-col items-center gap-1 admin-icon-btn" onclick="openMenuModal('akun')">
+                                <div class="w-10 h-10 rounded-full bg-teal-50 text-teal-600 flex items-center justify-center text-[14px]"><i class="fa-solid fa-users-gear"></i></div>
+                                <span class="text-[8px] font-black text-slate-700">Akun</span>
+                            </div>
+                            <div class="flex flex-col items-center gap-1 admin-icon-btn" onclick="openMenuModal('reset')">
+                                <div class="w-10 h-10 rounded-full bg-red-50 text-red-600 flex items-center justify-center text-[14px]"><i class="fa-solid fa-trash-can"></i></div>
+                                <span class="text-[8px] font-black text-slate-700">Reset</span>
+                            </div>
                         </div>
-                        <div class="flex flex-col items-center gap-1 admin-icon-btn" onclick="openMenuModal('unggah')">
-                            <div class="w-10 h-10 rounded-full bg-indigo-50 text-indigo-600 flex items-center justify-center text-[14px]"><i class="fa-solid fa-cloud-arrow-up"></i></div>
-                            <span class="text-[8px] font-black text-slate-700">Unggah</span>
+                    </section>
+                </div>
+                
+                <!-- Kolom Kanan Desktop -->
+                <div class="md:col-span-7 lg:col-span-8 space-y-4 mt-4 md:mt-0">
+                    <section class="section-shape bg-blue-50 border-blue-100 flex items-center justify-between gap-3 !mb-0 shadow-sm">
+                        <div class="flex items-center gap-2">
+                            <i class="fa-solid fa-file-pdf text-red-500 text-2xl"></i>
+                            <div>
+                                <span class="text-[10px] font-black text-[#1e3a8a] uppercase tracking-wide block">PDF RESMI LENGKAP</span>
+                                <span class="text-[8px] text-slate-500 font-bold">Cetak rekapitulasi data infaq</span>
+                            </div>
                         </div>
-                        <div class="flex flex-col items-center gap-1 admin-icon-btn" onclick="openMenuModal('nominal')">
-                            <div class="w-10 h-10 rounded-full bg-orange-50 text-[#ea580c] flex items-center justify-center text-[14px]"><i class="fa-solid fa-coins"></i></div>
-                            <span class="text-[8px] font-black text-slate-700">Nominal</span>
-                        </div>
-                        <div class="flex flex-col items-center gap-1 admin-icon-btn" onclick="openMenuModal('akun')">
-                            <div class="w-10 h-10 rounded-full bg-teal-50 text-teal-600 flex items-center justify-center text-[14px]"><i class="fa-solid fa-users-gear"></i></div>
-                            <span class="text-[8px] font-black text-slate-700">Akun</span>
-                        </div>
-                        <div class="flex flex-col items-center gap-1 admin-icon-btn" onclick="openMenuModal('reset')">
-                            <div class="w-10 h-10 rounded-full bg-red-50 text-red-600 flex items-center justify-center text-[14px]"><i class="fa-solid fa-trash-can"></i></div>
-                            <span class="text-[8px] font-black text-slate-700">Reset</span>
-                        </div>
-                    </div>
-                </section>
+                        <button onclick="openAdminPrintModal()" class="bg-[#1e3a8a] text-white px-5 py-2.5 rounded-xl font-black text-[10px] hover:bg-blue-800 transition shadow-md active:scale-95 flex items-center gap-2"><i class="fa-solid fa-print"></i> Pilihan Cetak</button>
+                    </section>
 
-                <section class="section-shape bg-blue-50 border-blue-100 flex items-center justify-between gap-3">
-                    <div class="flex items-center gap-2">
-                        <i class="fa-solid fa-file-pdf text-red-500 text-2xl"></i>
-                        <div>
-                            <span class="text-[10px] font-black text-[#1e3a8a] uppercase tracking-wide block">PDF RESMI LENGKAP</span>
-                            <span class="text-[8px] text-slate-500 font-bold">Cetak rekapitulasi data infaq</span>
+                    <section class="section-shape !mb-0 shadow-sm h-[115px] flex flex-col justify-center">
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="section-title !mb-0">Ringkasan Infaq</span>
+                            <select id="summary-kelas-select" onchange="updateDashboardView()" class="bg-slate-50 border border-slate-200 rounded p-1.5 text-[10px] font-black outline-none focus:border-blue-500 min-w-[100px] cursor-pointer">
+                                <option value="">Pilih Kelas</option>
+                            </select>
                         </div>
-                    </div>
-                    <button onclick="openAdminPrintModal()" class="bg-[#1e3a8a] text-white px-5 py-2.5 rounded-xl font-black text-[10px] hover:bg-blue-800 transition shadow-md active:scale-95 flex items-center gap-2"><i class="fa-solid fa-print"></i> Pilihan Cetak</button>
-                </section>
-
-                <section class="section-shape !mb-0">
-                    <div class="flex items-center justify-between mb-3">
-                        <span class="section-title !mb-0">Ringkasan Infaq</span>
-                        <select id="summary-kelas-select" onchange="updateDashboardView()" class="bg-slate-50 border border-slate-200 rounded p-1.5 text-[10px] font-black outline-none focus:border-blue-500 min-w-[100px]">
-                            <option value="">Pilih Kelas</option>
-                        </select>
-                    </div>
-                    <div class="grid grid-cols-3 gap-2 text-center">
-                        <div class="bg-green-50 p-2 rounded-lg border border-green-100"><p class="text-[8px] font-black text-green-700 uppercase">Masuk</p><h4 id="stat-masuk" class="text-[11px] font-black text-green-900">Rp 0</h4></div>
-                        <div class="bg-red-50 p-2 rounded-lg border border-red-100"><p class="text-[8px] font-black text-red-700 uppercase">Keluar</p><h4 id="stat-keluar" class="text-[11px] font-black text-red-900">Rp 0</h4></div>
-                        <div class="bg-blue-50 p-2 rounded-lg border border-blue-100"><p class="text-[8px] font-black text-blue-700 uppercase">Saldo</p><h4 id="stat-saldo" class="text-[11px] font-black text-blue-900">Rp 0</h4></div>
-                    </div>
-                </section>
+                        <div class="grid grid-cols-3 gap-3 text-center">
+                            <div class="bg-green-50 p-2.5 rounded-lg border border-green-100 shadow-inner"><p class="text-[8px] font-black text-green-700 uppercase">Masuk</p><h4 id="stat-masuk" class="text-[12px] md:text-[14px] font-black text-green-900">Rp 0</h4></div>
+                            <div class="bg-red-50 p-2.5 rounded-lg border border-red-100 shadow-inner"><p class="text-[8px] font-black text-red-700 uppercase">Keluar</p><h4 id="stat-keluar" class="text-[12px] md:text-[14px] font-black text-red-900">Rp 0</h4></div>
+                            <div class="bg-blue-50 p-2.5 rounded-lg border border-blue-100 shadow-inner"><p class="text-[8px] font-black text-blue-700 uppercase">Saldo</p><h4 id="stat-saldo" class="text-[12px] md:text-[14px] font-black text-blue-900">Rp 0</h4></div>
+                        </div>
+                    </section>
+                </div>
+                
             </div>
 
-            <div class="px-3 pt-3 relative z-[10]">
-                <section class="section-shape overflow-hidden px-0 py-0 pb-2 mb-0">
-                    <div class="p-4 border-b border-slate-100 flex justify-between items-center">
+            <div class="relative z-[10]">
+                <section class="section-shape overflow-hidden px-0 py-0 pb-2 mb-0 shadow-sm">
+                    <div class="p-4 border-b border-slate-100 flex justify-between items-center bg-white">
                         <span class="section-title !mb-0">Daftar Infaq Siswa</span>
-                        <span id="label-kelas-aktif" class="text-[9px] font-bold bg-slate-100 text-slate-500 px-2 py-1 rounded">--</span>
+                        <span id="label-kelas-aktif" class="text-[10px] md:text-[11px] font-bold bg-slate-100 text-slate-500 px-3 py-1.5 rounded-lg">--</span>
                     </div>
-                    <div class="search-container">
-                        <i class="fa-solid fa-magnifying-glass search-icon"></i>
-                        <input type="text" id="search-siswa" onkeyup="cariSiswa()" placeholder="Cari nama siswa..." class="search-input">
+                    <div class="search-container bg-white pt-3">
+                        <i class="fa-solid fa-magnifying-glass search-icon top-[22px]"></i>
+                        <input type="text" id="search-siswa" onkeyup="cariSiswa()" placeholder="Cari nama siswa..." class="search-input py-2.5">
                     </div>
-                    <div class="grid grid-cols-6 px-4 py-3 bg-slate-50 border-b border-slate-100 text-[9px] font-black text-slate-500 uppercase">
+                    <div class="grid grid-cols-6 px-4 py-3 bg-slate-50 border-b border-slate-100 text-[9px] md:text-[10px] font-black text-slate-500 uppercase">
                         <span class="col-span-1">No</span>
                         <span class="col-span-3">Nama Siswa</span>
                         <span class="col-span-2 text-right">Infaq</span>
                     </div>
-                    <div id="tabel-siswa-container" class="divide-y divide-slate-100 text-[11px]">
-                        <div class="p-4 text-center text-slate-400 text-[10px] font-bold">Pilih kelas di tabel ringkasan atas.</div>
+                    <div id="tabel-siswa-container" class="divide-y divide-slate-100 text-[11px] md:text-[12px] bg-white">
+                        <div class="p-6 text-center text-slate-400 text-[10px] md:text-[11px] font-bold">Pilih kelas di tabel ringkasan atas.</div>
                     </div>
                 </section>
             </div>
         </main>
     </div>
 
-
     <!-- VIEW 3: WALAS -->
     <div id="view-dashboard-walas" class="hidden w-full min-h-[100dvh] pb-8 relative origin-top font-['Inter'] pt-[60px]" style="background-color: #f8fafc;">
-        <main class="p-3 relative max-w-md mx-auto w-full">
-            <div class="bg-white rounded-2xl p-3 shadow-sm border border-slate-100 flex items-center gap-3 mb-3 mt-2">
-                <img src="TINTA.png" class="w-12 h-auto object-contain" onerror="this.src='https://placehold.co/100x30/ffffff/1e3a8a?text=LOGO'">
-                <div class="flex-1">
-                    <h2 id="walas-nama-kelas" class="text-[14px] font-black text-slate-800 leading-tight">KELAS --</h2>
-                    <p class="text-[9px] font-bold text-slate-500 flex items-center gap-1 mt-0.5"><i class="fa-solid fa-circle-user text-blue-700"></i> <span id="walas-nama-guru">Wali Kelas: ...</span></p>
+        <!-- Container Desktop Lebih Lebar -->
+        <main class="p-3 md:p-6 relative max-w-7xl mx-auto w-full">
+            
+            <div class="bg-white rounded-2xl p-4 shadow-sm border border-slate-100 flex flex-col md:flex-row md:items-center justify-between gap-3 mb-4 mt-2">
+                <div class="flex items-center gap-4">
+                    <img src="TINTA.png" class="w-14 md:w-16 h-auto object-contain" onerror="this.src='https://placehold.co/100x30/ffffff/1e3a8a?text=LOGO'">
+                    <div class="flex-1">
+                        <h2 id="walas-nama-kelas" class="text-[16px] md:text-[18px] font-black text-slate-800 leading-tight">KELAS --</h2>
+                        <p class="text-[10px] md:text-[11px] font-bold text-slate-500 flex items-center gap-1.5 mt-0.5"><i class="fa-solid fa-circle-user text-blue-700"></i> <span id="walas-nama-guru">Wali Kelas: ...</span></p>
+                    </div>
                 </div>
-                <div class="flex gap-1.5">
-                    <button onclick="bukaWAAdmin()" class="px-2.5 py-1.5 rounded-lg border border-green-500 text-green-600 font-black text-[9px] flex items-center gap-1 bg-[#f0fdf4] hover:bg-green-100 transition shadow-sm" title="Hubungi Admin"><i class="fa-brands fa-whatsapp text-[11px]"></i> WA ADMIN</button>
-                    <button onclick="logoutApp('view-dashboard-walas')" class="w-8 h-8 rounded-lg border border-red-500 text-red-500 flex items-center justify-center bg-[#fef2f2] hover:bg-red-100 transition shadow-sm" title="Keluar"><i class="fa-solid fa-power-off text-[13px]"></i></button>
+                <div class="flex gap-2">
+                    <button onclick="bukaWAAdmin()" class="px-3.5 py-2 rounded-xl border border-green-500 text-green-600 font-black text-[10px] flex items-center gap-1.5 bg-[#f0fdf4] hover:bg-green-100 transition shadow-sm" title="Hubungi Admin"><i class="fa-brands fa-whatsapp text-[13px]"></i> WA ADMIN</button>
+                    <button onclick="logoutApp('view-dashboard-walas')" class="w-9 h-9 rounded-xl border border-red-500 text-red-500 flex items-center justify-center bg-[#fef2f2] hover:bg-red-100 transition shadow-sm" title="Keluar"><i class="fa-solid fa-power-off text-[14px]"></i></button>
                 </div>
             </div>
 
-            <div class="grid grid-cols-3 gap-2 mb-3">
-                <div class="bg-[#dcfce7] rounded-xl p-2.5 shadow-sm border border-green-200/50 flex flex-col justify-center items-center">
-                    <div class="flex items-center gap-1 text-green-700 font-bold text-[9px] mb-1">
-                        <div class="w-3.5 h-3.5 rounded-full bg-white/70 flex items-center justify-center"><i class="fa-solid fa-arrow-down text-[7px]"></i></div> MASUK
+            <!-- Grid Responsive untuk Kotak Total & Tombol Aksi -->
+            <div class="md:flex md:gap-5 mb-5 items-stretch">
+                <!-- Kolom Stats (Kiri di Desktop) -->
+                <div class="md:w-3/5 grid grid-cols-3 gap-2.5 mb-3 md:mb-0">
+                    <div class="bg-[#dcfce7] rounded-xl p-3 md:p-4 shadow-sm border border-green-200/50 flex flex-col justify-center items-center h-full">
+                        <div class="flex items-center gap-1 text-green-700 font-bold text-[9px] md:text-[10px] mb-1.5">
+                            <div class="w-4 h-4 rounded-full bg-white/70 flex items-center justify-center"><i class="fa-solid fa-arrow-down text-[8px]"></i></div> MASUK
+                        </div>
+                        <span id="walas-stat-masuk" class="font-black text-green-800 text-[12px] md:text-[15px]">Rp 0</span>
                     </div>
-                    <span id="walas-stat-masuk" class="font-black text-green-800 text-[11px]">Rp 0</span>
-                </div>
-                <div class="bg-[#ffe4e6] rounded-xl p-2.5 shadow-sm border border-red-200/50 flex flex-col justify-center items-center">
-                    <div class="flex items-center gap-1 text-red-700 font-bold text-[9px] mb-1">
-                        <div class="w-3.5 h-3.5 rounded-full bg-white/70 flex items-center justify-center"><i class="fa-solid fa-arrow-up text-[7px]"></i></div> KELUAR
+                    <div class="bg-[#ffe4e6] rounded-xl p-3 md:p-4 shadow-sm border border-red-200/50 flex flex-col justify-center items-center h-full">
+                        <div class="flex items-center gap-1 text-red-700 font-bold text-[9px] md:text-[10px] mb-1.5">
+                            <div class="w-4 h-4 rounded-full bg-white/70 flex items-center justify-center"><i class="fa-solid fa-arrow-up text-[8px]"></i></div> KELUAR
+                        </div>
+                        <span id="walas-stat-keluar" class="font-black text-red-800 text-[12px] md:text-[15px]">Rp 0</span>
                     </div>
-                    <span id="walas-stat-keluar" class="font-black text-red-800 text-[11px]">Rp 0</span>
-                </div>
-                <div class="bg-[#1e3aa8] rounded-xl p-2.5 shadow-md border border-[#1e3aa8] flex flex-col justify-center items-center">
-                    <div class="flex items-center gap-1 text-white font-bold text-[9px] mb-1">
-                        <div class="w-3.5 h-3.5 rounded bg-white/20 flex items-center justify-center"><i class="fa-solid fa-wallet text-[7px]"></i></div> SALDO
+                    <div class="bg-[#1e3aa8] rounded-xl p-3 md:p-4 shadow-md border border-[#1e3aa8] flex flex-col justify-center items-center h-full">
+                        <div class="flex items-center gap-1 text-white font-bold text-[9px] md:text-[10px] mb-1.5">
+                            <div class="w-4 h-4 rounded bg-white/20 flex items-center justify-center"><i class="fa-solid fa-wallet text-[8px]"></i></div> SALDO
+                        </div>
+                        <span id="walas-stat-saldo" class="font-black text-white text-[12px] md:text-[15px]">Rp 0</span>
                     </div>
-                    <span id="walas-stat-saldo" class="font-black text-white text-[11px]">Rp 0</span>
                 </div>
-            </div>
-
-            <div class="grid grid-cols-4 gap-1.5 mb-4">
-                <button onclick="openWalasModal('pengeluaran')" class="walas-btn-action bg-[#ea580c] text-white rounded-xl py-2 px-1 text-[8px] font-bold flex flex-col items-center justify-center gap-1 shadow-sm">
-                    <div class="w-5 h-5 rounded-full bg-white/20 flex items-center justify-center"><i class="fa-solid fa-minus text-[10px]"></i></div>
-                    <span class="text-center leading-tight">CATAT<br>PENGELUARAN</span>
-                </button>
-                <button onclick="openWalasModal('riwayat')" class="walas-btn-action bg-[#f8fafc] text-[#1e3a8a] border border-slate-200 rounded-xl py-2 px-1 text-[8px] font-bold flex flex-col items-center justify-center gap-1 shadow-sm">
-                    <i class="fa-solid fa-clock-rotate-left text-[15px] mb-0.5 text-blue-600"></i>
-                    <span class="text-center leading-tight">RIWAYAT<br>KAS</span>
-                </button>
-                <button onclick="forceSaveDataWalas(this)" class="walas-btn-action bg-[#10b981] text-white rounded-xl py-2 px-1 text-[8px] font-bold flex flex-col items-center justify-center gap-1 shadow-sm relative overflow-hidden">
-                    <i id="icon-sync-walas" class="fa-solid fa-floppy-disk text-[15px] mb-0.5"></i>
-                    <span class="text-center leading-tight">SIMPAN<br>DATA</span>
-                </button>
-                <button onclick="openPrintWalasModal()" class="walas-btn-action bg-[#1e3a8a] text-white rounded-xl py-2 px-1 text-[8px] font-bold flex flex-col items-center justify-center gap-1 shadow-sm">
-                    <i class="fa-solid fa-print text-[15px] mb-0.5"></i>
-                    <span class="text-center leading-tight">CETAK<br>PDF</span>
-                </button>
+                
+                <!-- Kolom Actions (Kanan di Desktop) -->
+                <div class="md:w-2/5 grid grid-cols-4 gap-2">
+                    <button onclick="openWalasModal('pengeluaran')" class="walas-btn-action bg-[#ea580c] text-white rounded-xl py-2 px-1 text-[8px] md:text-[9px] font-bold flex flex-col items-center justify-center gap-1.5 shadow-sm h-full hover:bg-orange-700">
+                        <div class="w-6 h-6 rounded-full bg-white/20 flex items-center justify-center"><i class="fa-solid fa-minus text-[11px]"></i></div>
+                        <span class="text-center leading-tight">CATAT<br>PENGELUARAN</span>
+                    </button>
+                    <button onclick="openWalasModal('riwayat')" class="walas-btn-action bg-[#f8fafc] text-[#1e3a8a] border border-slate-200 rounded-xl py-2 px-1 text-[8px] md:text-[9px] font-bold flex flex-col items-center justify-center gap-1.5 shadow-sm h-full hover:bg-slate-50">
+                        <i class="fa-solid fa-clock-rotate-left text-[18px] md:text-[20px] mb-0.5 text-blue-600"></i>
+                        <span class="text-center leading-tight">RIWAYAT<br>KAS</span>
+                    </button>
+                    <button onclick="forceSaveDataWalas(this)" class="walas-btn-action bg-[#10b981] text-white rounded-xl py-2 px-1 text-[8px] md:text-[9px] font-bold flex flex-col items-center justify-center gap-1.5 shadow-sm relative overflow-hidden h-full hover:bg-emerald-600">
+                        <i id="icon-sync-walas" class="fa-solid fa-floppy-disk text-[18px] md:text-[20px] mb-0.5"></i>
+                        <span class="text-center leading-tight">SIMPAN<br>DATA</span>
+                    </button>
+                    <button onclick="openPrintWalasModal()" class="walas-btn-action bg-[#1e3a8a] text-white rounded-xl py-2 px-1 text-[8px] md:text-[9px] font-bold flex flex-col items-center justify-center gap-1.5 shadow-sm h-full hover:bg-blue-900">
+                        <i class="fa-solid fa-print text-[18px] md:text-[20px] mb-0.5"></i>
+                        <span class="text-center leading-tight">CETAK<br>PDF</span>
+                    </button>
+                </div>
             </div>
 
             <div class="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden">
-                <div class="p-3 border-b border-slate-100 flex justify-between items-center bg-[#fdfdfd]">
-                    <h3 class="text-[10px] font-black text-slate-800 flex items-center gap-1.5"><i class="fa-solid fa-list-check text-slate-400 text-sm"></i> CHECKLIST INFAQ JUMAT</h3>
-                    <button onclick="resetChecklistWalas()" class="bg-[#ef4444] text-white px-2 py-1 rounded text-[8px] font-bold flex items-center gap-1 shadow-sm hover:bg-red-600 transition"><i class="fa-solid fa-trash-can"></i> Reset</button>
+                <div class="p-4 border-b border-slate-100 flex justify-between items-center bg-[#fdfdfd]">
+                    <h3 class="text-[11px] md:text-[13px] font-black text-slate-800 flex items-center gap-2"><i class="fa-solid fa-list-check text-slate-400 text-[16px]"></i> CHECKLIST INFAQ JUMAT</h3>
+                    <button onclick="resetChecklistWalas()" class="bg-[#ef4444] text-white px-3 py-1.5 rounded-lg text-[9px] md:text-[10px] font-bold flex items-center gap-1.5 shadow-sm hover:bg-red-600 transition"><i class="fa-solid fa-trash-can"></i> Reset Papan</button>
                 </div>
                 
-                <div class="table-container custom-scrollbar">
+                <div class="table-container custom-scrollbar w-full">
                     <table class="w-full text-left border-separate border-spacing-0" style="min-width: max-content;">
                         <thead id="walas-table-header-row" class="text-[9px] font-black text-slate-500">
                             <!-- Injected by JS -->
                         </thead>
-                        <tbody id="checklist-tbody" class="text-[10px] font-bold text-slate-700">
+                        <tbody id="checklist-tbody" class="text-[10px] md:text-[11px] font-bold text-slate-700">
                             <!-- Injected by JS -->
                         </tbody>
                     </table>
@@ -467,110 +488,124 @@
 
     <!-- VIEW 4: WARID -->
     <div id="view-dashboard-warid" class="hidden w-full min-h-[100dvh] pb-8 relative origin-top font-['Inter'] pt-[60px]" style="background-color: #f8fafc;">
-        <main class="p-4 relative max-w-md mx-auto w-full">
-            <div class="bg-white rounded-2xl p-4 shadow-sm border border-slate-100 flex items-center justify-between mb-4 mt-2">
-                <div class="flex items-center gap-3">
-                    <div class="w-10 h-10 rounded-full border border-blue-200 bg-blue-50 flex items-center justify-center text-blue-600">
-                        <i class="fa-solid fa-user-graduate"></i>
+        <!-- Container Desktop Lebih Lebar -->
+        <main class="p-4 md:p-8 relative max-w-5xl mx-auto w-full">
+            
+            <div class="md:grid md:grid-cols-2 md:gap-6 mb-6 items-stretch">
+                <!-- Kolom Kiri -->
+                <div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-100 flex items-center justify-between mb-4 md:mb-0 h-full">
+                    <div class="flex items-center gap-4">
+                        <div class="w-12 h-12 rounded-full border border-blue-200 bg-blue-50 flex items-center justify-center text-blue-600 text-lg">
+                            <i class="fa-solid fa-user-graduate"></i>
+                        </div>
+                        <div>
+                            <h2 id="warid-nama-siswa" class="text-[15px] md:text-[18px] font-black text-[#1e3a8a] leading-tight">Nama Siswa</h2>
+                            <p id="warid-info-siswa" class="text-[10px] md:text-[11px] font-bold text-slate-500 mt-1">Kelas -- | No Presensi: --</p>
+                        </div>
                     </div>
-                    <div>
-                        <h2 id="warid-nama-siswa" class="text-[13px] font-black text-[#1e3a8a] leading-tight">Nama Siswa</h2>
-                        <p id="warid-info-siswa" class="text-[9px] font-bold text-slate-500 mt-0.5">Kelas -- | No Presensi: --</p>
-                    </div>
+                    <button onclick="logoutApp('view-dashboard-warid')" class="w-10 h-10 rounded-xl border border-red-500 text-red-500 flex items-center justify-center bg-[#fef2f2] hover:bg-red-100 transition shadow-sm" title="Keluar"><i class="fa-solid fa-power-off text-[15px]"></i></button>
                 </div>
-                <button onclick="logoutApp('view-dashboard-warid')" class="w-8 h-8 rounded-lg border border-red-500 text-red-500 flex items-center justify-center bg-[#fef2f2] hover:bg-red-100 transition shadow-sm" title="Keluar"><i class="fa-solid fa-power-off text-[13px]"></i></button>
-            </div>
 
-            <div class="bg-[#1e3a8a] rounded-2xl p-5 shadow-lg mb-6 relative overflow-hidden">
-                <div class="absolute right-[-10px] top-[-10px] opacity-10 text-[80px]"><i class="fa-solid fa-wallet"></i></div>
-                <p id="teks-total-ananda" class="text-[9px] font-bold text-blue-200 uppercase tracking-widest mb-1 relative z-10">Total Infaq Ananda</p>
-                <h3 id="warid-total-infaq" class="text-2xl font-black text-white relative z-10">Rp 0</h3>
-                <div class="absolute right-4 top-1/2 transform -translate-y-1/2 w-10 h-10 bg-white/20 rounded-full flex items-center justify-center text-white backdrop-blur z-10">
-                    <i class="fa-solid fa-wallet"></i>
+                <!-- Kolom Kanan -->
+                <div class="bg-[#1e3a8a] rounded-2xl p-6 shadow-lg relative overflow-hidden h-full flex flex-col justify-center">
+                    <div class="absolute right-[-10px] top-[-10px] opacity-10 text-[90px]"><i class="fa-solid fa-wallet"></i></div>
+                    <p id="teks-total-ananda" class="text-[10px] font-bold text-blue-200 uppercase tracking-widest mb-1.5 relative z-10">Total Infaq Ananda</p>
+                    <h3 id="warid-total-infaq" class="text-3xl font-black text-white relative z-10">Rp 0</h3>
+                    <div class="absolute right-5 top-1/2 transform -translate-y-1/2 w-12 h-12 bg-white/20 rounded-full flex items-center justify-center text-white backdrop-blur z-10 text-xl">
+                        <i class="fa-solid fa-wallet"></i>
+                    </div>
                 </div>
             </div>
 
             <div class="mb-4 flex items-center gap-2">
                 <i class="fa-solid fa-calendar-days text-slate-400"></i>
-                <h3 class="text-[11px] font-black text-slate-700 tracking-wider">KALENDER RIWAYAT INFAQ</h3>
+                <h3 class="text-[11px] md:text-[12px] font-black text-slate-700 tracking-wider">KALENDER RIWAYAT INFAQ</h3>
             </div>
 
+            <!-- Di desktop otomatis merentang karena flexbox overflow -->
             <div id="warid-calendar-container" class="space-y-4">
                 <!-- Data Bulanan Diinjeksi via JS -->
             </div>
 
-            <div class="mt-8 flex items-center justify-center gap-1.5 text-center px-4">
-                <i class="fa-solid fa-shield-halved text-green-500 text-[10px]"></i>
-                <p class="text-[8px] font-bold text-slate-400">Data diverifikasi & terhubung langsung dengan wali kelas.</p>
+            <div class="mt-10 flex items-center justify-center gap-2 text-center px-4 bg-slate-50 py-3 rounded-xl border border-slate-200">
+                <i class="fa-solid fa-shield-halved text-green-500 text-[12px]"></i>
+                <p class="text-[9px] md:text-[10px] font-bold text-slate-500">Data ini diverifikasi & terhubung langsung secara realtime dengan Wali Kelas.</p>
             </div>
         </main>
     </div>
 
     <!-- TOAST TENGAH ATAS -->
     <div id="toast" class="fixed top-[75px] left-1/2 transform -translate-x-1/2 -translate-y-5 bg-slate-800 text-white rounded-full px-4 py-2 opacity-0 pointer-events-none transition-all duration-300 z-[9999] shadow-lg flex items-center gap-2 border border-slate-700">
-        <i id="toastIcon" class="fa-solid fa-circle-info text-blue-400 text-[12px]"></i> <span id="toastContent" class="text-[10px] font-bold tracking-wide">Data terbaru dimuat</span>
+        <i id="toastIcon" class="fa-solid fa-circle-info text-blue-400 text-[12px]"></i> <span id="toastContent" class="text-[10px] md:text-[11px] font-bold tracking-wide">Data terbaru dimuat</span>
     </div>
 
     <!-- FUN POPUP (SWEET ALERT CUSTOM) -->
     <div id="fun-popup-overlay" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-[99999] flex justify-center items-center opacity-0 pointer-events-none transition-opacity duration-300 px-4">
-        <div id="fun-popup-card" class="bg-white rounded-3xl p-6 pt-8 max-w-[280px] w-full transform scale-75 opacity-0 transition-all duration-300 text-center relative mt-8 border-2 shadow-2xl">
+        <div id="fun-popup-card" class="bg-white rounded-3xl p-6 pt-8 max-w-[300px] w-full transform scale-75 opacity-0 transition-all duration-300 text-center relative mt-8 border-2 shadow-2xl">
             <div id="fun-popup-icon" class="absolute -top-8 left-1/2 transform -translate-x-1/2 text-[55px] drop-shadow-[0_10px_10px_rgba(0,0,0,0.2)] z-10 whitespace-nowrap animate-bounce">🚀</div>
-            <h3 id="fun-popup-title" class="text-[17px] font-black text-slate-800 mb-1 mt-2">Judul</h3>
-            <p id="fun-popup-msg" class="text-[11px] font-bold text-slate-500 mb-5 leading-relaxed">Pesan</p>
-            <button onclick="closeFunPop()" id="fun-popup-btn" class="w-full py-3.5 rounded-xl font-black text-[12px] text-white shadow-lg transition transform active:scale-95">OKE</button>
+            <h3 id="fun-popup-title" class="text-[17px] md:text-[19px] font-black text-slate-800 mb-1 mt-2">Judul</h3>
+            <p id="fun-popup-msg" class="text-[11px] md:text-[12px] font-bold text-slate-500 mb-5 leading-relaxed">Pesan</p>
+            <button onclick="closeFunPop()" id="fun-popup-btn" class="w-full py-3.5 rounded-xl font-black text-[12px] md:text-[13px] text-white shadow-lg transition transform active:scale-95 cursor-pointer">OKE</button>
         </div>
+    </div>
+
+    <!-- LOADING SCREEN PUTIH KETIKA CETAK PDF -->
+    <div id="loading-pdf-overlay" class="fixed inset-0 bg-white z-[999999] flex flex-col justify-center items-center opacity-0 pointer-events-none transition-opacity duration-300">
+        <div class="w-16 h-16 border-4 border-slate-100 border-t-[#1e3a8a] rounded-full animate-spin mb-6"></div>
+        <h2 class="text-xl font-black text-[#1e3a8a] tracking-widest mb-2 uppercase">Menyiapkan Dokumen...</h2>
+        <p class="text-xs font-bold text-slate-500">Mohon tunggu, sedang menyusun tabel dan memuat KOP Resmi.</p>
     </div>
 
     <!-- POPUP WELCOME KHUSUS (ONBOARDING) -->
     <div id="welcome-popup-overlay" class="fixed inset-0 bg-slate-900/80 backdrop-blur-md z-[999999] flex justify-center items-center opacity-0 pointer-events-none transition-opacity duration-500 px-4">
-        <div class="bg-white rounded-3xl p-6 max-w-[340px] w-full transform scale-95 transition-transform duration-500 relative overflow-hidden shadow-[0_20px_60px_rgba(0,0,0,0.4)]">
+        <div class="bg-white rounded-3xl p-6 max-w-[360px] w-full transform scale-95 transition-transform duration-500 relative overflow-hidden shadow-[0_20px_60px_rgba(0,0,0,0.4)]">
             <div class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-blue-600 to-[#ea580c]"></div>
             <div class="text-center mb-5 mt-2">
                 <div class="w-16 h-16 bg-blue-50 text-blue-600 rounded-2xl flex items-center justify-center text-3xl mx-auto mb-3 shadow-inner border border-blue-100"><i class="fa-solid fa-rocket"></i></div>
-                <h2 class="text-[18px] font-black text-slate-800">Selamat Datang di TINTA!</h2>
-                <p class="text-[11px] font-bold text-slate-500 mt-1">Sistem Tabungan Infaq Terpadu Level Dewa 🚀</p>
+                <h2 class="text-[18px] md:text-[20px] font-black text-slate-800">Selamat Datang di TINTA!</h2>
+                <p class="text-[11px] md:text-[12px] font-bold text-slate-500 mt-1">Sistem Tabungan Infaq Terpadu Level Dewa 🚀</p>
             </div>
             <div class="space-y-3 mb-6">
                 <div class="flex items-start gap-3 bg-slate-50 p-3 rounded-xl border border-slate-100">
                     <div class="w-8 h-8 rounded-full bg-green-100 text-green-600 flex items-center justify-center shrink-0"><i class="fa-solid fa-bolt"></i></div>
-                    <div><h4 class="text-[11px] font-black text-slate-700">Kecepatan Cahaya</h4><p class="text-[9px] text-slate-500 font-medium">Navigasi instan tanpa loading muter-muter yang bikin emosi.</p></div>
+                    <div><h4 class="text-[11px] font-black text-slate-700">Kecepatan Cahaya</h4><p class="text-[9px] md:text-[10px] text-slate-500 font-medium">Navigasi instan tanpa loading muter-muter yang bikin emosi.</p></div>
                 </div>
                 <div class="flex items-start gap-3 bg-slate-50 p-3 rounded-xl border border-slate-100">
                     <div class="w-8 h-8 rounded-full bg-orange-100 text-[#ea580c] flex items-center justify-center shrink-0"><i class="fa-solid fa-print"></i></div>
-                    <div><h4 class="text-[11px] font-black text-slate-700">Cetak PDF Otomatis</h4><p class="text-[9px] text-slate-500 font-medium">Laporan KOP resmi 2 kolom anti-terpotong (Native Print).</p></div>
+                    <div><h4 class="text-[11px] font-black text-slate-700">Cetak PDF Otomatis</h4><p class="text-[9px] md:text-[10px] text-slate-500 font-medium">Laporan KOP resmi 2 kolom hemat kertas (Native Print).</p></div>
                 </div>
                 <div class="flex items-start gap-3 bg-slate-50 p-3 rounded-xl border border-slate-100">
                     <div class="w-8 h-8 rounded-full bg-purple-100 text-purple-600 flex items-center justify-center shrink-0"><i class="fa-solid fa-shield-halved"></i></div>
-                    <div><h4 class="text-[11px] font-black text-slate-700">Database Canggih</h4><p class="text-[9px] text-slate-500 font-medium">Data aman tersinkronisasi realtime ke server Google.</p></div>
+                    <div><h4 class="text-[11px] font-black text-slate-700">Database Canggih</h4><p class="text-[9px] md:text-[10px] text-slate-500 font-medium">Data aman tersinkronisasi realtime ke server Google.</p></div>
                 </div>
             </div>
-            <button onclick="closeWelcomePopup()" class="w-full py-3.5 bg-gradient-to-r from-[#1e3a8a] to-[#3b82f6] text-white rounded-xl font-black text-[12px] shadow-lg hover:shadow-xl transition-all active:scale-95">MULAI PENGALAMAN BARU</button>
+            <button onclick="closeWelcomePopup()" class="w-full py-3.5 bg-gradient-to-r from-[#1e3a8a] to-[#3b82f6] text-white rounded-xl font-black text-[12px] md:text-[13px] shadow-lg hover:shadow-xl transition-all active:scale-95 cursor-pointer">MULAI PENGALAMAN BARU</button>
         </div>
     </div>
 
     <!-- POPUP INSTALL INSTAN (PWA) -->
     <div id="install-popup-overlay" class="fixed inset-0 bg-slate-900/70 backdrop-blur-sm z-[999998] flex justify-center items-end sm:items-center opacity-0 pointer-events-none transition-opacity duration-300 sm:px-4 pb-4 sm:pb-0">
-        <div class="bg-white rounded-[2rem] sm:rounded-3xl p-6 w-full max-w-[340px] transform translate-y-10 sm:translate-y-0 sm:scale-95 transition-all duration-300 relative shadow-2xl">
-            <button onclick="closeInstallPopup()" class="absolute top-4 right-4 w-7 h-7 bg-slate-100 text-slate-400 rounded-full flex items-center justify-center hover:bg-slate-200 transition"><i class="fa-solid fa-xmark text-[10px]"></i></button>
+        <div class="bg-white rounded-[2rem] sm:rounded-3xl p-6 w-full max-w-[360px] transform translate-y-10 sm:translate-y-0 sm:scale-95 transition-all duration-300 relative shadow-2xl">
+            <button onclick="closeInstallPopup()" class="absolute top-4 right-4 w-7 h-7 bg-slate-100 text-slate-400 rounded-full flex items-center justify-center hover:bg-slate-200 transition cursor-pointer"><i class="fa-solid fa-xmark text-[11px]"></i></button>
             <div class="flex items-center gap-4 mb-4 mt-2">
-                <img src="TINTA.png" class="w-14 h-14 object-contain drop-shadow" onerror="this.src='https://placehold.co/100x100/ffffff/1e3a8a?text=TINTA'">
+                <img src="TINTA.png" class="w-14 md:w-16 h-14 md:h-16 object-contain drop-shadow" onerror="this.src='https://placehold.co/100x100/ffffff/1e3a8a?text=TINTA'">
                 <div>
-                    <h3 class="text-[15px] font-black text-slate-800 leading-tight">Install TINTA App</h3>
-                    <p class="text-[10px] font-bold text-slate-500 mt-0.5">Akses secepat kilat (Fullscreen)</p>
+                    <h3 class="text-[16px] md:text-[18px] font-black text-slate-800 leading-tight">Install TINTA App</h3>
+                    <p class="text-[10px] md:text-[11px] font-bold text-slate-500 mt-0.5">Akses secepat kilat (Fullscreen)</p>
                 </div>
             </div>
-            <p class="text-[11px] text-slate-600 mb-5 font-medium leading-relaxed">Pasang aplikasi TINTA di layar utama perangkat Anda untuk pengalaman super cepat tanpa gangguan browser!</p>
-            <button onclick="triggerNativeInstall()" class="w-full py-3.5 bg-gradient-to-r from-[#10b981] to-[#059669] text-white rounded-xl font-black text-[12px] shadow-[0_4px_15px_rgba(16,185,129,0.3)] hover:shadow-[0_6px_20px_rgba(16,185,129,0.4)] transition-all active:scale-95 flex items-center justify-center gap-2"><i class="fa-solid fa-download"></i> INSTALL SEKARANG (INSTAN)</button>
+            <p class="text-[11px] md:text-[12px] text-slate-600 mb-5 font-medium leading-relaxed">Pasang aplikasi TINTA di layar utama perangkat Anda untuk pengalaman super cepat tanpa gangguan browser!</p>
+            <button onclick="triggerNativeInstall()" class="w-full py-3.5 bg-gradient-to-r from-[#10b981] to-[#059669] text-white rounded-xl font-black text-[12px] md:text-[13px] shadow-[0_4px_15px_rgba(16,185,129,0.3)] hover:shadow-[0_6px_20px_rgba(16,185,129,0.4)] transition-all active:scale-95 flex items-center justify-center gap-2 cursor-pointer"><i class="fa-solid fa-download"></i> INSTALL SEKARANG (INSTAN)</button>
         </div>
     </div>
 
     <!-- MODAL POPUP GLOBAL (POSISI TENGAH) -->
     <div id="global-modal" class="modal-overlay">
-        <div class="modal-content relative bg-white">
-            <button onclick="closeModal()" class="absolute top-4 right-4 w-6 h-6 rounded-full bg-slate-100 text-slate-400 hover:text-slate-600 hover:bg-slate-200 flex justify-center items-center z-50 transition-colors"><i class="fa-solid fa-xmark text-xs"></i></button>
+        <div class="modal-content relative bg-white max-w-[420px]">
+            <button onclick="closeModal()" class="absolute top-4 right-4 w-7 h-7 rounded-full bg-slate-100 text-slate-400 hover:text-slate-600 hover:bg-slate-200 flex justify-center items-center z-50 transition-colors cursor-pointer"><i class="fa-solid fa-xmark text-xs"></i></button>
             <div id="modal-header" class="mb-5 text-center px-4">
-                <h3 id="modal-title" class="text-[15px] font-black text-[#1e3a8a] uppercase tracking-wide">Judul Modal</h3>
-                <p id="modal-desc" class="text-[10px] font-medium text-slate-500 mt-1 hidden">Deskripsi modal</p>
+                <h3 id="modal-title" class="text-[15px] md:text-[17px] font-black text-[#1e3a8a] uppercase tracking-wide">Judul Modal</h3>
+                <p id="modal-desc" class="text-[10px] md:text-[11px] font-medium text-slate-500 mt-1 hidden">Deskripsi modal</p>
             </div>
             <div id="modal-body" class="flex-1 overflow-hidden flex flex-col"></div>
         </div>
@@ -578,14 +613,14 @@
 
     <!-- CUSTOM CONFIRM MODAL (UNTUK HAPUS/RESET DI CANVAS) -->
     <div id="custom-confirm-overlay" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-[99999] flex justify-center items-center opacity-0 pointer-events-none transition-opacity duration-300 px-4">
-        <div class="bg-white rounded-2xl p-6 shadow-2xl max-w-[320px] w-full transform scale-95 transition-transform duration-300 text-center relative overflow-hidden">
+        <div class="bg-white rounded-2xl p-6 shadow-2xl max-w-[340px] w-full transform scale-95 transition-transform duration-300 text-center relative overflow-hidden">
             <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-red-500 to-orange-500"></div>
             <div class="w-14 h-14 rounded-full bg-red-50 text-red-500 flex items-center justify-center text-2xl mx-auto mb-4 border border-red-100"><i class="fa-solid fa-triangle-exclamation"></i></div>
-            <h3 class="text-[15px] font-black text-slate-800 mb-2">KONFIRMASI</h3>
-            <p id="cc-msg" class="text-[11px] font-bold text-slate-500 mb-6 leading-relaxed">Pesan konfirmasi</p>
+            <h3 class="text-[15px] md:text-[17px] font-black text-slate-800 mb-2">KONFIRMASI</h3>
+            <p id="cc-msg" class="text-[11px] md:text-[12px] font-bold text-slate-500 mb-6 leading-relaxed">Pesan konfirmasi</p>
             <div class="flex gap-2">
-                <button class="flex-1 py-3 rounded-xl border border-slate-200 text-slate-500 font-bold text-[11px] hover:bg-slate-50 transition" onclick="closeCustomConfirm()">BATAL</button>
-                <button class="flex-1 py-3 rounded-xl bg-red-500 text-white font-bold text-[11px] hover:bg-red-600 transition shadow-md" id="cc-btn-yes">LANJUTKAN</button>
+                <button class="flex-1 py-3 rounded-xl border border-slate-200 text-slate-500 font-bold text-[11px] hover:bg-slate-50 transition cursor-pointer" onclick="closeCustomConfirm()">BATAL</button>
+                <button class="flex-1 py-3 rounded-xl bg-red-500 text-white font-bold text-[11px] hover:bg-red-600 transition shadow-md cursor-pointer" id="cc-btn-yes">LANJUTKAN</button>
             </div>
         </div>
     </div>
@@ -620,13 +655,11 @@
 
         // --- SISTEM PENYAMBUTAN (ONBOARDING) & INSTALL ---
         window.addEventListener('DOMContentLoaded', () => {
-            setTimeout(() => {
-                if(!sessionStorage.getItem('tinta_welcomed')) {
-                    showWelcomePopup();
-                } else {
-                    checkAndShowInstall();
-                }
-            }, 600);
+            if(!sessionStorage.getItem('tinta_welcomed')) {
+                showWelcomePopup();
+            } else {
+                checkAndShowInstall();
+            }
         });
 
         function showWelcomePopup() {
@@ -677,6 +710,8 @@
         DAFTAR_KELAS.forEach(k => DB.nominalDefault[k] = 50000);
 
         let academicWeeks = [];
+        
+        // AUTO KALENDER GENERATOR: Cari Jumat Pertama Bulan Juli Terdekat
         function generateAcademicWeeks() {
             let currentDate = new Date();
             let year = currentDate.getFullYear();
@@ -708,19 +743,26 @@
         generateAcademicWeeks();
 
         const pastelColors = {
-            "Jul": { bg: "bg-[#fdf4ff]", border: "border-[#f0abfc]", hexBg: "#fdf4ff", hexBorder: "#f0abfc" }, 
-            "Agt": { bg: "bg-[#fff7ed]", border: "border-[#fdba74]", hexBg: "#fff7ed", hexBorder: "#fdba74" }, 
-            "Sep": { bg: "bg-[#f0fdf4]", border: "border-[#86efac]", hexBg: "#f0fdf4", hexBorder: "#86efac" }, 
-            "Okt": { bg: "bg-[#fef2f2]", border: "border-[#fca5a5]", hexBg: "#fef2f2", hexBorder: "#fca5a5" }, 
-            "Nov": { bg: "bg-[#f0f9ff]", border: "border-[#7dd3fc]", hexBg: "#f0f9ff", hexBorder: "#7dd3fc" }, 
-            "Des": { bg: "bg-[#fefce8]", border: "border-[#fde047]", hexBg: "#fefce8", hexBorder: "#fde047" }, 
-            "Jan": { bg: "bg-[#faf5ff]", border: "border-[#d8b4fe]", hexBg: "#faf5ff", hexBorder: "#d8b4fe" }, 
-            "Feb": { bg: "bg-[#f0fdfa]", border: "border-[#5eead4]", hexBg: "#f0fdfa", hexBorder: "#5eead4" }, 
-            "Mar": { bg: "bg-[#fff1f2]", border: "border-[#fda4af]", hexBg: "#fff1f2", hexBorder: "#fda4af" }, 
-            "Apr": { bg: "bg-[#eff6ff]", border: "border-[#93c5fd]", hexBg: "#eff6ff", hexBorder: "#93c5fd" }, 
-            "Mei": { bg: "bg-[#ecfdf5]", border: "border-[#6ee7b7]", hexBg: "#ecfdf5", hexBorder: "#6ee7b7" }, 
-            "Jun": { bg: "bg-[#f5f3ff]", border: "border-[#c4b5fd]", hexBg: "#f5f3ff", hexBorder: "#c4b5fd" }  
+            "Jul": { bg: "bg-[#fdf4ff]", border: "border-[#f0abfc]", hexBg: "#fdf4ff", hexBorder: "#f0abfc", bgBase: "#fdf4ff" }, 
+            "Agt": { bg: "bg-[#fff7ed]", border: "border-[#fdba74]", hexBg: "#fff7ed", hexBorder: "#fdba74", bgBase: "#fff7ed" }, 
+            "Sep": { bg: "bg-[#f0fdf4]", border: "border-[#86efac]", hexBg: "#f0fdf4", hexBorder: "#86efac", bgBase: "#f0fdf4" }, 
+            "Okt": { bg: "bg-[#fef2f2]", border: "border-[#fca5a5]", hexBg: "#fef2f2", hexBorder: "#fca5a5", bgBase: "#fef2f2" }, 
+            "Nov": { bg: "bg-[#f0f9ff]", border: "border-[#7dd3fc]", hexBg: "#f0f9ff", hexBorder: "#7dd3fc", bgBase: "#f0f9ff" }, 
+            "Des": { bg: "bg-[#fefce8]", border: "border-[#fde047]", hexBg: "#fefce8", hexBorder: "#fde047", bgBase: "#fefce8" }, 
+            "Jan": { bg: "bg-[#faf5ff]", border: "border-[#d8b4fe]", hexBg: "#faf5ff", hexBorder: "#d8b4fe", bgBase: "#faf5ff" }, 
+            "Feb": { bg: "bg-[#f0fdfa]", border: "border-[#5eead4]", hexBg: "#f0fdfa", hexBorder: "#5eead4", bgBase: "#f0fdfa" }, 
+            "Mar": { bg: "bg-[#fff1f2]", border: "border-[#fda4af]", hexBg: "#fff1f2", hexBorder: "#fda4af", bgBase: "#fff1f2" }, 
+            "Apr": { bg: "bg-[#eff6ff]", border: "border-[#93c5fd]", hexBg: "#eff6ff", hexBorder: "#93c5fd", bgBase: "#eff6ff" }, 
+            "Mei": { bg: "bg-[#ecfdf5]", border: "border-[#6ee7b7]", hexBg: "#ecfdf5", hexBorder: "#6ee7b7", bgBase: "#ecfdf5" }, 
+            "Jun": { bg: "bg-[#f5f3ff]", border: "border-[#c4b5fd]", hexBg: "#f5f3ff", hexBorder: "#c4b5fd", bgBase: "#f5f3ff" }  
         };
+
+        // Fungsi Belang-Belang Background PDF
+        function getMonthBg(mKey) {
+            const arr = ["Jul", "Agt", "Sep", "Okt", "Nov", "Des", "Jan", "Feb", "Mar", "Apr", "Mei", "Jun"];
+            const idx = arr.indexOf(mKey);
+            return idx % 2 === 0 ? "#ffffff" : "#f8fafc";
+        }
 
         let kelasWalasAktif = ""; let kelasWaridAktif = ""; let siswaWaridIdx = -1; let checklistState = {}; let tempPengeluaranRows = []; let excelPayload = null; 
         let onConfirmAction = null;
@@ -803,7 +845,7 @@
 
         function updateDashboardView() {
             const kelas = document.getElementById('summary-kelas-select').value; const container = document.getElementById('tabel-siswa-container'); const labelKelas = document.getElementById('label-kelas-aktif'); document.getElementById('search-siswa').value = ''; 
-            if(!kelas) { document.getElementById('stat-masuk').innerText = 'Rp 0'; document.getElementById('stat-keluar').innerText = 'Rp 0'; document.getElementById('stat-saldo').innerText = 'Rp 0'; labelKelas.innerText = '--'; container.innerHTML = `<div class="p-4 text-center text-slate-400 text-[10px] font-bold">Pilih kelas di tabel ringkasan atas.</div>`; return; }
+            if(!kelas) { document.getElementById('stat-masuk').innerText = 'Rp 0'; document.getElementById('stat-keluar').innerText = 'Rp 0'; document.getElementById('stat-saldo').innerText = 'Rp 0'; labelKelas.innerText = '--'; container.innerHTML = `<div class="p-6 text-center text-slate-400 text-[10px] md:text-[11px] font-bold">Pilih kelas di tabel ringkasan atas.</div>`; return; }
             
             labelKelas.innerText = kelas + " (Memuat...)";
             fetchKelasData(kelas).then(() => {
@@ -817,11 +859,11 @@
                 let totalKeluar = DB.pengeluaran[kelas] || 0; let saldo = totalMasuk - totalKeluar;
                 document.getElementById('stat-masuk').innerText = "Rp " + formatRp(totalMasuk); document.getElementById('stat-keluar').innerText = "Rp " + formatRp(totalKeluar); document.getElementById('stat-saldo').innerText = "Rp " + formatRp(saldo);
 
-                if(dataKelas.length === 0) { container.innerHTML = `<div class="p-4 text-center text-slate-400 text-[10px] font-bold">Belum ada data siswa.</div>`; return; }
+                if(dataKelas.length === 0) { container.innerHTML = `<div class="p-6 text-center text-slate-400 text-[10px] md:text-[11px] font-bold">Belum ada data siswa.</div>`; return; }
                 let html = '';
                 dataKelas.forEach((s, idx) => {
                     const isLunas = s.infaq > 0; const colorClass = isLunas ? 'text-green-600' : 'text-slate-400';
-                    html += `<div class="grid grid-cols-6 px-4 py-4 item-siswa-admin transition hover:bg-slate-50"><span class="col-span-1 font-black text-slate-400">${String(s.no || idx+1).padStart(2, '0')}</span><span class="col-span-3 font-bold text-slate-800 nama-siswa-admin">${s.nama || s.class}</span><span class="col-span-2 text-right font-black ${colorClass}">Rp ${formatRp(s.infaq)}</span></div>`;
+                    html += `<div class="grid grid-cols-6 px-4 py-4 item-siswa-admin transition hover:bg-slate-50 border-b border-slate-50 last:border-0"><span class="col-span-1 font-black text-slate-400">${String(s.no || idx+1).padStart(2, '0')}</span><span class="col-span-3 font-bold text-slate-800 nama-siswa-admin"><div class="bg-blue-50 text-blue-700 px-2.5 py-0.5 rounded inline-block truncate max-w-full">${s.nama || s.class}</div></span><span class="col-span-2 text-right font-black ${colorClass}">Rp ${formatRp(s.infaq)}</span></div>`;
                 });
                 container.innerHTML = html;
             });
@@ -866,7 +908,7 @@
                     <div class="absolute left-0 top-0 bottom-0 w-1 bg-slate-200 group-hover:bg-blue-400 transition-colors input-indicator"></div>
                     <div class="flex items-center gap-3 pl-2">
                         <div class="w-8 h-8 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center transition-colors"><i class="fa-solid fa-users"></i></div>
-                        <span class="font-bold text-[12px] text-slate-700">Kelas ${k}</span>
+                        <span class="font-bold text-[12px] md:text-[13px] text-slate-700">Kelas ${k}</span>
                     </div>
                     <input type="checkbox" value="${k}" class="cb-admin-print w-5 h-5 accent-blue-600 rounded cursor-pointer" onchange="checkHighlight(this)">
                 </label>`;
@@ -875,13 +917,13 @@
             body.innerHTML = `
                 <div class="flex flex-col h-full max-h-[60vh]">
                     <div class="mb-3 flex items-center justify-between bg-slate-50 p-3 rounded-xl border border-slate-200">
-                        <span class="text-[11px] font-black text-slate-700">PILIH SEMUA KELAS</span>
+                        <span class="text-[11px] md:text-[12px] font-black text-slate-700">PILIH SEMUA KELAS</span>
                         <input type="checkbox" class="w-5 h-5 accent-blue-600 rounded cursor-pointer" id="cb-admin-all" onchange="toggleAllAdminPrint(this.checked)">
                     </div>
                     <div class="flex-1 overflow-y-auto custom-scrollbar pr-1 mb-3">
                         ${listHtml}
                     </div>
-                    <button onclick="prosesCetakAdmin()" class="w-full bg-[#1e3a8a] text-white py-3.5 rounded-xl font-black text-[12px] shadow-md hover:bg-blue-900 transition flex items-center justify-center gap-2"><i class="fa-solid fa-print"></i> CETAK REKAP SEKARANG</button>
+                    <button onclick="prosesCetakAdmin()" class="w-full bg-[#1e3a8a] text-white py-3.5 rounded-xl font-black text-[12px] md:text-[13px] shadow-md hover:bg-blue-900 transition flex items-center justify-center gap-2 cursor-pointer"><i class="fa-solid fa-print"></i> CETAK REKAP SEKARANG</button>
                 </div>
             `;
             modal.classList.add('active');
@@ -896,13 +938,13 @@
                 listSiswa += `
                 <label class="flex items-center justify-between p-3 bg-white border border-slate-200 rounded-xl cursor-pointer hover:border-orange-400 transition-all mb-2 shadow-sm relative overflow-hidden group">
                     <div class="absolute left-0 top-0 bottom-0 w-1 bg-slate-200 group-hover:bg-orange-400 transition-colors input-indicator"></div>
-                    <div class="flex items-center gap-3 pl-2">
-                        <div class="w-8 h-8 rounded-full bg-orange-50 text-orange-600 flex items-center justify-center"><i class="fa-solid fa-user-graduate text-[10px]"></i></div>
-                        <div class="flex flex-col">
-                            <span class="font-black text-[11px] text-slate-700">${String(s.no || i+1).padStart(2, '0')}. ${s.nama || s.class}</span>
+                    <div class="flex items-center gap-3 pl-2 w-full pr-3">
+                        <div class="w-8 h-8 flex-shrink-0 rounded-full bg-orange-50 text-orange-600 flex items-center justify-center"><i class="fa-solid fa-user-graduate text-[11px]"></i></div>
+                        <div class="flex flex-col overflow-hidden w-full">
+                            <span class="font-black text-[11px] md:text-[12px] text-slate-700 truncate">${String(s.no || i+1).padStart(2, '0')}. ${s.nama || s.class}</span>
                         </div>
                     </div>
-                    <input type="checkbox" value="${i}" class="cb-walas-print w-5 h-5 accent-orange-600 rounded cursor-pointer" onchange="checkHighlightWalas(this)">
+                    <input type="checkbox" value="${i}" class="cb-walas-print w-5 h-5 accent-orange-600 rounded cursor-pointer flex-shrink-0" onchange="checkHighlightWalas(this)">
                 </label>
                 `;
             });
@@ -910,15 +952,15 @@
             body.innerHTML = `
                 <div class="flex flex-col h-full max-h-[70vh]">
                     <div class="mb-3 flex items-center justify-between bg-slate-50 p-3 rounded-xl border border-slate-200">
-                        <span class="text-[11px] font-black text-slate-700">PILIH SEMUA SISWA</span>
+                        <span class="text-[11px] md:text-[12px] font-black text-slate-700">PILIH SEMUA SISWA</span>
                         <input type="checkbox" class="w-5 h-5 accent-orange-600 rounded cursor-pointer" id="cb-walas-all" onchange="toggleAllWalasPrint(this.checked)">
                     </div>
                     <div class="flex-1 overflow-y-auto custom-scrollbar pr-1 mb-4 border-b border-slate-100 pb-2">
                         ${listSiswa || '<p class="text-center text-[10px] font-bold text-slate-400">Belum ada siswa</p>'}
                     </div>
                     <div class="flex gap-2">
-                        <button onclick="prosesCetakWalasRekap()" class="flex-1 bg-[#1e3a8a] text-white py-3.5 rounded-xl font-black text-[10px] shadow-md hover:bg-blue-900 transition flex flex-col items-center justify-center gap-1 leading-tight"><i class="fa-solid fa-table text-[14px]"></i> 1. CETAK REKAP KELAS</button>
-                        <button onclick="prosesCetakWalasSiswa()" class="flex-1 bg-[#ea580c] text-white py-3.5 rounded-xl font-black text-[10px] shadow-md hover:bg-orange-700 transition flex flex-col items-center justify-center gap-1 leading-tight"><i class="fa-solid fa-file-pdf text-[14px]"></i> 2. CETAK LAPORAN SISWA</button>
+                        <button onclick="prosesCetakWalasRekap()" class="flex-1 bg-[#1e3a8a] text-white py-3.5 rounded-xl font-black text-[10px] md:text-[11px] shadow-md hover:bg-blue-900 transition flex flex-col items-center justify-center gap-1.5 leading-tight cursor-pointer"><i class="fa-solid fa-table text-[15px]"></i> 1. CETAK REKAP SELURUH KELAS</button>
+                        <button onclick="prosesCetakWalasSiswa()" class="flex-1 bg-[#ea580c] text-white py-3.5 rounded-xl font-black text-[10px] md:text-[11px] shadow-md hover:bg-orange-700 transition flex flex-col items-center justify-center gap-1.5 leading-tight cursor-pointer"><i class="fa-solid fa-file-pdf text-[15px]"></i> 2. CETAK LAPORAN SISWA</button>
                     </div>
                 </div>
             `;
@@ -935,34 +977,23 @@
             });
         }
 
-        // MESIN NATIVE PRINT BYPASS SANDBOX (MEMBUKA TAB BARU JIKA DIBLOKIR)
+        // MESIN NATIVE PRINT TABS (Buka di Tab Baru menghindari Canvas Sandbox)
         async function executeNativePrint(filename, htmlContent) {
             closeModal();
-            const container = document.getElementById('pdf-render-container');
-            container.innerHTML = htmlContent;
-            const originalTitle = document.title;
-            document.title = filename;
-
-            sweetPop('success', 'Menyiapkan Dokumen...', ['Sistem sedang menata kertas dan KOP. Mohon tunggu! 🚀', 'Sabar ya bosku, tabel sedang dirapihkan! ⚡']);
-
-            // TUNGGU KOP 100% TERLOAD
+            const overlay = document.getElementById('loading-pdf-overlay');
+            overlay.classList.remove('opacity-0', 'pointer-events-none');
+            
+            // TUNGGU KOP 100% TERLOAD AGAR TIDAK BLANK
             await preloadImagesAndPrint();
 
             setTimeout(() => {
-                try {
-                    window.print();
-                    document.title = originalTitle; container.innerHTML = ''; closeFunPop();
-                } catch(e) {
-                    // JURUS BYPASS SANDBOX! Buka di Tab Baru jika Canvas memblokir fungsi window.print
-                    const newWin = window.open('', '_blank');
-                    if(newWin) {
-                        newWin.document.write(`<html><head><title>${filename}</title><style>${document.querySelector('style').innerHTML}</style></head><body onload="window.print(); window.close();">${htmlContent}</body></html>`);
-                        newWin.document.close();
-                        document.title = originalTitle; container.innerHTML = ''; closeFunPop();
-                    } else {
-                        sweetPop('warning', 'Terblokir Canvas!', ['Wah, Tab Barunya diblokir browser. Buka aplikasi TINTA di Tab Baru secara Fullscreen ya! 🛑']);
-                        document.title = originalTitle; container.innerHTML = '';
-                    }
+                overlay.classList.add('opacity-0', 'pointer-events-none');
+                const newWin = window.open('', '_blank');
+                if(newWin) {
+                    newWin.document.write(`<html><head><title>${filename}</title><style>${document.querySelector('style').innerHTML}</style></head><body><div id="pdf-render-container">${htmlContent}</div><script>window.onload = function() { setTimeout(function(){ window.print(); window.close(); }, 300); }<\/script></body></html>`);
+                    newWin.document.close();
+                } else {
+                    sweetPop('warning', 'Terblokir Canvas!', ['Wah, Tab Barunya diblokir browser. Buka aplikasi TINTA di Tab Baru secara Fullscreen ya! 🛑']);
                 }
             }, 800); 
         }
@@ -974,7 +1005,6 @@
             let filename = cbs.length > 1 ? 'Laporan_Rekap_Infaq_Semua_Kelas' : `Laporan_Rekap_Infaq_Kelas_${cbs[0].value}`;
             let finalHTML = '';
             
-            showToast("Mengambil data terbaru...");
             for (let i = 0; i < cbs.length; i++) { 
                 await fetchKelasData(cbs[i].value); 
                 finalHTML += generateClassRecapHTML(cbs[i].value); 
@@ -984,12 +1014,13 @@
 
         async function prosesCetakWalasRekap() {
             const cbs = document.querySelectorAll('.cb-walas-print:checked');
-            if (cbs.length === 0) return sweetPop('warning', 'Pilih Siswa Dulu!', ['Gimana mau cetak rekap kalau siswanya belum dicentang bos? 🖨️']);
+            // Jika untuk cetak rekap siswa pilihan saja
+            let indicesToPrint = null;
+            if (cbs.length > 0) {
+                indicesToPrint = Array.from(cbs).map(cb => parseInt(cb.value));
+            }
 
-            let indicesToPrint = Array.from(cbs).map(cb => parseInt(cb.value));
             let filename = `Laporan_Rekap_Infaq_Kelas_${kelasWalasAktif}`;
-            
-            showToast("Memuat laporan kelas...");
             await fetchKelasData(kelasWalasAktif); 
             let finalHTML = generateClassRecapHTML(kelasWalasAktif, indicesToPrint); 
             executeNativePrint(filename, finalHTML);
@@ -1004,7 +1035,6 @@
                 ? `Laporan_Infaq_Beberapa_Siswa_Kelas_${kelasWalasAktif}` 
                 : `Laporan_Infaq_${studentNameClean}_Kelas_${kelasWalasAktif}`;
 
-            showToast("Memuat laporan siswa...");
             await fetchKelasData(kelasWalasAktif); 
             
             let finalHTML = '';
@@ -1039,6 +1069,7 @@
                 for(let i=0; i<dataSiswa.length; i++) indicesToPrint.push(i);
             }
             
+            // PADATKAN MUTLAK: 35 Baris untuk Halaman 1
             const maxRowsPage1 = 35; 
             for(let i=0; i<maxRowsPage1; i++) {
                 if(i < indicesToPrint.length) {
@@ -1078,6 +1109,7 @@
 
             const saldo = totalMasukKelasKeseluruhan - totalKeluar;
 
+            // HALAMAN 2: DAFTAR PENGELUARAN PENUH 1 KOLOM (DENGAN SHAPE WARNA)
             let expRowsHTML = '';
             const riwayat = DB.riwayatPengeluaran[kelas] || [];
             if(riwayat.length === 0) {
@@ -1128,14 +1160,14 @@
             }
 
             return `
-            <!-- HALAMAN 1: TABEL REKAP 35 SISWA -->
+            <!-- HALAMAN 1: TABEL REKAP 35 SISWA PADAT -->
             <div class="pdf-page-container">
                 <img src="KOP TINTA ATAS PUTIH.jpg" class="kop-img">
                 <div class="pdf-content">
                     <h2 class="title-h2">LAPORAN REKAP ADMINISTRATOR INFAQ - KELAS ${kelas}</h2>
                     <p class="title-date">Dicetak Oleh Administrator Sekolah pada: ${new Date().toLocaleDateString('id-ID', {day:'numeric', month:'long', year:'numeric'})} WIB</p>
                     
-                    <div class="summary-flex">
+                    <div class="summary-flex" style="margin-bottom: 5px;">
                         <div class="sum-box sum-box-masuk">
                             <span class="sum-label">TOTAL MASUK KELAS</span>
                             <span class="sum-value">Rp ${formatRp(totalMasukKelasKeseluruhan)}</span>
@@ -1150,7 +1182,7 @@
                         </div>
                     </div>
 
-                    <div class="legend-container">
+                    <div class="legend-container" style="margin-bottom: 5px;">
                         <span style="font-size: 8px; font-weight: 900; color: #1e293b; margin-right: 4px;">KETERANGAN STATUS:</span>
                         <div class="legend-item"><div class="legend-box" style="background-color: #22c55e;"></div> Infaq (Masuk)</div>
                         <div class="legend-item"><div class="legend-box" style="background-color: #ef4444;"></div> Libur</div>
@@ -1172,7 +1204,7 @@
                 <img src="KOP TINTA BAWAH.png" class="kop-footer">
             </div>
 
-            <!-- HALAMAN 2: RINCIAN PENGELUARAN -->
+            <!-- HALAMAN 2: RINCIAN PENGELUARAN MANDIRI -->
             <div class="pdf-page-container">
                 <img src="KOP TINTA ATAS PUTIH.jpg" class="kop-img">
                 <div class="pdf-content">
@@ -1225,14 +1257,15 @@
                 const d = monthData[m];
                 let yearLabel = academicWeeks.find(w => w.monthKey === m)?.fullYear || "2025";
                 let totalRowStr = d.total === 0 ? `<span style="color:#2563eb; font-weight:800;">0</span>` : `<span style="color:#2563eb; font-weight:800;">${formatRp(d.total)}</span>`;
-                return `<tr>
-                    <td style="text-align: left; font-weight: 800; color: #0f172a;">${m} <br><span style="font-size:7px; color:#64748b;">${yearLabel}</span></td>
+                let bgBulan = getMonthBg(m);
+                return `<tr style="background-color: ${bgBulan};">
+                    <td style="text-align: left; font-weight: 800; color: #0f172a; padding: 4px 6px;">${m} <br><span style="font-size:6px; color:#64748b;">${yearLabel}</span></td>
                     <td>${d.weeks[0]||`<span class="pill-empty">-</span>`}</td>
                     <td>${d.weeks[1]||`<span class="pill-empty">-</span>`}</td>
                     <td>${d.weeks[2]||`<span class="pill-empty">-</span>`}</td>
                     <td>${d.weeks[3]||`<span class="pill-empty">-</span>`}</td>
                     <td>${d.weeks[4]||`<span class="pill-empty">-</span>`}</td>
-                    <td>${totalRowStr}</td>
+                    <td style="text-align: center; padding-right: 4px;">${totalRowStr}</td>
                 </tr>`;
             }
 
@@ -1242,6 +1275,7 @@
             let sem2Rows = sem2.map(buildRow).join('');
             let totalAnanda = Object.values(checks).filter(v => v===1).length * nominal;
 
+            // PENGELUARAN KIRI-KANAN RATA DAN SHAPE BULAN ESTETIK
             const riwayat = DB.riwayatPengeluaran[kelas] || [];
             let expRowsHTML = '';
             if(riwayat.length === 0) {
@@ -1262,16 +1296,16 @@
                         let mKeyKanan = monthNamesArr[parseInt(monthKanan)-1];
                         let badgeKanan = `<span style="background-color: ${pastelColors[mKeyKanan]?.hexBg || '#f1f5f9'}; color: ${pastelColors[mKeyKanan]?.hexBorder || '#94a3b8'}; padding: 3px 8px; border-radius: 4px; font-weight: 900; font-size: 7.5px;">${itemKanan.date}</span>`;
                         cellKananHtml = `
-                            <td style="padding-left: 10px;">${badgeKanan}</td>
-                            <td style="text-align: left;">${itemKanan.ket}</td>
-                            <td style="color: #dc2626; font-weight: 800; text-align: right; padding-right: 15px;">${formatRp(itemKanan.amount)}</td>
+                            <td style="padding-left: 10px; border-bottom: 1px solid #f1f5f9;">${badgeKanan}</td>
+                            <td style="text-align: left; border-bottom: 1px solid #f1f5f9; font-size: 7.5px;">${itemKanan.ket}</td>
+                            <td style="color: #dc2626; font-weight: 800; text-align: right; padding-right: 15px; border-bottom: 1px solid #f1f5f9; font-size: 8px;">${formatRp(itemKanan.amount)}</td>
                         `;
                     }
 
                     expRowsHTML += `<tr>
-                        <td>${badgeKiri}</td>
-                        <td style="text-align: left;">${itemKiri.ket}</td>
-                        <td style="color: #dc2626; font-weight: 800; text-align: right; padding-right: 15px;">${formatRp(itemKiri.amount)}</td>
+                        <td style="border-bottom: 1px solid #f1f5f9;">${badgeKiri}</td>
+                        <td style="text-align: left; border-bottom: 1px solid #f1f5f9; font-size: 7.5px;">${itemKiri.ket}</td>
+                        <td style="color: #dc2626; font-weight: 800; text-align: right; padding-right: 15px; border-bottom: 1px solid #f1f5f9; font-size: 8px;">${formatRp(itemKiri.amount)}</td>
                         ${cellKananHtml}
                     </tr>`;
                 }
@@ -1280,9 +1314,9 @@
             const tableHeaderInfaq = `
                 <thead>
                     <tr>
-                        <th style="width: 15%; text-align: left;">Bulan</th>
+                        <th style="width: 15%; text-align: left; padding-left: 6px;">Bulan</th>
                         <th>P1</th><th>P2</th><th>P3</th><th>P4</th><th>P5</th>
-                        <th style="width: 15%;">Total</th>
+                        <th style="width: 15%; text-align: center;">Total</th>
                     </tr>
                 </thead>`;
 
@@ -1312,24 +1346,25 @@
                         <span style="font-size: 8px; font-weight: 900; color: #1e293b; margin-right: 4px;">KETERANGAN STATUS:</span>
                         <div class="legend-item"><div class="legend-box" style="background-color: #22c55e;"></div> Infaq (Masuk)</div>
                         <div class="legend-item"><div class="legend-box" style="background-color: #ef4444;"></div> Libur</div>
-                        <div class="legend-item"><div class="legend-box" style="background-color: #f1f5f9; border: 1px solid #cbd5e1;"></div> Belum Infaq</div>
+                        <div class="legend-item"><div class="legend-box" style="background-color: #ffffff; border: 1px solid #cbd5e1;"></div> Belum Infaq</div>
                     </div>
                     
                     <div class="student-badge">
                         No: ${String(s.no || siswaIdx+1).padStart(2, '0')} &nbsp;|&nbsp; Nama Siswa: ${s.nama}
                     </div>
                     
-                    <div style="display: flex; justify-content: space-between; position: relative;">
-                        <div style="position: absolute; left: 50%; top: 0; bottom: 0; width: 1px; background-color: #e2e8f0; transform: translateX(-50%);"></div>
+                    <!-- TABEL 2 KOLOM RAPI DENGAN GARIS TENGAH -->
+                    <div style="display: flex; justify-content: space-between; position: relative; gap: 8px;">
+                        <div style="position: absolute; left: 50%; top: 0; bottom: 0; width: 1.5px; background-color: #cbd5e1; transform: translateX(-50%); z-index: 0;"></div>
                         
-                        <div style="width: 48%;">
-                            <table class="table-siswa">
+                        <div style="width: 48.5%; position: relative; z-index: 1;">
+                            <table class="table-siswa" style="background: white;">
                                 ${tableHeaderInfaq}
                                 <tbody>${sem1Rows}</tbody>
                             </table>
                         </div>
-                        <div style="width: 48%;">
-                            <table class="table-siswa">
+                        <div style="width: 48.5%; position: relative; z-index: 1;">
+                            <table class="table-siswa" style="background: white;">
                                 ${tableHeaderInfaq}
                                 <tbody>${sem2Rows}</tbody>
                             </table>
@@ -1338,7 +1373,7 @@
                     
                     <table class="table-siswa" style="margin-top: 2px; margin-bottom: 8px;">
                         <tr class="row-total">
-                            <td style="text-align: left; padding: 8px 10px;">TOTAL KESELURUHAN INFAQ ANANDA</td>
+                            <td style="text-align: left; padding: 6px 10px;">TOTAL KESELURUHAN INFAQ ANANDA</td>
                             <td style="color: #22c55e; text-align: right; padding-right: 15px; width: 25%; font-size: 11px;">${formatRp(totalAnanda)}</td>
                         </tr>
                     </table>
@@ -1347,7 +1382,7 @@
                     <table class="table-siswa" style="margin-bottom: 0;">
                         <thead>
                             <tr>
-                                <th style="width: 15%;">Tanggal</th>
+                                <th style="width: 15%; padding-left: 4px;">Tanggal</th>
                                 <th style="text-align: left;">Keterangan</th>
                                 <th style="width: 15%; text-align: right; padding-right: 15px;">Biaya</th>
                                 <th style="width: 15%; padding-left: 10px;">Tanggal</th>
@@ -1370,11 +1405,11 @@
             const trHead = document.getElementById('walas-table-header-row');
             let htmlHead = `<th class="py-2.5 px-1 text-center z-intersect pos-no bg-[#f8fafc]">NO</th><th class="py-2.5 px-1 z-intersect pos-nama bg-[#f8fafc] uppercase text-left">NAMA LENGKAP</th><th class="py-2.5 px-0 text-center text-[#1e3a8a] z-intersect pos-total bg-[#eff6ff] uppercase">TOT</th>`;
             academicWeeks.forEach(week => {
-                const pastel = pastelColors[week.monthKey] || {bg: 'bg-white', border: 'border-slate-200'};
+                const pastel = pastelColors[week.monthKey] || {bgBase: '#ffffff'};
                 const isEndOfMonth = (week.dateNum >= 22 && week.id < 51 && academicWeeks[week.id + 1].monthKey !== week.monthKey);
                 const borderClass = isEndOfMonth ? "border-r-[3px] border-r-[#94a3b8]" : `border-r border-r-slate-200`;
                 
-                htmlHead += `<th class="py-1.5 px-0.5 text-center ${borderClass} border-b border-t-0 min-w-[42px] align-top z-head ${pastel.bg}"><div class="text-[7px] font-black text-slate-400 uppercase mb-0.5">${week.monthStr}</div><div class="text-[8px] font-bold text-slate-800 mb-1.5">${week.dateStr}</div><div class="flex justify-center gap-0.5"><button onclick="checkAll(${week.id})" class="w-[14px] h-[14px] rounded border border-green-200 text-green-500 flex items-center justify-center bg-green-50 hover:bg-green-100 transition"><i class="fa-solid fa-check text-[6px]"></i></button><button onclick="crossAll(${week.id})" class="w-[14px] h-[14px] rounded border border-red-200 text-red-500 flex items-center justify-center bg-red-50 hover:bg-red-100 transition"><i class="fa-solid fa-xmark text-[6px]"></i></button></div></th>`;
+                htmlHead += `<th class="py-2 px-0.5 text-center ${borderClass} border-b border-t-0 min-w-[46px] align-top z-head" style="background-color: ${pastel.bgBase};"><div class="text-[7.5px] font-black text-slate-400 uppercase mb-0.5">${week.monthStr}</div><div class="text-[8.5px] font-bold text-slate-800 mb-2">${week.dateStr}</div><div class="flex justify-center gap-1"><button onclick="checkAll(${week.id})" class="w-[16px] h-[16px] rounded border border-green-200 text-green-500 flex items-center justify-center bg-green-50 hover:bg-green-100 transition"><i class="fa-solid fa-check text-[7px]"></i></button><button onclick="crossAll(${week.id})" class="w-[16px] h-[16px] rounded border border-red-200 text-red-500 flex items-center justify-center bg-red-50 hover:bg-red-100 transition"><i class="fa-solid fa-xmark text-[7px]"></i></button></div></th>`;
             });
             trHead.innerHTML = htmlHead;
             if(!checklistState[kelas]) { checklistState[kelas] = {}; (DB.siswa[kelas] || []).forEach((_, i) => { checklistState[kelas][i] = new Array(52).fill(0); }); }
@@ -1392,25 +1427,25 @@
                 let checkBoxesHtml = '';
                 academicWeeks.forEach(w => {
                     const state = checks[w.id] || 0;
-                    const pastel = pastelColors[w.monthKey] || {bg: 'bg-white'};
+                    const pastel = pastelColors[w.monthKey] || {bgBase: '#ffffff'};
                     const isEndOfMonth = (w.dateNum >= 22 && w.id < 51 && academicWeeks[w.id + 1].monthKey !== w.monthKey);
                     const borderClass = isEndOfMonth ? "border-r-[3px] border-r-[#94a3b8]" : "border-r border-r-white";
 
-                    checkBoxesHtml += `<td class="py-2.5 px-0.5 text-center border-b border-white ${borderClass} ${pastel.bg}"><div id="cell-${idx}-${w.id}" onclick="toggleCheckManual(${idx}, ${w.id})" class="mx-auto cursor-pointer transition-colors ${getCellClass(state)}">${getCellIcon(state)}</div></td>`;
+                    checkBoxesHtml += `<td class="py-2.5 px-0.5 text-center border-b border-white ${borderClass}" style="background-color: ${pastel.bgBase};"><div id="cell-${idx}-${w.id}" onclick="toggleCheckManual(${idx}, ${w.id})" class="mx-auto cursor-pointer transition-colors ${getCellClass(state)}">${getCellIcon(state)}</div></td>`;
                 });
-                html += `<tr class="walas-tr"><td class="py-2 px-1 text-center z-col pos-no text-slate-400 font-bold border-b border-slate-100 text-[9px]">${String(s.no || idx+1).padStart(2, '0')}</td><td class="py-2 px-1 z-col pos-nama text-slate-800 border-b border-slate-100 text-[10px]">${s.nama || s.class}</td><td class="py-2 px-1 text-center ${totalColor} font-black z-col pos-total border-b border-slate-100 text-[10px]"><span id="total-siswa-${idx}">${formatRp(totalInfaq)}</span></td>${checkBoxesHtml}</tr>`;
+                html += `<tr class="walas-tr"><td class="py-2 px-1 text-center z-col pos-no text-slate-400 font-bold border-b border-slate-100 text-[10px] md:text-[11px]">${String(s.no || idx+1).padStart(2, '0')}</td><td class="py-2 px-1 z-col pos-nama text-slate-800 border-b border-slate-100 text-[11px] md:text-[12px]">${s.nama || s.class}</td><td class="py-2 px-1 text-center ${totalColor} font-black z-col pos-total border-b border-slate-100 text-[11px] md:text-[12px]"><span id="total-siswa-${idx}">${formatRp(totalInfaq)}</span></td>${checkBoxesHtml}</tr>`;
             });
             tbody.innerHTML = html;
         }
 
         function getCellClass(state) {
-            if(state === 1) return "w-[18px] h-[18px] rounded border border-green-500 bg-green-100 text-green-600 flex items-center justify-center";
-            if(state === 2) return "w-[18px] h-[18px] rounded border border-red-500 bg-red-100 text-red-600 flex items-center justify-center";
-            return "w-[18px] h-[18px] rounded border border-slate-300 bg-white/70 hover:bg-white flex items-center justify-center";
+            if(state === 1) return "w-[20px] h-[20px] rounded border border-green-500 bg-green-100 text-green-600 flex items-center justify-center";
+            if(state === 2) return "w-[20px] h-[20px] rounded border border-red-500 bg-red-100 text-red-600 flex items-center justify-center";
+            return "w-[20px] h-[20px] rounded border border-slate-300 bg-white/70 hover:bg-white flex items-center justify-center";
         }
         function getCellIcon(state) {
-            if(state === 1) return '<i class="fa-solid fa-check text-[10px]"></i>';
-            if(state === 2) return '<i class="fa-solid fa-xmark text-[10px]"></i>';
+            if(state === 1) return '<i class="fa-solid fa-check text-[11px]"></i>';
+            if(state === 2) return '<i class="fa-solid fa-xmark text-[11px]"></i>';
             return '';
         }
 
@@ -1506,10 +1541,10 @@
                 const weeksInMonth = groupedWeeks[month]; let boxesHtml = '';
                 weeksInMonth.forEach(w => {
                     const state = checks[w.id] || 0; let iconHtml = '<span class="text-slate-300 font-bold">-</span>';
-                    if (state === 1) iconHtml = `<i class="fa-solid fa-check text-green-500 text-[12px]"></i>`; else if (state === 2) iconHtml = `<i class="fa-solid fa-xmark text-red-400 text-[12px]"></i>`;
-                    boxesHtml += `<div class="w-[52px] min-w-[52px] bg-white border border-slate-100 rounded-xl flex flex-col items-center justify-center p-2 h-[65px] shadow-sm"><span class="text-[12px] font-black text-slate-700">${w.dateNum}</span><div class="mt-1 flex items-center justify-center h-[16px]">${iconHtml}</div></div>`;
+                    if (state === 1) iconHtml = `<i class="fa-solid fa-check text-green-500 text-[14px]"></i>`; else if (state === 2) iconHtml = `<i class="fa-solid fa-xmark text-red-400 text-[14px]"></i>`;
+                    boxesHtml += `<div class="w-[56px] min-w-[56px] bg-white border border-slate-100 rounded-xl flex flex-col items-center justify-center p-2 h-[70px] shadow-sm"><span class="text-[13px] font-black text-slate-700">${w.dateNum}</span><div class="mt-1 flex items-center justify-center h-[18px]">${iconHtml}</div></div>`;
                 });
-                htmlCalendar += `<div class="bg-slate-50 border border-slate-100 rounded-2xl p-4 shadow-sm relative"><div class="bg-[#1e3a8a] text-white text-[9px] font-black uppercase px-3 py-1.5 rounded-lg inline-block mb-3 shadow-md">${month}</div><div class="flex gap-2 overflow-x-auto custom-scrollbar pb-1">${boxesHtml}</div></div>`;
+                htmlCalendar += `<div class="bg-slate-50 border border-slate-100 rounded-2xl p-4 md:p-5 shadow-sm relative"><div class="bg-[#1e3a8a] text-white text-[10px] md:text-[11px] font-black uppercase px-3.5 py-2 rounded-lg inline-block mb-3.5 shadow-md">${month}</div><div class="flex gap-2.5 overflow-x-auto custom-scrollbar pb-1 md:flex-wrap md:overflow-visible">${boxesHtml}</div></div>`;
             }
             calendarContainer.innerHTML = htmlCalendar;
         }
@@ -1529,22 +1564,22 @@
                 let html = `
                     <div class="space-y-4">
                         <div>
-                            <label class="block text-[10px] font-bold text-slate-500 mb-1">TANGGAL PENGELUARAN</label>
-                            <input type="date" id="pengeluaran-tgl" class="w-full bg-white border border-slate-200 rounded-xl p-3 text-[12px] font-bold outline-none focus:border-blue-500 text-slate-700" value="${new Date().toISOString().split('T')[0]}">
+                            <label class="block text-[11px] font-bold text-slate-500 mb-1">TANGGAL PENGELUARAN</label>
+                            <input type="date" id="pengeluaran-tgl" class="w-full bg-white border border-slate-200 rounded-xl p-3 text-[13px] font-bold outline-none focus:border-blue-500 text-slate-700" value="${new Date().toISOString().split('T')[0]}">
                         </div>
                         <div>
                             <div class="flex justify-between items-center mb-2">
-                                <label class="block text-[10px] font-bold text-slate-500">DAFTAR BARANG & BIAYA</label>
-                                <button onclick="addPengeluaranRow()" class="text-blue-600 bg-blue-50 px-2 py-1 rounded border border-blue-100 text-[9px] font-bold flex items-center gap-1 hover:bg-blue-100 transition"><i class="fa-solid fa-plus"></i> Tambah Baris</button>
+                                <label class="block text-[11px] font-bold text-slate-500">DAFTAR BARANG & BIAYA</label>
+                                <button onclick="addPengeluaranRow()" class="text-blue-600 bg-blue-50 px-2.5 py-1.5 rounded border border-blue-100 text-[10px] font-bold flex items-center gap-1.5 hover:bg-blue-100 transition"><i class="fa-solid fa-plus"></i> Tambah Baris</button>
                             </div>
-                            <div id="pengeluaran-rows-container" class="space-y-2 max-h-[25vh] overflow-y-auto custom-scrollbar pr-1"></div>
+                            <div id="pengeluaran-rows-container" class="space-y-2 max-h-[30vh] overflow-y-auto custom-scrollbar pr-1"></div>
                         </div>
                         <div class="bg-slate-50 rounded-xl border border-slate-100 p-4 flex justify-between items-center mt-2">
-                            <span class="text-[11px] font-black text-slate-500 uppercase">Total Keseluruhan</span>
-                            <span id="pengeluaran-total-view" class="text-[14px] font-black text-[#ea580c]">Rp 0</span>
+                            <span class="text-[12px] font-black text-slate-500 uppercase">Total Keseluruhan</span>
+                            <span id="pengeluaran-total-view" class="text-[15px] font-black text-[#ea580c]">Rp 0</span>
                         </div>
                         <div class="flex flex-col gap-2 pt-2">
-                            <button onclick="simpanPengeluaran(this)" class="w-full bg-[#1e3a8a] hover:bg-blue-900 text-white font-black py-3.5 rounded-xl text-[12px] shadow-sm transition">Simpan Catatan</button>
+                            <button onclick="simpanPengeluaran(this)" class="w-full bg-[#1e3a8a] hover:bg-blue-900 text-white font-black py-3.5 rounded-xl text-[13px] shadow-sm transition">Simpan Catatan</button>
                         </div>
                     </div>
                 `;
@@ -1558,7 +1593,7 @@
         function renderPengeluaranRows() {
             const container = document.getElementById('pengeluaran-rows-container'); let html = '';
             tempPengeluaranRows.forEach((row, i) => {
-                html += `<div class="flex gap-2 dynamic-input-row"><input type="text" class="w-[65%] bg-white border border-slate-200 rounded-lg p-2.5 text-[11px] outline-none focus:border-blue-500 placeholder-slate-300" placeholder="Contoh: Sapu & Spidol" value="${row.ket}" onchange="tempPengeluaranRows[${i}].ket = this.value"><input type="number" class="w-[35%] bg-white border border-slate-200 rounded-lg p-2.5 text-[11px] font-black outline-none focus:border-blue-500 text-right" placeholder="Rp" value="${row.nom}" oninput="tempPengeluaranRows[${i}].nom = this.value; hitungTotalPengeluaran();"></div>`;
+                html += `<div class="flex gap-2 dynamic-input-row"><input type="text" class="w-[65%] bg-white border border-slate-200 rounded-lg p-2.5 text-[12px] outline-none focus:border-blue-500 placeholder-slate-300" placeholder="Contoh: Sapu & Spidol" value="${row.ket}" onchange="tempPengeluaranRows[${i}].ket = this.value"><input type="number" class="w-[35%] bg-white border border-slate-200 rounded-lg p-2.5 text-[12px] font-black outline-none focus:border-blue-500 text-right" placeholder="Rp" value="${row.nom}" oninput="tempPengeluaranRows[${i}].nom = this.value; hitungTotalPengeluaran();"></div>`;
             });
             container.innerHTML = html; hitungTotalPengeluaran();
         }
@@ -1584,11 +1619,11 @@
 
         function renderRiwayatList() {
             const body = document.getElementById('modal-body');
-            let html = `<div class="bg-white border border-slate-100 rounded-2xl shadow-sm overflow-hidden flex flex-col max-h-[50vh]"><div class="grid grid-cols-12 bg-slate-50 p-3 border-b border-slate-100 text-[9px] font-black text-slate-500"><span class="col-span-3 text-center">TANGGAL</span><span class="col-span-5 text-left">KEPERLUAN</span><span class="col-span-4 text-right pr-2">BIAYA</span></div><div class="overflow-y-auto custom-scrollbar flex-1 divide-y divide-slate-50">`;
+            let html = `<div class="bg-white border border-slate-100 rounded-2xl shadow-sm overflow-hidden flex flex-col max-h-[50vh]"><div class="grid grid-cols-12 bg-slate-50 p-3 border-b border-slate-100 text-[10px] md:text-[11px] font-black text-slate-500"><span class="col-span-3 text-center">TANGGAL</span><span class="col-span-5 text-left">KEPERLUAN</span><span class="col-span-4 text-right pr-2">BIAYA</span></div><div class="overflow-y-auto custom-scrollbar flex-1 divide-y divide-slate-50">`;
             const history = DB.riwayatPengeluaran[kelasWalasAktif] || [];
-            if (history.length === 0) { html += `<div class="text-center text-slate-400 text-[10px] py-6 font-bold">Belum ada pengeluaran.</div>`; } 
-            else { history.forEach((item, index) => { html += `<div class="grid grid-cols-12 p-3 items-center hover:bg-slate-50 transition"><span class="col-span-3 text-center text-[10px] font-bold text-slate-500">${item.date}</span><span class="col-span-5 text-left text-[11px] font-black text-slate-700 truncate pr-2">${item.ket}</span><div class="col-span-4 flex items-center justify-end gap-2"><span class="text-[11px] font-black text-red-600">${formatRp(item.amount)}</span><button onclick="hapusRiwayat(${index})" class="w-6 h-6 rounded bg-red-50 text-red-500 flex items-center justify-center hover:bg-red-100 transition"><i class="fa-solid fa-trash-can text-[9px]"></i></button></div></div>`; }); }
-            html += `</div></div><button onclick="kosongkanRiwayat()" class="w-full mt-4 bg-red-50 hover:bg-red-100 text-red-600 font-black py-3.5 rounded-xl text-[11px] transition flex justify-center items-center gap-1.5 border border-red-100"><i class="fa-solid fa-trash-can"></i> Kosongkan Riwayat Pengeluaran</button>`;
+            if (history.length === 0) { html += `<div class="text-center text-slate-400 text-[11px] md:text-[12px] py-6 font-bold">Belum ada pengeluaran.</div>`; } 
+            else { history.forEach((item, index) => { html += `<div class="grid grid-cols-12 p-3 items-center hover:bg-slate-50 transition"><span class="col-span-3 text-center text-[11px] md:text-[12px] font-bold text-slate-500">${item.date}</span><span class="col-span-5 text-left text-[12px] md:text-[13px] font-black text-slate-700 truncate pr-2">${item.ket}</span><div class="col-span-4 flex items-center justify-end gap-2"><span class="text-[12px] md:text-[13px] font-black text-red-600">${formatRp(item.amount)}</span><button onclick="hapusRiwayat(${index})" class="w-7 h-7 rounded bg-red-50 text-red-500 flex items-center justify-center hover:bg-red-100 transition"><i class="fa-solid fa-trash-can text-[10px]"></i></button></div></div>`; }); }
+            html += `</div></div><button onclick="kosongkanRiwayat()" class="w-full mt-4 bg-red-50 hover:bg-red-100 text-red-600 font-black py-3.5 rounded-xl text-[12px] md:text-[13px] transition flex justify-center items-center gap-1.5 border border-red-100"><i class="fa-solid fa-trash-can"></i> Kosongkan Riwayat Pengeluaran</button>`;
             body.innerHTML = html;
         }
 
@@ -1621,24 +1656,24 @@
             switch(type) {
                 case 'template':
                     title.innerText = "TEMPLATE EXCEL";
-                    html = `<div class="bg-blue-50 p-4 rounded-xl border border-blue-100 flex justify-between mt-2"><div class="flex items-center gap-3"><i class="fa-solid fa-file-excel text-green-600 text-2xl"></i><div><h4 class="text-[11px] font-black text-slate-800">MasterData_TINTA.xlsx</h4><p class="text-[9px] text-slate-500">Otomatis di-generate</p></div></div><button onclick="downloadTemplateExcel(this)" class="bg-[#1e3a8a] text-white text-[10px] font-bold px-4 py-2 rounded-lg">UNDUH</button></div>`;
+                    html = `<div class="bg-blue-50 p-4 rounded-xl border border-blue-100 flex justify-between items-center mt-2"><div class="flex items-center gap-3"><i class="fa-solid fa-file-excel text-green-600 text-3xl"></i><div><h4 class="text-[12px] font-black text-slate-800">MasterData_TINTA.xlsx</h4><p class="text-[10px] text-slate-500">Otomatis di-generate</p></div></div><button onclick="downloadTemplateExcel(this)" class="bg-[#1e3a8a] hover:bg-blue-900 transition-colors text-white text-[11px] font-bold px-4 py-2.5 rounded-lg shadow-md cursor-pointer">UNDUH</button></div>`;
                     break;
                 case 'unggah':
                     title.innerText = "UNGGAH DATA"; 
-                    html = `<div class="border-2 border-dashed border-slate-300 rounded-xl p-8 text-center bg-slate-50 mt-2"><i class="fa-solid fa-cloud-arrow-up text-3xl text-slate-400 mb-2"></i><h4 class="text-[12px] font-black text-slate-700 mb-1">Pilih File Excel</h4><input type="file" class="hidden" id="file-upload" accept=".xlsx, .xls" onchange="handleFileUpload(event)"><button onclick="document.getElementById('file-upload').click()" class="bg-white border border-slate-200 text-slate-700 text-[10px] font-bold px-5 py-2.5 rounded-lg shadow-sm">Telusuri File</button></div><button onclick="prosesSyncExcel(this)" class="w-full mt-4 bg-[#1e3a8a] text-white font-black py-3 rounded-xl text-[12px]">SINKRONISASI SEKARANG</button>`;
+                    html = `<div class="border-2 border-dashed border-slate-300 rounded-xl p-8 text-center bg-slate-50 mt-2"><i class="fa-solid fa-cloud-arrow-up text-4xl text-slate-400 mb-3"></i><h4 class="text-[13px] font-black text-slate-700 mb-2">Pilih File Excel</h4><input type="file" class="hidden" id="file-upload" accept=".xlsx, .xls" onchange="handleFileUpload(event)"><button onclick="document.getElementById('file-upload').click()" class="bg-white hover:bg-slate-50 transition-colors border border-slate-200 text-slate-700 text-[11px] font-bold px-6 py-3 rounded-xl shadow-sm cursor-pointer">Telusuri File</button></div><button onclick="prosesSyncExcel(this)" class="w-full mt-4 bg-[#1e3a8a] hover:bg-blue-900 transition-colors text-white font-black py-3.5 rounded-xl text-[13px] shadow-md cursor-pointer">SINKRONISASI SEKARANG</button>`;
                     break;
                 case 'nominal':
                     title.innerText = "SET NOMINAL INFAQ"; 
-                    let listNominalHtml = ''; DAFTAR_KELAS.forEach((k, idx) => { listNominalHtml += `<div class="flex justify-between bg-slate-50 border border-slate-200 p-2.5 rounded-lg"><span class="text-[12px] font-black text-slate-800 w-1/2 pl-1">${idx + 1}. Kelas ${k}</span><div class="relative w-1/2 max-w-[140px]"><span class="absolute left-2 top-1/2 -translate-y-1/2 text-[11px] text-slate-400 font-bold">Rp</span><input type="number" class="w-full bg-white border border-slate-200 rounded p-2 pl-7 text-[12px] font-black outline-none focus:border-blue-500 text-right" value="${DB.nominalDefault[k] || 0}"></div></div>`; });
-                    html = `<div class="flex flex-col h-full space-y-4"><div class="flex-1 overflow-y-auto space-y-2 custom-scrollbar max-h-[40vh]">${listNominalHtml}</div><button onclick="closeModal(); sweetPop('success', 'Mantap!', 'Pengaturan Nominal udah kesimpan rapi! 👍');" class="w-full bg-[#1e3a8a] text-white font-black py-3.5 rounded-xl text-[12px] mt-2">SIMPAN PENGATURAN</button></div>`;
+                    let listNominalHtml = ''; DAFTAR_KELAS.forEach((k, idx) => { listNominalHtml += `<div class="flex justify-between bg-slate-50 border border-slate-200 p-3 rounded-lg"><span class="text-[13px] font-black text-slate-800 w-1/2 pl-1">${idx + 1}. Kelas ${k}</span><div class="relative w-1/2 max-w-[150px]"><span class="absolute left-3 top-1/2 -translate-y-1/2 text-[12px] text-slate-400 font-bold">Rp</span><input type="number" class="w-full bg-white border border-slate-200 rounded-md p-2 pl-8 text-[13px] font-black outline-none focus:border-blue-500 text-right" value="${DB.nominalDefault[k] || 0}"></div></div>`; });
+                    html = `<div class="flex flex-col h-full space-y-4"><div class="flex-1 overflow-y-auto space-y-2 custom-scrollbar max-h-[45vh]">${listNominalHtml}</div><button onclick="closeModal(); sweetPop('success', 'Mantap!', 'Pengaturan Nominal udah kesimpan rapi! 👍');" class="w-full bg-[#1e3a8a] hover:bg-blue-900 transition-colors text-white font-black py-3.5 rounded-xl text-[13px] mt-2 shadow-md cursor-pointer">SIMPAN PENGATURAN</button></div>`;
                     break;
                 case 'akun':
                     title.innerText = "MANAJEMEN AKUN"; 
-                    html = `<div class="space-y-3"><button onclick="manageAkun('admin')" class="w-full text-left bg-white border border-slate-200 p-3.5 rounded-xl flex justify-between items-center shadow-sm hover:border-blue-300 transition"><div class="flex items-center gap-3"><div class="w-8 h-8 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center"><i class="fa-solid fa-user-shield"></i></div><div><h4 class="text-[12px] font-black text-slate-700">Akun Administrator</h4><p class="text-[9px] text-slate-400">1 Akun Aktif</p></div></div><i class="fa-solid fa-chevron-right text-slate-300"></i></button><button onclick="manageAkun('walas')" class="w-full text-left bg-white border border-slate-200 p-3.5 rounded-xl flex justify-between items-center shadow-sm hover:border-blue-300 transition"><div class="flex items-center gap-3"><div class="w-8 h-8 rounded-full bg-green-50 text-green-600 flex items-center justify-center"><i class="fa-solid fa-chalkboard-user"></i></div><div><h4 class="text-[12px] font-black text-slate-700">Akun Wali Kelas</h4><p class="text-[9px] text-slate-400">Kelola Guru & Kelas</p></div></div><i class="fa-solid fa-chevron-right text-slate-300"></i></button><button onclick="manageAkun('siswa')" class="w-full text-left bg-white border border-slate-200 p-3.5 rounded-xl flex justify-between items-center shadow-sm hover:border-blue-300 transition"><div class="flex items-center gap-3"><div class="w-8 h-8 rounded-full bg-orange-50 text-orange-600 flex items-center justify-center"><i class="fa-solid fa-users"></i></div><div><h4 class="text-[12px] font-black text-slate-700">Akun Siswa</h4><p class="text-[9px] text-slate-400">Kelola Data & PIN Siswa</p></div></div><i class="fa-solid fa-chevron-right text-slate-300"></i></button></div>`;
+                    html = `<div class="space-y-3"><button onclick="manageAkun('admin')" class="w-full text-left bg-white border border-slate-200 p-4 rounded-xl flex justify-between items-center shadow-sm hover:border-blue-300 transition cursor-pointer"><div class="flex items-center gap-4"><div class="w-10 h-10 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center text-lg"><i class="fa-solid fa-user-shield"></i></div><div><h4 class="text-[13px] font-black text-slate-700">Akun Administrator</h4><p class="text-[10px] text-slate-400">1 Akun Aktif</p></div></div><i class="fa-solid fa-chevron-right text-slate-300"></i></button><button onclick="manageAkun('walas')" class="w-full text-left bg-white border border-slate-200 p-4 rounded-xl flex justify-between items-center shadow-sm hover:border-blue-300 transition cursor-pointer"><div class="flex items-center gap-4"><div class="w-10 h-10 rounded-full bg-green-50 text-green-600 flex items-center justify-center text-lg"><i class="fa-solid fa-chalkboard-user"></i></div><div><h4 class="text-[13px] font-black text-slate-700">Akun Wali Kelas</h4><p class="text-[10px] text-slate-400">Kelola Guru & Kelas</p></div></div><i class="fa-solid fa-chevron-right text-slate-300"></i></button><button onclick="manageAkun('siswa')" class="w-full text-left bg-white border border-slate-200 p-4 rounded-xl flex justify-between items-center shadow-sm hover:border-blue-300 transition cursor-pointer"><div class="flex items-center gap-4"><div class="w-10 h-10 rounded-full bg-orange-50 text-orange-600 flex items-center justify-center text-lg"><i class="fa-solid fa-users"></i></div><div><h4 class="text-[13px] font-black text-slate-700">Akun Siswa</h4><p class="text-[10px] text-slate-400">Kelola Data & PIN Siswa</p></div></div><i class="fa-solid fa-chevron-right text-slate-300"></i></button></div>`;
                     break;
                 case 'reset':
                     title.innerText = "FACTORY RESET SYSTEM"; 
-                    html = `<div class="bg-red-50 border border-red-200 rounded-xl p-4 text-center mt-2"><i class="fa-solid fa-triangle-exclamation text-3xl text-red-500 mb-2"></i><p class="text-[10px] font-bold text-red-800 mb-4">Tindakan ini tidak bisa dibatalkan! Semua data infaq, siswa, dan guru akan dihapus permanen.</p><input type="text" id="reset-confirm" placeholder="Ketik 'RESET' di sini" class="w-full text-center bg-white border border-red-300 rounded-lg p-3 text-[12px] font-black text-red-600 uppercase mb-3"><button onclick="prosesReset()" class="w-full bg-red-600 hover:bg-red-700 transition text-white font-black py-3 rounded-xl text-[12px]">HAPUS PERMANEN</button></div>`;
+                    html = `<div class="bg-red-50 border border-red-200 rounded-xl p-5 text-center mt-2"><i class="fa-solid fa-triangle-exclamation text-4xl text-red-500 mb-3"></i><p class="text-[11px] md:text-[12px] font-bold text-red-800 mb-5">Tindakan ini tidak bisa dibatalkan! Semua data infaq, siswa, dan guru akan dihapus permanen.</p><input type="text" id="reset-confirm" placeholder="Ketik 'RESET' di sini" class="w-full text-center bg-white border border-red-300 rounded-lg p-3.5 text-[13px] font-black text-red-600 uppercase mb-4"><button onclick="prosesReset()" class="w-full bg-red-600 hover:bg-red-700 transition text-white font-black py-3.5 rounded-xl text-[13px] shadow-md cursor-pointer">HAPUS PERMANEN</button></div>`;
                     break;
             }
             body.innerHTML = html; modal.classList.add('active');
@@ -1664,7 +1699,7 @@
             const texts = ["MENGUNGGAH...", "MENYUSUN KELAS...", "MENYIMPAN DATA..."];
             let tIdx = 0;
             const intervalAnim = setInterval(() => {
-                btn.innerHTML = `<div class="loader w-3 h-3 border-t-white border-[2px] mr-2"></div> ${texts[tIdx]}`;
+                btn.innerHTML = `<div class="loader w-4 h-4 border-t-white border-[2px] mr-2"></div> ${texts[tIdx]}`;
                 tIdx = (tIdx + 1) % texts.length;
             }, 2000);
             
@@ -1684,29 +1719,29 @@
 
         async function manageAkun(subType) {
             const body = document.getElementById('modal-body'); const title = document.getElementById('modal-title');
-            let html = `<button onclick="openMenuModal('akun')" class="text-[10px] font-bold text-slate-500 hover:text-[#1e3a8a] mb-4 flex items-center gap-1.5 transition-colors"><i class="fa-solid fa-arrow-left"></i> Kembali</button>`;
+            let html = `<button onclick="openMenuModal('akun')" class="text-[11px] font-bold text-slate-500 hover:text-[#1e3a8a] mb-5 flex items-center gap-1.5 transition-colors cursor-pointer"><i class="fa-solid fa-arrow-left"></i> Kembali</button>`;
             
             if (subType === 'admin') { 
                 title.innerText = "AKUN ADMINISTRATOR"; 
-                html += `<div><input type="password" class="w-full border border-slate-200 focus:border-blue-500 outline-none rounded-xl p-3 text-center font-black tracking-widest text-[14px]" placeholder="PIN BARU"></div><button onclick="closeModal(); sweetPop('success', 'Siap!', 'Perubahan diamankan bos!');" class="w-full bg-[#1e3a8a] text-white font-black py-3.5 rounded-xl mt-4">SIMPAN PERUBAHAN</button>`; 
+                html += `<div><input type="password" class="w-full border border-slate-200 focus:border-blue-500 outline-none rounded-xl p-4 text-center font-black tracking-widest text-[16px]" placeholder="PIN BARU"></div><button onclick="closeModal(); sweetPop('success', 'Siap!', 'Perubahan diamankan bos!');" class="w-full bg-[#1e3a8a] hover:bg-blue-900 transition-colors text-white font-black py-3.5 rounded-xl mt-4 shadow-md cursor-pointer">SIMPAN PERUBAHAN</button>`; 
             } 
             else if (subType === 'walas') { 
                 title.innerText = "AKUN WALI KELAS"; 
                 html += `
-                <div class="bg-blue-50 p-3 rounded-xl border border-blue-100 mb-3">
-                    <p class="text-[10px] font-bold text-[#1e3a8a] mb-2">Tambah Guru & Kelas Baru</p>
-                    <div class="flex gap-2 mb-2">
-                        <input type="text" id="new-walas-kelas" placeholder="Kelas (Cth: 6E)" class="w-[35%] border border-blue-200 rounded-lg p-2 text-[10px] font-bold outline-none focus:border-blue-500 uppercase">
-                        <input type="text" id="new-walas-nama" placeholder="Nama Guru" class="w-[65%] border border-blue-200 rounded-lg p-2 text-[10px] font-bold outline-none focus:border-blue-500">
+                <div class="bg-blue-50 p-4 rounded-xl border border-blue-100 mb-4">
+                    <p class="text-[11px] font-bold text-[#1e3a8a] mb-2.5">Tambah Guru & Kelas Baru</p>
+                    <div class="flex gap-2.5 mb-2.5">
+                        <input type="text" id="new-walas-kelas" placeholder="Kelas (Cth: 6E)" class="w-[35%] border border-blue-200 rounded-lg p-2.5 text-[11px] font-bold outline-none focus:border-blue-500 uppercase">
+                        <input type="text" id="new-walas-nama" placeholder="Nama Guru" class="w-[65%] border border-blue-200 rounded-lg p-2.5 text-[11px] font-bold outline-none focus:border-blue-500">
                     </div>
-                    <div class="flex gap-2">
-                        <input type="text" id="new-walas-pin" placeholder="PIN Akses" class="w-[50%] border border-blue-200 rounded-lg p-2 text-[10px] font-black outline-none focus:border-blue-500 text-center">
-                        <button onclick="tambahWalas()" class="w-[50%] bg-[#1e3a8a] hover:bg-blue-900 text-white text-[10px] font-bold rounded-lg transition-colors"><i class="fa-solid fa-plus"></i> TAMBAH</button>
+                    <div class="flex gap-2.5">
+                        <input type="text" id="new-walas-pin" placeholder="PIN Akses" class="w-[50%] border border-blue-200 rounded-lg p-2.5 text-[11px] font-black outline-none focus:border-blue-500 text-center">
+                        <button onclick="tambahWalas()" class="w-[50%] bg-[#1e3a8a] hover:bg-blue-900 text-white text-[11px] font-bold rounded-lg transition-colors cursor-pointer"><i class="fa-solid fa-plus"></i> TAMBAH</button>
                     </div>
                 </div>
-                <p class="text-[10px] font-bold text-slate-500 mb-1.5 uppercase tracking-wider">Daftar Wali Kelas Aktif</p>
-                <div id="list-walas-aktif" class="space-y-2 max-h-[35vh] overflow-y-auto custom-scrollbar pr-1"></div>
-                <button class="w-full mt-3 bg-[#1e3a8a] hover:bg-blue-900 text-white font-black py-3.5 rounded-xl text-[12px] shadow-sm transition" onclick="simpanDataMasterKeServer()">SIMPAN PERUBAHAN KE SERVER</button>
+                <p class="text-[11px] font-bold text-slate-500 mb-2 uppercase tracking-wider">Daftar Wali Kelas Aktif</p>
+                <div id="list-walas-aktif" class="space-y-2.5 max-h-[35vh] overflow-y-auto custom-scrollbar pr-1"></div>
+                <button class="w-full mt-4 bg-[#1e3a8a] hover:bg-blue-900 text-white font-black py-3.5 rounded-xl text-[13px] shadow-md transition cursor-pointer" onclick="simpanDataMasterKeServer()">SIMPAN PERUBAHAN KE SERVER</button>
                 `; 
                 setTimeout(renderListWalas, 50);
             } 
@@ -1715,21 +1750,21 @@
                 let opts = '<option value="">Pilih Kelas</option>'; DAFTAR_KELAS.forEach(k => opts += `<option value="${k}">${k}</option>`); 
                 html += `
                     <div>
-                        <select id="edit-siswa-kelas" onchange="renderSiswaEdit(this.value)" class="w-full border border-slate-200 rounded-xl p-3 outline-none focus:border-blue-500 font-bold text-[12px] text-slate-700">${opts}</select>
+                        <select id="edit-siswa-kelas" onchange="renderSiswaEdit(this.value)" class="w-full border border-slate-200 rounded-xl p-3.5 outline-none focus:border-blue-500 font-bold text-[13px] text-slate-700 cursor-pointer">${opts}</select>
                     </div>
-                    <div id="tambah-siswa-form" class="hidden mt-3 p-3 bg-blue-50 border border-blue-100 rounded-xl space-y-2">
-                        <p class="text-[10px] font-bold text-[#1e3a8a] mb-1">Tambah Siswa Baru</p>
-                        <div class="flex gap-2 mb-2">
-                            <input type="number" id="new-siswa-no" placeholder="No" class="w-[20%] border border-blue-200 rounded-lg p-2.5 text-[11px] font-bold outline-none focus:border-blue-500 text-center">
-                            <input type="text" id="new-siswa-nama" placeholder="Nama Lengkap" class="w-[80%] border border-blue-200 rounded-lg p-2.5 text-[11px] font-bold outline-none focus:border-blue-500">
+                    <div id="tambah-siswa-form" class="hidden mt-4 p-4 bg-blue-50 border border-blue-100 rounded-xl space-y-2.5">
+                        <p class="text-[11px] font-bold text-[#1e3a8a] mb-1.5">Tambah Siswa Baru</p>
+                        <div class="flex gap-2.5 mb-2.5">
+                            <input type="number" id="new-siswa-no" placeholder="No" class="w-[20%] border border-blue-200 rounded-lg p-2.5 text-[12px] font-bold outline-none focus:border-blue-500 text-center">
+                            <input type="text" id="new-siswa-nama" placeholder="Nama Lengkap" class="w-[80%] border border-blue-200 rounded-lg p-2.5 text-[12px] font-bold outline-none focus:border-blue-500">
                         </div>
-                        <div class="flex gap-2">
-                            <input type="text" id="new-siswa-pin" placeholder="PIN Akses" class="w-[40%] border border-blue-200 rounded-lg p-2.5 text-[11px] font-black outline-none text-center focus:border-blue-500">
-                            <button onclick="tambahSiswaAkun()" class="w-[60%] bg-[#1e3a8a] hover:bg-blue-900 text-white text-[10px] font-bold py-2.5 rounded-lg transition-colors flex items-center justify-center gap-1"><i class="fa-solid fa-plus"></i> SIMPAN SISWA</button>
+                        <div class="flex gap-2.5">
+                            <input type="text" id="new-siswa-pin" placeholder="PIN Akses" class="w-[40%] border border-blue-200 rounded-lg p-2.5 text-[12px] font-black outline-none text-center focus:border-blue-500">
+                            <button onclick="tambahSiswaAkun()" class="w-[60%] bg-[#1e3a8a] hover:bg-blue-900 text-white text-[11px] font-bold py-2.5 rounded-lg transition-colors flex items-center justify-center gap-1.5 cursor-pointer"><i class="fa-solid fa-plus"></i> SIMPAN SISWA</button>
                         </div>
                     </div>
-                    <div id="siswa-edit-container" class="mt-3 max-h-[30vh] overflow-y-auto space-y-2 custom-scrollbar pr-1"></div>
-                    <button id="btn-save-siswa" class="w-full mt-3 bg-[#1e3a8a] hover:bg-blue-900 text-white font-black py-3.5 rounded-xl text-[12px] shadow-sm transition hidden" onclick="simpanDataMasterKeServer()">SIMPAN PERUBAHAN KE SERVER</button>
+                    <div id="siswa-edit-container" class="mt-4 max-h-[35vh] overflow-y-auto space-y-2.5 custom-scrollbar pr-1"></div>
+                    <button id="btn-save-siswa" class="w-full mt-4 bg-[#1e3a8a] hover:bg-blue-900 text-white font-black py-3.5 rounded-xl text-[13px] shadow-md transition hidden cursor-pointer" onclick="simpanDataMasterKeServer()">SIMPAN PERUBAHAN KE SERVER</button>
                 `; 
             }
             body.innerHTML = html;
@@ -1740,19 +1775,19 @@
             DAFTAR_KELAS.forEach(k => {
                 if (DB.guru[k]) {
                     html += `
-                    <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200">
-                        <div class="flex justify-between items-center mb-1.5">
-                            <span class="text-[11px] font-black text-slate-800">Kelas ${k}</span>
-                            <button onclick="hapusWalas('${k}')" class="w-6 h-6 rounded bg-red-100 text-red-500 flex items-center justify-center hover:bg-red-200 transition"><i class="fa-solid fa-trash-can text-[10px]"></i></button>
+                    <div class="bg-slate-50 p-3 rounded-xl border border-slate-200">
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="text-[12px] font-black text-slate-800">Kelas ${k}</span>
+                            <button onclick="hapusWalas('${k}')" class="w-7 h-7 rounded-lg bg-red-100 text-red-500 flex items-center justify-center hover:bg-red-200 transition cursor-pointer"><i class="fa-solid fa-trash-can text-[11px]"></i></button>
                         </div>
-                        <div class="flex gap-2">
-                            <input type="text" class="w-[60%] border border-slate-200 rounded p-1.5 text-[10px] outline-none focus:border-blue-500" value="${DB.guru[k]}" onchange="DB.guru['${k}'] = this.value">
-                            <input type="text" class="w-[40%] border border-slate-200 rounded p-1.5 text-[10px] outline-none focus:border-blue-500 text-center font-black" value="${DB.walasPassword ? (DB.walasPassword[k] || '123456') : '123456'}" onchange="if(!DB.walasPassword) DB.walasPassword={}; DB.walasPassword['${k}'] = this.value">
+                        <div class="flex gap-2.5">
+                            <input type="text" class="w-[60%] border border-slate-200 rounded-lg p-2 text-[11px] md:text-[12px] outline-none focus:border-blue-500" value="${DB.guru[k]}" onchange="DB.guru['${k}'] = this.value">
+                            <input type="text" class="w-[40%] border border-slate-200 rounded-lg p-2 text-[11px] md:text-[12px] outline-none focus:border-blue-500 text-center font-black" value="${DB.walasPassword ? (DB.walasPassword[k] || '123456') : '123456'}" onchange="if(!DB.walasPassword) DB.walasPassword={}; DB.walasPassword['${k}'] = this.value">
                         </div>
                     </div>`;
                 }
             });
-            if(html === '') html = '<div class="text-center text-slate-400 text-[10px] font-bold p-4">Belum ada Wali Kelas aktif.</div>';
+            if(html === '') html = '<div class="text-center text-slate-400 text-[11px] font-bold p-5">Belum ada Wali Kelas aktif.</div>';
             document.getElementById('list-walas-aktif').innerHTML = html;
         }
 
@@ -1790,20 +1825,20 @@
             if(!kelas){ c.innerHTML = ''; if(formAdd) formAdd.classList.add('hidden'); if(btnSave) btnSave.classList.add('hidden'); return; } 
             
             if(formAdd) formAdd.classList.remove('hidden'); if(btnSave) btnSave.classList.remove('hidden');
-            c.innerHTML = `<div class="p-4 text-center text-slate-400 text-[10px] font-bold"><i class="fa-solid fa-circle-notch fa-spin"></i> Memuat data...</div>`;
+            c.innerHTML = `<div class="p-6 text-center text-slate-400 text-[11px] font-bold"><i class="fa-solid fa-circle-notch fa-spin"></i> Memuat data...</div>`;
             await fetchKelasData(kelas);
 
             let h=''; 
             (DB.siswa[kelas]||[]).forEach((s,i) => { 
-                h+=`<div class="flex justify-between items-center bg-slate-50 p-2.5 rounded-xl border border-slate-100 hover:border-blue-200 transition">
-                    <span class="text-[11px] font-bold text-slate-700 truncate w-[55%] pl-1">${String(s.no || i+1).padStart(2, '0')}. ${s.nama || s.class}</span>
-                    <div class="flex gap-1.5 w-[45%] justify-end">
-                        <input class="w-full max-w-[80px] bg-white border border-slate-200 rounded-lg p-1.5 text-center text-[10px] font-black outline-none focus:border-blue-500 transition-colors" value="${s.pin || '123456'}" onchange="updatePinSiswa('${kelas}', ${i}, this.value)">
-                        <button class="w-7 h-7 flex-shrink-0 rounded-lg bg-red-50 text-red-500 border border-red-200 flex items-center justify-center hover:bg-red-100 transition-colors" onclick="hapusSiswa('${kelas}',${i})"><i class="fa-solid fa-trash-can text-[10px]"></i></button>
+                h+=`<div class="flex justify-between items-center bg-slate-50 p-3 rounded-xl border border-slate-100 hover:border-blue-200 transition">
+                    <span class="text-[12px] md:text-[13px] font-bold text-slate-700 truncate w-[55%] pl-1">${String(s.no || i+1).padStart(2, '0')}. ${s.nama || s.class}</span>
+                    <div class="flex gap-2 w-[45%] justify-end">
+                        <input class="w-full max-w-[85px] bg-white border border-slate-200 rounded-lg p-1.5 text-center text-[11px] md:text-[12px] font-black outline-none focus:border-blue-500 transition-colors" value="${s.pin || '123456'}" onchange="updatePinSiswa('${kelas}', ${i}, this.value)">
+                        <button class="w-8 h-8 flex-shrink-0 rounded-lg bg-red-50 text-red-500 border border-red-200 flex items-center justify-center hover:bg-red-100 transition-colors cursor-pointer" onclick="hapusSiswa('${kelas}',${i})"><i class="fa-solid fa-trash-can text-[11px]"></i></button>
                     </div>
                 </div>`; 
             }); 
-            if(h === '') h = `<div class="p-4 text-center text-slate-400 text-[10px] font-bold">Belum ada siswa di kelas ini.</div>`;
+            if(h === '') h = `<div class="p-6 text-center text-slate-400 text-[11px] font-bold">Belum ada siswa di kelas ini.</div>`;
             c.innerHTML = h; 
         }
 
@@ -1901,7 +1936,7 @@
                 msgEl.innerText = msg;
             }
 
-            card.className = "bg-white rounded-3xl p-6 pt-8 max-w-[280px] w-full transform scale-75 opacity-0 transition-all duration-300 text-center relative mt-8 border-2";
+            card.className = "bg-white rounded-3xl p-6 pt-8 max-w-[300px] w-full transform scale-75 opacity-0 transition-all duration-300 text-center relative mt-8 border-2";
             icon.className = "absolute -top-8 left-1/2 transform -translate-x-1/2 text-[55px] drop-shadow-[0_10px_10px_rgba(0,0,0,0.2)] z-10 whitespace-nowrap animate-bounce";
 
             const successPool = [
@@ -1911,9 +1946,9 @@
             ];
 
             const errorPool = [
-                { emojis: "🫵🤣", glow: "border-red-400 shadow-[0_0_40px_rgba(248,113,113,0.5)]", btnClass: "bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 shadow-[0_4px_15px_rgba(239,68,68,0.4)]", btnText: "YAHAHAHA LAWAK LU! 🤡" },
                 { emojis: "🙈💦", glow: "border-rose-400 shadow-[0_0_40px_rgba(251,113,133,0.5)]", btnClass: "bg-gradient-to-r from-rose-400 to-rose-600 hover:from-rose-500 hover:to-rose-700 shadow-[0_4px_15px_rgba(244,63,94,0.4)]", btnText: "YAH KELESET BOS! 😅" },
-                { emojis: "😅🔧", glow: "border-slate-400 shadow-[0_0_40px_rgba(148,163,184,0.5)]", btnClass: "bg-gradient-to-r from-slate-500 to-slate-700 hover:from-slate-600 hover:to-slate-800 shadow-[0_4px_15px_rgba(100,116,139,0.4)]", btnText: "CEK LAGI DONG! 🛠️" }
+                { emojis: "😅🔧", glow: "border-slate-400 shadow-[0_0_40px_rgba(148,163,184,0.5)]", btnClass: "bg-gradient-to-r from-slate-500 to-slate-700 hover:from-slate-600 hover:to-slate-800 shadow-[0_4px_15px_rgba(100,116,139,0.4)]", btnText: "CEK LAGI DONG! 🛠️" },
+                { emojis: "🤔✨", glow: "border-indigo-400 shadow-[0_0_40px_rgba(129,140,248,0.5)]", btnClass: "bg-gradient-to-r from-indigo-500 to-indigo-600 hover:from-indigo-600 hover:to-indigo-700 shadow-[0_4px_15px_rgba(99,102,241,0.4)]", btnText: "WADUH KELIRU BOS! 🧐" }
             ];
 
             const warningPool = [
@@ -1929,7 +1964,7 @@
             icon.innerText = selectedTheme.emojis;
             card.classList.add(...selectedTheme.glow.split(' '));
             
-            btn.className = `w-full py-3.5 rounded-xl font-black text-[12px] text-white transition transform active:scale-95 ${selectedTheme.btnClass}`;
+            btn.className = `w-full py-3.5 rounded-xl font-black text-[13px] text-white transition transform active:scale-95 cursor-pointer ${selectedTheme.btnClass}`;
             btn.innerText = selectedTheme.btnText;
 
             overlay.classList.remove('opacity-0', 'pointer-events-none');
@@ -1988,9 +2023,6 @@
             if(roleName === 'Wali Kelas' && !selectedKelasWalas) return sweetPop('warning', 'Eits, Tunggu Dulu!', ['Pilih kelasnya dulu dong bos, masa mau ngawang? 👻', 'Kelasnya belum dipilih tuh, buru-buru amat!']);
             if(roleName === 'Wali Murid' && (!selectedKelasWarid || !selectedSiswaWarid)) return sweetPop('warning', 'Eits, Tunggu Dulu!', ['Pilih Kelas & Siswanya dulu yaa! 👻', 'Data anaknya belum dipilih nih, cek lagi ya!']);
 
-            const btn = e.target.querySelector('button[type="submit"]'); const originalContent = btn.innerHTML;
-            btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> MEMPROSES...'; btn.disabled = true;
-
             const password = document.getElementById(roleName === 'Administrator' ? 'pin-admin' : (roleName === 'Wali Kelas' ? 'pin-walas' : 'pin-warid')).value;
 
             let isSuccess = false; let namaGuru = "";
@@ -2007,7 +2039,6 @@
             }
 
             if (isSuccess) {
-                btn.innerHTML = originalContent; btn.disabled = false;
                 if (roleName === 'Wali Kelas') DB.guru[selectedKelasWalas] = namaGuru;
 
                 const loginView = document.getElementById('view-login'); let dashView = null;
@@ -2029,7 +2060,6 @@
                 document.body.style.backgroundColor = roleName === 'Administrator' ? '#f1f5f9' : '#f8fafc';
 
             } else {
-                btn.innerHTML = originalContent; btn.disabled = false; 
                 const pesanError = [
                     'Yahahaha, kata sandinya salah nih! Lupa ingatan yak?',
                     'Eits, sandinya meleset bos! Coba pelan-pelan ngetiknya.',
