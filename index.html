@@ -85,6 +85,10 @@
         .dynamic-input-row { animation: slideDown 0.3s ease; }
         @keyframes slideDown { from { opacity: 0; transform: translateY(-5px); } to { opacity: 1; transform: translateY(0); } }
 
+        /* ========================================================
+           PDF NATIVE PRINTING SYSTEM (DESAIN IDENTIK MUTLAK)
+           ======================================================== */
+        
         #pdf-render-container { display: none; }
         
         @media print {
@@ -340,6 +344,7 @@
         </div>
     </div>
 
+
     <!-- VIEW 2: ADMIN -->
     <div id="view-dashboard-admin" class="hidden w-full min-h-[100dvh] pb-8 relative origin-top pt-[60px]" style="background-color: #f1f5f9;">
         <main class="relative max-w-md mx-auto w-full">
@@ -427,6 +432,7 @@
             </div>
         </main>
     </div>
+
 
     <!-- VIEW 3: WALAS -->
     <div id="view-dashboard-walas" class="hidden w-full min-h-[100dvh] pb-8 relative origin-top font-['Inter'] pt-[60px]" style="background-color: #f8fafc;">
@@ -592,10 +598,10 @@
         const GAS_URL = "https://script.google.com/macros/s/AKfycbwcBuNRtC9EUE8YYeRw6yB9CJvy9peqVl_2n6WU8AyyGIuPFXoZcSxYMXS0tq_fyasXxw/exec";
 
         // ==========================================
-        // PENGATURAN KOP GITHUB (UBAH LINK INI JIKA KOP TIDAK MUNCUL)
+        // KONFIGURASI URL KOP (PASTIKAN FILE ADA DI GITHUB)
         // ==========================================
-        const KOP_ATAS_URL = "KOP TINTA ATAS PUTIH.jpg"; // Ganti dengan link RAW GitHub Anda
-        const KOP_BAWAH_URL = "KOP TINTA BAWAH.png"; // Ganti dengan link RAW GitHub Anda
+        const KOP_ATAS_URL = "KOP TINTA ATAS PUTIH.jpg"; 
+        const KOP_BAWAH_URL = "KOP TINTA BAWAH.png"; 
         // ==========================================
 
         const DAFTAR_KELAS = ["1A", "1B", "1C", "1D", "1 ICP A", "1 ICP B", "2A", "2B", "2C", "2D", "2 ICP A", "2 ICP B", "3A", "3B", "3C", "3D", "3 ICP A", "4A", "4B", "4C", "4D", "5A", "5B", "5C", "5D", "6A", "6B", "6C", "6D"];
@@ -736,7 +742,7 @@
         function cariSiswa() { const input = document.getElementById('search-siswa').value.toLowerCase(); const items = document.querySelectorAll('.item-siswa-admin'); items.forEach(item => { item.style.display = item.querySelector('.nama-siswa-admin').innerText.toLowerCase().includes(input) ? '' : 'none'; }); }
 
         // ==========================================
-        // SISTEM CETAK PDF NATIVE (DESAIN IDENTIK MUTLAK + JURUS ANTI BLANK)
+        // SISTEM CETAK PDF NATIVE (JURUS DEWA ANTI-BLANK)
         // ==========================================
         function checkHighlight(cb) {
             const label = cb.closest('label'); const indicator = label.querySelector('.input-indicator');
@@ -787,7 +793,7 @@
                     <div class="flex-1 overflow-y-auto custom-scrollbar pr-1 mb-3">
                         ${listHtml}
                     </div>
-                    <button onclick="prosesCetakAdmin()" class="w-full bg-[#1e3a8a] text-white py-3.5 rounded-xl font-black text-[12px] shadow-md hover:bg-blue-900 transition flex items-center justify-center gap-2"><i class="fa-solid fa-download"></i> CETAK PDF</button>
+                    <button onclick="prosesCetakAdmin()" class="w-full bg-[#1e3a8a] text-white py-3.5 rounded-xl font-black text-[12px] shadow-md hover:bg-blue-900 transition flex items-center justify-center gap-2"><i class="fa-solid fa-print"></i> CETAK PDF</button>
                 </div>
             `;
             modal.classList.add('active');
@@ -815,7 +821,7 @@
 
             body.innerHTML = `
                 <div class="flex flex-col h-full max-h-[70vh]">
-                    <button onclick="prosesCetakWalasRekap()" class="w-full bg-[#1e3a8a] text-white py-3.5 rounded-xl font-black text-[11px] mb-4 shadow-md hover:bg-blue-900 transition flex items-center justify-center gap-2"><i class="fa-solid fa-download"></i> 1. CETAK REKAP SELURUH KELAS</button>
+                    <button onclick="prosesCetakWalasRekap()" class="w-full bg-[#1e3a8a] text-white py-3.5 rounded-xl font-black text-[11px] mb-4 shadow-md hover:bg-blue-900 transition flex items-center justify-center gap-2"><i class="fa-solid fa-print"></i> 1. CETAK REKAP SELURUH KELAS</button>
                     <div class="border-t border-slate-200 my-2 relative">
                         <span class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-white px-3 text-[10px] font-black text-slate-400">ATAU CETAK PERSISWA</span>
                     </div>
@@ -826,16 +832,15 @@
                     <div class="flex-1 overflow-y-auto custom-scrollbar pr-1 mb-3">
                         ${listSiswa || '<p class="text-center text-[10px] font-bold text-slate-400">Belum ada siswa</p>'}
                     </div>
-                    <button onclick="prosesCetakWalasSiswa()" class="w-full bg-[#ea580c] text-white py-3.5 rounded-xl font-black text-[12px] shadow-md hover:bg-orange-700 transition flex items-center justify-center gap-2"><i class="fa-solid fa-download"></i> 2. CETAK LAPORAN SISWA</button>
+                    <button onclick="prosesCetakWalasSiswa()" class="w-full bg-[#ea580c] text-white py-3.5 rounded-xl font-black text-[12px] shadow-md hover:bg-orange-700 transition flex items-center justify-center gap-2"><i class="fa-solid fa-print"></i> 2. CETAK LAPORAN SISWA</button>
                 </div>
             `;
             modal.classList.add('active');
         }
 
+        // FUNGSI INTI CETAK: MENUNGGU GAMBAR 100% SEBELUM PRINT!
         async function executeNativePrint(filename, htmlContent) {
             closeModal();
-            
-            // Tampilkan pop up loading yang gaul
             sweetPop('warning', 'Sabar Bosku! 🚀', ['Lagi nunggu KOP Resmi merapat...', 'Tahan bentar, lagi nempelin KOP ke kertas F4! 📄']);
             
             const container = document.getElementById('pdf-render-container');
@@ -844,7 +849,7 @@
             const originalTitle = document.title;
             document.title = filename;
 
-            // JURUS DEWA: Menunggu semua gambar KOP termuat 100%
+            // DETEKSI SEMUA GAMBAR KOP DI DALAM CONTAINER PDF
             const images = container.querySelectorAll('img');
             let loadedImages = 0;
             
@@ -858,21 +863,22 @@
                     checkImageLoad();
                 } else {
                     img.addEventListener('load', checkImageLoad);
-                    img.addEventListener('error', checkImageLoad); // Tetap lanjut meski gagal agar tidak nyangkut
+                    img.addEventListener('error', checkImageLoad); // Tetap lanjut meski gagal agar proses tidak nge-hang
                 }
             });
 
             function checkImageLoad() {
                 loadedImages++;
+                // JIKA SEMUA GAMBAR KOP SUDAH BERHASIL DI-LOAD DARI GITHUB
                 if (loadedImages === images.length) {
-                    setTimeout(triggerPrint, 500); // Beri jeda 0.5 detik untuk browser menggambar
+                    setTimeout(triggerPrint, 500); // Beri jeda 0.5 detik ekstra agar browser menggambar dengan sempurna
                 }
             }
 
             function triggerPrint() {
-                closeFunPop(); // Tutup pop up loading
+                closeFunPop(); // Tutup pop up loading "Sabar bosku"
                 setTimeout(() => {
-                    window.print();
+                    window.print(); // MUNCULKAN JENDELA PRINT NATIVE
                     document.title = originalTitle;
                     container.innerHTML = '';
                 }, 300);
@@ -881,7 +887,7 @@
 
         async function prosesCetakAdmin() {
             const cbs = document.querySelectorAll('.cb-admin-print:checked');
-            if (cbs.length === 0) return sweetPop('warning', 'Cetak Apaan Nih?', ['Centang dulu dong kelas yang mau dicetak! 🖨️']);
+            if (cbs.length === 0) return sweetPop('warning', 'Pilih Dulu Bos!', ['Centang dulu dong kelas yang mau dicetak! 🖨️']);
             
             let filename = cbs.length > 1 ? 'Laporan_Rekap_Infaq_Semua_Kelas' : `Laporan_Rekap_Infaq_Kelas_${cbs[0].value}`;
             let finalHTML = '';
@@ -910,7 +916,7 @@
         }
 
         // ==========================================
-        // GENERATOR HTML PDF DESAIN MUTLAK IDENTIK 100%
+        // GENERATOR HTML PDF (TIDAK ADA PERUBAHAN DESAIN, SUDAH DEWA)
         // ==========================================
         async function generateClassRecapHTML(kelas) {
             await fetchKelasData(kelas);
@@ -921,7 +927,7 @@
             let tableRows = '';
             
             const monthHeaders = ["Jul", "Agt", "Sep", "Okt", "Nov", "Des", "Jan", "Feb", "Mar", "Apr", "Mei", "Jun"];
-            const rowCount = Math.max(30, dataSiswa.length); // Paksa isi sampai bawah agar rapi
+            const rowCount = Math.max(30, dataSiswa.length); 
             
             for(let i=0; i<rowCount; i++) {
                 const s = dataSiswa[i];
@@ -943,7 +949,7 @@
 
                     rowHtml += `<td class="text-left"><div class="nama-siswa-pill">${s.nama}</div></td>`;
                     monthHeaders.forEach(m => {
-                        let val = monthlyData[m] === 0 ? "0" : (monthlyData[m]/1000).toString(); // Angka simpel
+                        let val = monthlyData[m] === 0 ? "0" : (monthlyData[m]/1000).toString(); 
                         let valClass = monthlyData[m] === 0 ? "val-zero" : "";
                         rowHtml += `<td class="${valClass}">${val}</td>`;
                     });
@@ -961,7 +967,7 @@
             
             return `
             <div class="pdf-page-container">
-                <img src="${KOP_ATAS_URL}" class="kop-img" onerror="console.warn('Gagal muat KOP Atas')">
+                <img src="${KOP_ATAS_URL}" class="kop-img">
                 <div class="pdf-content">
                     <h2 class="title-h2">LAPORAN REKAP ADMINISTRATOR INFAQ - KELAS ${kelas}</h2>
                     <p class="title-date">Dicetak Oleh Administrator Sekolah pada: ${new Date().toLocaleDateString('id-ID', {day:'numeric', month:'long', year:'numeric'})} WIB</p>
@@ -1001,7 +1007,7 @@
                     </table>
                 </div>
                 <p style="font-size: 8px; font-style: italic; color: #94a3b8; text-align: left; margin-top: 15px; padding-left: 15mm; font-weight: normal;">Sistem Infaq Sekolah Digital TINTA - Cetakan Sah Terverifikasi Sistem Otomatis</p>
-                <img src="${KOP_BAWAH_URL}" class="kop-footer" onerror="console.warn('Gagal muat KOP Bawah')">
+                <img src="${KOP_BAWAH_URL}" class="kop-footer">
             </div>
             `;
         }
@@ -1075,7 +1081,7 @@
 
             return `
             <div class="pdf-page-container">
-                <img src="${KOP_ATAS_URL}" class="kop-img" onerror="console.warn('Gagal muat KOP Atas')">
+                <img src="${KOP_ATAS_URL}" class="kop-img">
                 <div class="pdf-content">
                     <h2 class="title-h2">LAPORAN KEUANGAN INFAQ - KELAS ${kelas}</h2>
                     <p class="title-date">Dicetak pada: ${new Date().toLocaleDateString('id-ID', {day:'numeric', month:'long', year:'numeric'})} pukul ${String(new Date().getHours()).padStart(2,'0')}.${String(new Date().getMinutes()).padStart(2,'0')} WIB</p>
@@ -1133,11 +1139,12 @@
                         <tbody>${expRows}</tbody>
                     </table>
                 </div>
-                <img src="${KOP_BAWAH_URL}" class="kop-footer" onerror="console.warn('Gagal muat KOP Bawah')">
+                <img src="${KOP_BAWAH_URL}" class="kop-footer">
             </div>
             `;
         }
 
+        // --- DASHBOARD WALI KELAS LOGIC ---
         function initDashboardWalas(kelas) {
             kelasWalasAktif = kelas;
             document.getElementById('walas-nama-guru').innerText = "Wali Kelas: " + (DB.guru[kelas] || "Guru"); document.getElementById('walas-nama-kelas').innerText = `KELAS ${kelas.toUpperCase()}`;
@@ -1260,6 +1267,7 @@
             document.getElementById('walas-stat-masuk').innerText = "Rp " + formatRp(totalMasuk); document.getElementById('walas-stat-keluar').innerText = "Rp " + formatRp(totalKeluar); document.getElementById('walas-stat-saldo').innerText = "Rp " + formatRp(saldo);
         }
 
+        // --- DASHBOARD WALI MURID LOGIC ---
         function initDashboardWarid(kelas, idxSiswa) {
             kelasWaridAktif = kelas; siswaWaridIdx = idxSiswa; const student = DB.siswa[kelas][idxSiswa];
             document.getElementById('warid-nama-siswa').innerText = student.nama || student.class; document.getElementById('warid-info-siswa').innerText = `Kelas ${kelas} | No Presensi: ${String(student.no || idxSiswa+1).padStart(2, '0')}`;
@@ -1677,7 +1685,7 @@
             ];
 
             const errorPool = [
-                { emojis: "🫵🤣", glow: "border-red-400 shadow-[0_0_40px_rgba(248,113,113,0.5)]", btnClass: "bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 shadow-[0_4px_15px_rgba(239,68,68,0.4)]", btnText: "YAHAHAHA LAWAK LU! 🤡" },
+                { emojis: "🫵🤣", glow: "border-red-400 shadow-[0_0_40px_rgba(248,113,113,0.5)]", btnClass: "bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 shadow-[0_4px_15px_rgba(239,68,68,0.4)]", btnText: "YAHAHAHA LAWAK LU! 🤣" },
                 { emojis: "🙈💦", glow: "border-rose-400 shadow-[0_0_40px_rgba(251,113,133,0.5)]", btnClass: "bg-gradient-to-r from-rose-400 to-rose-600 hover:from-rose-500 hover:to-rose-700 shadow-[0_4px_15px_rgba(244,63,94,0.4)]", btnText: "YAH KELESET BOS! 😅" },
                 { emojis: "😅🔧", glow: "border-slate-400 shadow-[0_0_40px_rgba(148,163,184,0.5)]", btnClass: "bg-gradient-to-r from-slate-500 to-slate-700 hover:from-slate-600 hover:to-slate-800 shadow-[0_4px_15px_rgba(100,116,139,0.4)]", btnText: "CEK LAGI DONG! 🛠️" }
             ];
