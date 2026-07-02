@@ -18,7 +18,6 @@
         .bg-clean-lines { position: fixed; top: 0; left: 0; right: 0; bottom: 0; z-index: 0; pointer-events: none; background-image: radial-gradient(circle at 15% 50%, rgba(249, 115, 22, 0.03), transparent 25%), radial-gradient(circle at 85% 30%, rgba(30, 58, 138, 0.03), transparent 25%); }
         .fine-grid { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background-image: linear-gradient(rgba(203, 213, 225, 0.25) 1px, transparent 1px), linear-gradient(90deg, rgba(203, 213, 225, 0.25) 1px, transparent 1px); background-size: 30px 30px; z-index: 0; opacity: 0.6; }
 
-        /* ANIMASI SPLASH SCREEN */
         @keyframes floatLogo { 0% { transform: translateY(30px) scale(0.85); opacity: 0; } 100% { transform: translateY(0) scale(1); opacity: 1; } }
         .animate-float-logo { animation: floatLogo 1s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; }
 
@@ -63,11 +62,10 @@
         .walas-btn-action:active { transform: scale(0.95); }
         
         .table-container { max-height: 460px; overflow-y: auto; overflow-x: auto; position: relative; background: white; }
-        .z-head { position: sticky; top: 0; z-index: 30; background-color: #f8fafc; background-clip: padding-box; border-bottom: 1px solid #e2e8f0; }
+        .z-head { position: sticky; top: 0; z-index: 30; background-clip: padding-box; border-bottom: 1px solid #e2e8f0; }
         .z-col { position: sticky; z-index: 20; background-color: #ffffff; background-clip: padding-box; border-bottom: 1px solid #f1f5f9; }
         .z-intersect { position: sticky; top: 0; z-index: 40; background-color: #f8fafc; background-clip: padding-box; border-bottom: 1px solid #e2e8f0; }
         
-        /* KUNCI LEBAR KOLOM ANTI-BOCOR (STICKY SCROLL SEMPURNA) */
         .pos-no { left: 0; width: 25px; min-width: 25px; max-width: 25px; }
         .pos-nama { left: 25px; width: 140px; min-width: 140px; max-width: 140px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
         .pos-total { left: 165px; width: 50px; min-width: 50px; max-width: 50px; box-shadow: inset -1px 0 0 #e2e8f0, 2px 0 4px -2px rgba(0,0,0,0.08); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
@@ -92,22 +90,14 @@
         .dynamic-input-row { animation: slideDown 0.3s ease; }
         @keyframes slideDown { from { opacity: 0; transform: translateY(-5px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* ========================================================
-           PDF PRINT STYLES NATIVE HTML
-           ======================================================== */
         #pdf-render-container { display: none; }
         
         @media print {
             body { background-color: white; margin: 0; padding: 0; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; font-family: Arial, sans-serif; }
             body > *:not(#pdf-render-container) { display: none !important; }
             
-            #pdf-render-container {
-                position: absolute !important; left: 0 !important; top: 0 !important; display: block !important; width: 100% !important; background-color: white;
-            }
-            .pdf-page-container {
-                width: 215.9mm; height: 330.2mm; /* F4 Portrait */
-                page-break-after: always; margin: 0; padding: 0; position: relative; box-sizing: border-box; overflow: hidden; background-color: white;
-            }
+            #pdf-render-container { position: absolute !important; left: 0 !important; top: 0 !important; display: block !important; width: 100% !important; background-color: white; }
+            .pdf-page-container { width: 215.9mm; height: 330.2mm; page-break-after: always; margin: 0; padding: 0; position: relative; box-sizing: border-box; overflow: hidden; background-color: white; }
             @page { size: 215.9mm 330.2mm; margin: 0mm !important; }
             
             .kop-img { width: 100%; height: auto; display: block; margin: 0; padding: 0; border: none; outline: none; }
@@ -129,17 +119,11 @@
             .legend-item { font-size: 8px; font-weight: 700; color: #475569; display: flex; align-items: center; gap: 4px; }
             .legend-box { width: 10px; height: 10px; border-radius: 2px; }
 
-            .student-badge { 
-                background: linear-gradient(90deg, #1e3a8a, #3b82f6); color: white; padding: 6px 12px; font-size: 10px; font-weight: 800; margin-bottom: 8px; display: block; width: 100%; box-sizing: border-box; border-radius: 6px; border-left: 6px solid #fbbf24;
-            }
-
-            .nama-siswa-pill { 
-                color: #1e3a8a; padding: 2px 0px; font-weight: 800; display: inline-block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 140px; font-size: 8px; line-height: 1.2;
-            }
+            .student-badge { background: linear-gradient(90deg, #1e3a8a, #3b82f6); color: white; padding: 6px 12px; font-size: 10px; font-weight: 800; margin-bottom: 8px; display: block; width: 100%; box-sizing: border-box; border-radius: 6px; border-left: 6px solid #fbbf24; }
+            .nama-siswa-pill { color: #1e3a8a; padding: 2px 0px; font-weight: 800; display: inline-block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 140px; font-size: 7.5px; line-height: 1.2; }
             
-            /* Table Rekap Kelas (Admin) - DIPADATKAN MAX 35 BARIS */
             .table-admin { width: 100%; border-collapse: separate; border-spacing: 0; font-size: 7.5px; text-align: center; border: 1px solid #e2e8f0; margin-bottom: 0; }
-            .table-admin th { padding: 3px 2px; font-weight: 600; border: 1px solid white; background-color: #1e3a8a; color: white; border-radius: 2px; font-size: 7px; }
+            .table-admin th { padding: 2.5px 2px; font-weight: 600; border: 1px solid white; background-color: #1e3a8a; color: white; border-radius: 2px; font-size: 7px; }
             .table-admin td { padding: 1.5px 1px; color: #475569; border-bottom: 1px solid #f1f5f9; border-top: none; height: 11px; font-size: 7px; }
             .table-admin tbody tr:nth-child(even) td { background-color: #f8fafc !important; }
             .table-admin tbody tr:nth-child(odd) td { background-color: white !important; }
@@ -147,7 +131,6 @@
             .val-zero { color: #cbd5e1 !important; }
             .val-bold { font-weight: 800; color: #1e3a8a; }
             
-            /* Table Persiswa (Walas) 2 KOLOM RAPI - DIPADATKAN */
             .table-siswa { width: 100%; border-collapse: collapse; font-size: 7.5px; text-align: center; }
             .table-siswa th { padding: 4px 1px; color: #475569; font-weight: 800; border-bottom: 1px solid #e2e8f0; font-size: 7.5px; text-align: center; }
             .table-siswa td { padding: 3.5px 1px; color: #334155; border-bottom: 1px solid #f1f5f9; vertical-align: middle; }
@@ -316,16 +299,11 @@
         </div>
     </div>
 
-
     <!-- VIEW 2: ADMIN -->
     <div id="view-dashboard-admin" class="hidden w-full min-h-[100dvh] pb-8 relative origin-top pt-[60px]" style="background-color: #f1f5f9;">
-        <!-- Container Desktop Lebih Lebar -->
         <main class="relative max-w-7xl mx-auto w-full px-4 md:px-8 pt-4">
             
-            <!-- Grid Layout untuk Bagian Atas di Desktop -->
             <div class="md:grid md:grid-cols-12 md:gap-5 mb-4">
-                
-                <!-- Kolom Kiri Desktop -->
                 <div class="md:col-span-5 lg:col-span-4 space-y-4">
                     <section class="section-shape flex items-center gap-3 !mt-0 !mb-0 shadow-sm">
                         <img src="TINTA.png" class="w-12 h-auto object-contain" onerror="this.src='https://placehold.co/100x30/ffffff/1e3a8a?text=LOGO'">
@@ -363,7 +341,6 @@
                     </section>
                 </div>
                 
-                <!-- Kolom Kanan Desktop -->
                 <div class="md:col-span-7 lg:col-span-8 space-y-4 mt-4 md:mt-0">
                     <section class="section-shape bg-blue-50 border-blue-100 flex items-center justify-between gap-3 !mb-0 shadow-sm">
                         <div class="flex items-center gap-2">
@@ -390,7 +367,6 @@
                         </div>
                     </section>
                 </div>
-                
             </div>
 
             <div class="relative z-[10]">
@@ -418,7 +394,6 @@
 
     <!-- VIEW 3: WALAS -->
     <div id="view-dashboard-walas" class="hidden w-full min-h-[100dvh] pb-8 relative origin-top font-['Inter'] pt-[60px]" style="background-color: #f8fafc;">
-        <!-- Container Desktop Lebih Lebar -->
         <main class="p-3 md:p-6 relative max-w-7xl mx-auto w-full">
             
             <div class="bg-white rounded-2xl p-4 shadow-sm border border-slate-100 flex flex-col md:flex-row md:items-center justify-between gap-3 mb-4 mt-2">
@@ -435,9 +410,7 @@
                 </div>
             </div>
 
-            <!-- Grid Responsive untuk Kotak Total & Tombol Aksi -->
             <div class="md:flex md:gap-5 mb-5 items-stretch">
-                <!-- Kolom Stats (Kiri di Desktop) -->
                 <div class="md:w-3/5 grid grid-cols-3 gap-2.5 mb-3 md:mb-0">
                     <div class="bg-[#dcfce7] rounded-xl p-3 md:p-4 shadow-sm border border-green-200/50 flex flex-col justify-center items-center h-full">
                         <div class="flex items-center gap-1 text-green-700 font-bold text-[9px] md:text-[10px] mb-1.5">
@@ -459,7 +432,6 @@
                     </div>
                 </div>
                 
-                <!-- Kolom Actions (Kanan di Desktop) -->
                 <div class="md:w-2/5 grid grid-cols-4 gap-2">
                     <button onclick="openWalasModal('pengeluaran')" class="walas-btn-action bg-[#ea580c] text-white rounded-xl py-2 px-1 text-[8px] md:text-[9px] font-bold flex flex-col items-center justify-center gap-1.5 shadow-sm h-full hover:bg-orange-700">
                         <div class="w-6 h-6 rounded-full bg-white/20 flex items-center justify-center"><i class="fa-solid fa-minus text-[11px]"></i></div>
@@ -502,11 +474,9 @@
 
     <!-- VIEW 4: WARID -->
     <div id="view-dashboard-warid" class="hidden w-full min-h-[100dvh] pb-8 relative origin-top font-['Inter'] pt-[60px]" style="background-color: #f8fafc;">
-        <!-- Container Desktop Lebih Lebar -->
         <main class="p-4 md:p-8 relative max-w-5xl mx-auto w-full">
             
             <div class="md:grid md:grid-cols-2 md:gap-6 mb-6 items-stretch">
-                <!-- Kolom Kiri -->
                 <div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-100 flex items-center justify-between mb-4 md:mb-0 h-full">
                     <div class="flex items-center gap-4">
                         <div class="w-12 h-12 rounded-full border border-blue-200 bg-blue-50 flex items-center justify-center text-blue-600 text-lg">
@@ -520,7 +490,6 @@
                     <button onclick="logoutApp('view-dashboard-warid')" class="w-10 h-10 rounded-xl border border-red-500 text-red-500 flex items-center justify-center bg-[#fef2f2] hover:bg-red-100 transition shadow-sm" title="Keluar"><i class="fa-solid fa-power-off text-[15px]"></i></button>
                 </div>
 
-                <!-- Kolom Kanan -->
                 <div class="bg-[#1e3a8a] rounded-2xl p-6 shadow-lg relative overflow-hidden h-full flex flex-col justify-center">
                     <div class="absolute right-[-10px] top-[-10px] opacity-10 text-[90px]"><i class="fa-solid fa-wallet"></i></div>
                     <p id="teks-total-ananda" class="text-[10px] font-bold text-blue-200 uppercase tracking-widest mb-1.5 relative z-10">Total Infaq Ananda</p>
@@ -536,7 +505,6 @@
                 <h3 class="text-[11px] md:text-[12px] font-black text-slate-700 tracking-wider">KALENDER RIWAYAT INFAQ</h3>
             </div>
 
-            <!-- Di desktop otomatis merentang karena flexbox overflow -->
             <div id="warid-calendar-container" class="space-y-4">
                 <!-- Data Bulanan Diinjeksi via JS -->
             </div>
@@ -554,11 +522,12 @@
     </div>
 
     <!-- FUN POPUP (SWEET ALERT CUSTOM) -->
-    <div id="fun-popup-overlay" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-[99999] flex justify-center items-center opacity-0 pointer-events-none transition-opacity duration-300 px-4">
+    <!-- PERHATIAN: Z-Index diubah menjadi 9999999 agar selalu paling depan! -->
+    <div id="fun-popup-overlay" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-[9999999] flex justify-center items-center opacity-0 pointer-events-none transition-opacity duration-300 px-4">
         <div id="fun-popup-card" class="bg-white rounded-3xl p-6 pt-8 max-w-[300px] w-full transform scale-75 opacity-0 transition-all duration-300 text-center relative mt-8 border-2 shadow-2xl">
             <div id="fun-popup-icon" class="absolute -top-8 left-1/2 transform -translate-x-1/2 text-[55px] drop-shadow-[0_10px_10px_rgba(0,0,0,0.2)] z-10 whitespace-nowrap animate-bounce">🚀</div>
             <h3 id="fun-popup-title" class="text-[17px] md:text-[19px] font-black text-slate-800 mb-1 mt-2">Judul</h3>
-            <p id="fun-popup-msg" class="text-[11px] md:text-[12px] font-bold text-slate-500 mb-5 leading-relaxed">Pesan</p>
+            <p id="fun-popup-msg" class="text-[11px] md:text-[12px] font-bold text-slate-500 mb-5 leading-relaxed whitespace-pre-line">Pesan</p>
             <button onclick="closeFunPop()" id="fun-popup-btn" class="w-full py-3.5 rounded-xl font-black text-[12px] md:text-[13px] text-white shadow-lg transition transform active:scale-95 cursor-pointer">OKE</button>
         </div>
     </div>
@@ -601,6 +570,7 @@
     <div id="install-popup-overlay" class="fixed inset-0 bg-slate-900/90 backdrop-blur-md z-[999998] flex justify-center items-end sm:items-center opacity-0 pointer-events-none transition-opacity duration-300 sm:px-4 pb-4 sm:pb-0">
         <div class="bg-white rounded-[2rem] sm:rounded-3xl p-6 w-full max-w-[360px] transform translate-y-10 sm:translate-y-0 sm:scale-95 transition-all duration-300 relative shadow-2xl border-2 border-slate-200">
             <div class="flex items-center gap-4 mb-4 mt-2">
+                <!-- MENGGUNAKAN TINTA.png SESUAI INSTRUKSI -->
                 <img src="TINTA.png" class="w-14 md:w-16 h-14 md:h-16 object-contain drop-shadow" onerror="this.src='https://placehold.co/100x100/ffffff/1e3a8a?text=TINTA'">
                 <div>
                     <h3 class="text-[16px] md:text-[18px] font-black text-slate-800 leading-tight uppercase text-red-600">AKSES DITOLAK!</h3>
@@ -624,8 +594,8 @@
         </div>
     </div>
 
-    <!-- CUSTOM CONFIRM MODAL (UNTUK HAPUS/RESET DI CANVAS) -->
-    <div id="custom-confirm-overlay" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-[99999] flex justify-center items-center opacity-0 pointer-events-none transition-opacity duration-300 px-4">
+    <!-- CUSTOM CONFIRM MODAL -->
+    <div id="custom-confirm-overlay" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-[9999999] flex justify-center items-center opacity-0 pointer-events-none transition-opacity duration-300 px-4">
         <div class="bg-white rounded-2xl p-6 shadow-2xl max-w-[340px] w-full transform scale-95 transition-transform duration-300 text-center relative overflow-hidden">
             <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-red-500 to-orange-500"></div>
             <div class="w-14 h-14 rounded-full bg-red-50 text-red-500 flex items-center justify-center text-2xl mx-auto mb-4 border border-red-100"><i class="fa-solid fa-triangle-exclamation"></i></div>
@@ -659,20 +629,19 @@
             if ('serviceWorker' in navigator) {
                 const swCode = "self.addEventListener('install', e => self.skipWaiting()); self.addEventListener('fetch', e => {});";
                 const swBlob = new Blob([swCode], {type: 'application/javascript'});
-                navigator.serviceWorker.register(URL.createObjectURL(swBlob)).catch(e => console.log("PWA Engine Bypassed Silently"));
+                // KONSOL BERSIH: Tambahkan .catch() untuk membungkam error dari browser security
+                navigator.serviceWorker.register(URL.createObjectURL(swBlob)).catch(e => console.log("PWA Engine Bypass Activated (Offline SW Ignored)"));
             }
         } catch(e) { console.log("PWA Setup Bypassed"); }
 
         window.addEventListener('beforeinstallprompt', (e) => {
             e.preventDefault();
             deferredPrompt = e;
-            // Jika belum diinstal dan splash screen sudah hilang, paksa popup muncul
             if(!isAppInstalled && document.getElementById('splash-screen').style.display === 'none') {
                 showMandatoryInstall();
             }
         });
 
-        // Deteksi otomatis jika user berhasil install dari PopUp
         window.addEventListener('appinstalled', () => {
             isAppInstalled = true;
             document.getElementById('install-popup-overlay').classList.add('opacity-0', 'pointer-events-none');
@@ -681,7 +650,6 @@
 
         // --- SISTEM PENYAMBUTAN & SPLASH SCREEN LOGIC ---
         window.addEventListener('DOMContentLoaded', () => {
-            // 1. Jalankan Splash Screen (Logo Melayang & Bouncing Dots)
             setTimeout(() => {
                 const splash = document.getElementById('splash-screen');
                 splash.classList.add('opacity-0', 'pointer-events-none');
@@ -689,22 +657,18 @@
                 setTimeout(() => {
                     splash.style.display = 'none';
                     
-                    // 2. Evaluasi: Sudah Install (Standalone) atau Belum?
                     if (!isAppInstalled) {
-                        // WAJIB INSTALL (Blokir layar total)
                         showMandatoryInstall();
                     } else {
-                        // SUDAH INSTALL: Lanjut Onboarding atau Login Biasa
                         if(!sessionStorage.getItem('tinta_welcomed')) {
                             showWelcomePopup();
                         }
                     }
-                }, 700); // Waktu memudar (fade out)
-            }, 1800); // Tahan Splash Screen selama 1.8 detik
+                }, 700); 
+            }, 1800); 
         });
 
         function showMandatoryInstall() {
-            // Cek ulang untuk jaga-jaga kalau browser telat mendeteksi standalone
             if (window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true) {
                 isAppInstalled = true;
                 if(!sessionStorage.getItem('tinta_welcomed')) showWelcomePopup();
@@ -716,13 +680,15 @@
             overlay.querySelector('div').classList.remove('translate-y-10', 'scale-95');
         }
 
+        // FUNGSI INSTALL INSTAN DENGAN FALLBACK CERDAS
         function triggerNativeInstall() {
             if (deferredPrompt) {
-                // Trigger native prompt dari browser
                 deferredPrompt.prompt();
                 deferredPrompt.userChoice.then((choiceResult) => {
                     if (choiceResult.outcome === 'accepted') {
-                        sweetPop('success', 'Sedang Diinstal!', 'Mantap Bos! Tunggu sebentar, aplikasi akan otomatis muncul di layar utama Anda.');
+                        document.getElementById('install-popup-overlay').classList.add('opacity-0', 'pointer-events-none');
+                        sweetPop('success', 'Sedang Diinstal!', 'Mantap Bos! Aplikasi akan otomatis muncul di layar utama Anda.');
+                        setTimeout(() => showWelcomePopup(), 2000);
                     } else {
                         sweetPop('error', 'Wajib Bos!', 'Tidak ada kompromi! Aplikasi harus diinstal biar kecepatannya maksimal. 😤');
                     }
@@ -730,7 +696,14 @@
                 });
             } else {
                 // FALLBACK CERDAS (Jika browser memblokir prompt atau di iPhone/iOS)
-                sweetPop('warning', 'Tinggal 1 Langkah Lagi!', 'Perangkat Anda memblokir install instan. Silakan klik tombol [Titik 3] atau [Share] di browser, lalu pilih "Tambahkan ke Layar Utama" (Add to Home Screen).');
+                // SweetPop akan muncul PALING DEPAN karena Z-index sudah dinaikkan ke 9999999
+                sweetPop('warning', 'Install Instan Diblokir!', 'Browser Anda menolak install otomatis.\nSilakan klik tombol [Titik 3] atau [Share], lalu pilih "Tambahkan ke Layar Utama".\n\n(Akses sementara dibuka)');
+                
+                // Beri waktu 3 detik bagi user membaca, lalu sembunyikan overlay install dan izinkan masuk sementara
+                setTimeout(() => {
+                    document.getElementById('install-popup-overlay').classList.add('opacity-0', 'pointer-events-none');
+                    showWelcomePopup();
+                }, 3000);
             }
         }
 
@@ -747,7 +720,6 @@
             overlay.classList.add('opacity-0', 'pointer-events-none');
         }
 
-
         // ==========================================
         // SISTEM DATABASE MASTER
         // ==========================================
@@ -759,7 +731,6 @@
 
         let academicWeeks = [];
         
-        // AUTO KALENDER GENERATOR: Cari Jumat Pertama Bulan Juli Terdekat
         function generateAcademicWeeks() {
             let currentDate = new Date();
             let year = currentDate.getFullYear();
@@ -829,7 +800,7 @@
             let htmlSelect = '<option value="">Pilih Kelas</option>'; DAFTAR_KELAS.forEach(k => htmlSelect += `<option value="${k}">${k}</option>`);
             selectSummary.innerHTML = htmlSelect;
             
-            loadMasterDataInBackground(); // Dijalankan asinkron tanpa menunggu agar tidak delay
+            loadMasterDataInBackground(); 
         }
 
         async function loadMasterDataInBackground() {
@@ -992,14 +963,7 @@
 
             body.innerHTML = `
                 <div class="flex flex-col h-full max-h-[70vh]">
-                    <button onclick="prosesCetakWalasRekap()" class="w-full bg-[#1e3a8a] text-white py-3.5 rounded-xl font-black text-[11px] md:text-[12px] shadow-md hover:bg-blue-900 transition flex items-center justify-center gap-1.5 cursor-pointer mb-5"><i class="fa-solid fa-table text-[14px]"></i> 1. CETAK REKAP KELAS</button>
                     
-                    <div class="flex items-center justify-center mb-3">
-                        <div class="h-px bg-slate-200 w-full"></div>
-                        <span class="px-3 text-[9px] font-black text-slate-400 uppercase tracking-widest whitespace-nowrap">Atau Cetak Persiswa</span>
-                        <div class="h-px bg-slate-200 w-full"></div>
-                    </div>
-
                     <div class="mb-3 flex items-center justify-between bg-slate-50 p-3 rounded-xl border border-slate-200">
                         <span class="text-[11px] md:text-[12px] font-black text-slate-700">PILIH SEMUA SISWA</span>
                         <input type="checkbox" class="w-5 h-5 accent-orange-600 rounded cursor-pointer" id="cb-walas-all" onchange="toggleAllWalasPrint(this.checked)">
@@ -1007,7 +971,11 @@
                     <div class="flex-1 overflow-y-auto custom-scrollbar pr-1 mb-4 border-b border-slate-100 pb-2">
                         ${listSiswa || '<p class="text-center text-[10px] font-bold text-slate-400">Belum ada siswa</p>'}
                     </div>
-                    <button onclick="prosesCetakWalasSiswa()" class="w-full bg-[#ea580c] text-white py-3.5 rounded-xl font-black text-[11px] md:text-[12px] shadow-md hover:bg-orange-700 transition flex items-center justify-center gap-1.5 cursor-pointer"><i class="fa-solid fa-file-pdf text-[14px]"></i> 2. CETAK LAPORAN SISWA</button>
+
+                    <div class="flex gap-2">
+                        <button onclick="prosesCetakWalasRekap()" class="w-1/2 bg-[#1e3a8a] text-white py-3.5 rounded-xl font-black text-[10px] md:text-[11px] shadow-md hover:bg-blue-900 transition flex items-center justify-center gap-1.5 cursor-pointer"><i class="fa-solid fa-table text-[14px]"></i> CETAK REKAP KELAS</button>
+                        <button onclick="prosesCetakWalasSiswa()" class="w-1/2 bg-[#ea580c] text-white py-3.5 rounded-xl font-black text-[10px] md:text-[11px] shadow-md hover:bg-orange-700 transition flex items-center justify-center gap-1.5 cursor-pointer"><i class="fa-solid fa-file-pdf text-[14px]"></i> CETAK LAPORAN SISWA</button>
+                    </div>
                 </div>
             `;
             modal.classList.add('active');
@@ -1023,13 +991,11 @@
             });
         }
 
-        // MESIN NATIVE PRINT TABS (Buka di Tab Baru menghindari Canvas Sandbox)
         async function executeNativePrint(filename, htmlContent) {
             closeModal();
             const overlay = document.getElementById('loading-pdf-overlay');
             overlay.classList.remove('opacity-0', 'pointer-events-none');
             
-            // TUNGGU KOP 100% TERLOAD AGAR TIDAK BLANK
             await preloadImagesAndPrint();
 
             setTimeout(() => {
@@ -1039,14 +1005,14 @@
                     newWin.document.write(`<html><head><title>${filename}</title><style>${document.querySelector('style').innerHTML}</style></head><body><div id="pdf-render-container">${htmlContent}</div><script>window.onload = function() { setTimeout(function(){ window.print(); window.close(); }, 300); }<\/script></body></html>`);
                     newWin.document.close();
                 } else {
-                    sweetPop('warning', 'Terblokir Canvas!', ['Wah, Tab Barunya diblokir browser. Buka aplikasi TINTA di Tab Baru secara Fullscreen ya! 🛑']);
+                    sweetPop('warning', 'Terblokir Canvas!', 'Wah, Tab Barunya diblokir browser. Buka aplikasi TINTA di Tab Baru secara Fullscreen ya! 🛑');
                 }
             }, 800); 
         }
 
         async function prosesCetakAdmin() {
             const cbs = document.querySelectorAll('.cb-admin-print:checked');
-            if (cbs.length === 0) return sweetPop('warning', 'Pilih Dulu Bos!', ['Centang dulu dong kelas yang mau dicetak! 🖨️']);
+            if (cbs.length === 0) return sweetPop('warning', 'Pilih Dulu Bos!', 'Centang dulu dong kelas yang mau dicetak! 🖨️');
             
             let filename = cbs.length > 1 ? 'Laporan_Rekap_Infaq_Semua_Kelas' : `Laporan_Rekap_Infaq_Kelas_${cbs[0].value}`;
             let finalHTML = '';
@@ -1059,17 +1025,23 @@
         }
 
         async function prosesCetakWalasRekap() {
-            // Karena tombol Rekap Kelas sekarang independen dari kotak centang
-            // Sistem akan selalu mencetak seluruh kelas
+            const cbs = document.querySelectorAll('.cb-walas-print:checked');
+            if (cbs.length === 0) return sweetPop('warning', 'Pilih Siswa Dulu!', 'Gimana mau cetak rekap kalau siswanya belum dicentang bos? 🖨️');
+            
             let filename = `Laporan_Rekap_Infaq_Kelas_${kelasWalasAktif}`;
             await fetchKelasData(kelasWalasAktif); 
-            let finalHTML = generateClassRecapHTML(kelasWalasAktif, null); // null berarti cetak semua
+            
+            // Kumpulkan index siswa yang dicentang
+            let selectedIndices = [];
+            cbs.forEach(cb => selectedIndices.push(parseInt(cb.value)));
+            
+            let finalHTML = generateClassRecapHTML(kelasWalasAktif, selectedIndices);
             executeNativePrint(filename, finalHTML);
         }
 
         async function prosesCetakWalasSiswa() {
             const cbs = document.querySelectorAll('.cb-walas-print:checked');
-            if (cbs.length === 0) return sweetPop('warning', 'Pilih Siswa Dulu!', ['Gimana mau cetak laporan individu kalau siswanya belum dicentang bos? 🖨️']);
+            if (cbs.length === 0) return sweetPop('warning', 'Pilih Siswa Dulu!', 'Gimana mau cetak laporan individu kalau siswanya belum dicentang bos? 🖨️');
             
             let studentNameClean = DB.siswa[kelasWalasAktif][parseInt(cbs[0].value)].nama.replace(/[^a-zA-Z0-9]/g, '_');
             let filename = cbs.length > 1 
@@ -1581,20 +1553,19 @@
             for (let month in groupedWeeks) {
                 const weeksInMonth = groupedWeeks[month]; let boxesHtml = '';
                 
-                // MENGUBAH TAMPILAN BOX TANGGAL MENJADI MINIMALIS PREMIUM BERDASARKAN STATUS
                 weeksInMonth.forEach(w => {
                     const state = checks[w.id] || 0; 
                     let boxClass, textClass, iconHtml;
                     
-                    if (state === 1) { // Lunas (Hijau Pastel)
+                    if (state === 1) { 
                         boxClass = "bg-green-50 border-green-200 shadow-sm";
                         textClass = "text-green-700";
                         iconHtml = `<i class="fa-solid fa-check text-green-500 text-[14px]"></i>`;
-                    } else if (state === 2) { // Libur (Merah Pastel)
+                    } else if (state === 2) { 
                         boxClass = "bg-red-50 border-red-200 shadow-sm";
                         textClass = "text-red-700";
                         iconHtml = `<i class="fa-solid fa-xmark text-red-500 text-[14px]"></i>`;
-                    } else { // Belum (Abu-abu / Transparan)
+                    } else { 
                         boxClass = "bg-slate-50 border-slate-200 shadow-sm opacity-70";
                         textClass = "text-slate-400";
                         iconHtml = '<span class="text-slate-300 font-bold">-</span>';
@@ -1988,37 +1959,20 @@
             const btn = document.getElementById('fun-popup-btn');
 
             titleEl.innerText = title;
-
-            if (Array.isArray(msg)) {
-                msgEl.innerText = msg[Math.floor(Math.random() * msg.length)];
-            } else {
-                msgEl.innerText = msg;
-            }
+            if (Array.isArray(msg)) msgEl.innerText = msg[Math.floor(Math.random() * msg.length)];
+            else msgEl.innerText = msg;
 
             card.className = "bg-white rounded-3xl p-6 pt-8 max-w-[300px] w-full transform scale-75 opacity-0 transition-all duration-300 text-center relative mt-8 border-2 shadow-2xl";
             icon.className = "absolute -top-8 left-1/2 transform -translate-x-1/2 text-[55px] drop-shadow-[0_10px_10px_rgba(0,0,0,0.2)] z-10 whitespace-nowrap animate-bounce";
 
-            const successPool = [
-                { emojis: "😎🔥", glow: "border-green-400 shadow-[0_0_40px_rgba(74,222,128,0.5)]", btnClass: "bg-gradient-to-r from-green-400 to-green-600 hover:from-green-500 hover:to-green-700 shadow-[0_4px_15px_rgba(34,197,94,0.4)]", btnText: "MENYALA ABANGKU! 🚀" },
-                { emojis: "🚀✨", glow: "border-blue-400 shadow-[0_0_40px_rgba(96,165,250,0.5)]", btnClass: "bg-gradient-to-r from-blue-400 to-blue-600 hover:from-blue-500 hover:to-blue-700 shadow-[0_4px_15px_rgba(59,130,246,0.4)]", btnText: "GACOR KANG! ⚡" },
-                { emojis: "🏆🎉", glow: "border-yellow-400 shadow-[0_0_40px_rgba(250,204,21,0.5)]", btnClass: "bg-gradient-to-r from-yellow-400 to-yellow-600 hover:from-yellow-500 hover:to-yellow-700 shadow-[0_4px_15px_rgba(234,179,8,0.4)]", btnText: "GOKIL PARAH! 🤘" }
-            ];
-
-            const errorPool = [
-                { emojis: "😅💦", glow: "border-rose-400 shadow-[0_0_40px_rgba(251,113,133,0.5)]", btnClass: "bg-gradient-to-r from-rose-400 to-rose-600 hover:from-rose-500 hover:to-rose-700 shadow-[0_4px_15px_rgba(244,63,94,0.4)]", btnText: "YAH KELESET BOS! 😅" },
-                { emojis: "😤🔧", glow: "border-slate-400 shadow-[0_0_40px_rgba(148,163,184,0.5)]", btnClass: "bg-gradient-to-r from-slate-500 to-slate-700 hover:from-slate-600 hover:to-slate-800 shadow-[0_4px_15px_rgba(100,116,139,0.4)]", btnText: "CEK LAGI DONG! 🛠️" },
-                { emojis: "🤔✨", glow: "border-indigo-400 shadow-[0_0_40px_rgba(129,140,248,0.5)]", btnClass: "bg-gradient-to-r from-indigo-500 to-indigo-600 hover:from-indigo-600 hover:to-indigo-700 shadow-[0_4px_15px_rgba(99,102,241,0.4)]", btnText: "WADUH KELIRU BOS! 🧐" }
-            ];
-
-            const warningPool = [
-                { emojis: "🧐🚩", glow: "border-orange-400 shadow-[0_0_40px_rgba(251,146,60,0.5)]", btnClass: "bg-gradient-to-r from-orange-400 to-orange-600 hover:from-orange-500 hover:to-orange-700 shadow-[0_4px_15px_rgba(249,115,22,0.4)]", btnText: "SIAP LAKSANAKAN! 🫡" },
-                { emojis: "🤔🚨", glow: "border-amber-400 shadow-[0_0_40px_rgba(251,191,36,0.5)]", btnClass: "bg-gradient-to-r from-amber-400 to-amber-600 hover:from-amber-500 hover:to-amber-700 shadow-[0_4px_15px_rgba(245,158,11,0.4)]", btnText: "NGEREM DULU MANG! 🛑" }
-            ];
+            const successPool = [{ emojis: "😎🔥", glow: "border-green-400 shadow-[0_0_40px_rgba(74,222,128,0.5)]", btnClass: "bg-gradient-to-r from-green-400 to-green-600 hover:from-green-500 hover:to-green-700 shadow-[0_4px_15px_rgba(34,197,94,0.4)]", btnText: "OKE MANTAP! 🚀" }];
+            const errorPool = [{ emojis: "😅💦", glow: "border-rose-400 shadow-[0_0_40px_rgba(251,113,133,0.5)]", btnClass: "bg-gradient-to-r from-rose-400 to-rose-600 hover:from-rose-500 hover:to-rose-700 shadow-[0_4px_15px_rgba(244,63,94,0.4)]", btnText: "YAH KELESET BOS! 😅" }];
+            const warningPool = [{ emojis: "🧐🚩", glow: "border-orange-400 shadow-[0_0_40px_rgba(251,146,60,0.5)]", btnClass: "bg-gradient-to-r from-orange-400 to-orange-600 hover:from-orange-500 hover:to-orange-700 shadow-[0_4px_15px_rgba(249,115,22,0.4)]", btnText: "SAYA MENGERTI 🫡" }];
 
             let selectedTheme;
-            if (type === 'success') selectedTheme = successPool[Math.floor(Math.random() * successPool.length)];
-            else if (type === 'error') selectedTheme = errorPool[Math.floor(Math.random() * errorPool.length)];
-            else selectedTheme = warningPool[Math.floor(Math.random() * warningPool.length)];
+            if (type === 'success') selectedTheme = successPool[0];
+            else if (type === 'error') selectedTheme = errorPool[0];
+            else selectedTheme = warningPool[0];
 
             icon.innerText = selectedTheme.emojis;
             card.classList.add(...selectedTheme.glow.split(' '));
