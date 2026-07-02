@@ -124,29 +124,31 @@
             
             .table-admin { width: 100%; border-collapse: separate; border-spacing: 0; font-size: 7.5px; text-align: center; border: 1px solid #e2e8f0; margin-bottom: 0; }
             .table-admin th { padding: 2.5px 2px; font-weight: 600; border: 1px solid white; background-color: #1e3a8a; color: white; border-radius: 2px; font-size: 7px; }
-            .table-admin td { padding: 1.5px 1px; color: #475569; border-bottom: 1px solid #f1f5f9; border-top: none; height: 11px; font-size: 7px; }
+            .table-admin td { padding: 1px 1px; color: #475569; border-bottom: 1px solid #f1f5f9; border-top: none; height: 10px; font-size: 7px; }
             .table-admin tbody tr:nth-child(even) td { background-color: #f8fafc !important; }
             .table-admin tbody tr:nth-child(odd) td { background-color: white !important; }
             .text-left { text-align: left !important; padding-left: 6px !important; }
             .val-zero { color: #cbd5e1 !important; }
             .val-bold { font-weight: 800; color: #1e3a8a; }
             
+            /* Table Persiswa (Walas) - Layout 2 Kolom Kiri-Kanan */
             .table-siswa { width: 100%; border-collapse: collapse; font-size: 7.5px; text-align: center; }
-            .table-siswa th { padding: 4px 1px; color: #475569; font-weight: 800; border-bottom: 1px solid #e2e8f0; font-size: 7.5px; text-align: center; }
-            .table-siswa td { padding: 3.5px 1px; color: #334155; border-bottom: 1px solid #f1f5f9; vertical-align: middle; }
+            .table-siswa th { padding: 4px 1px; color: #475569; font-weight: 800; border-bottom: 1px solid #e2e8f0; font-size: 7px; text-align: center; }
+            .table-siswa td { padding: 3px 1px; color: #334155; border-bottom: 1px solid #f1f5f9; vertical-align: middle; }
             .table-siswa tbody tr:nth-child(even) td { background-color: #f8fafc !important; }
             .table-siswa tbody tr:nth-child(odd) td { background-color: #ffffff !important; }
             
-            .pill-lunas { background-color: #22c55e; color: white; padding: 2.5px 0; border-radius: 3px; font-size: 7px; font-weight: 800; display: inline-block; text-align: center; width: 36px; }
-            .pill-libur { background-color: #ef4444; color: white; padding: 2.5px 0; border-radius: 3px; font-size: 7px; font-weight: 800; display: inline-block; text-align: center; width: 36px; }
-            .pill-empty { background-color: #f1f5f9; color: #cbd5e1; padding: 2.5px 0; border-radius: 3px; font-size: 7px; font-weight: 800; display: inline-block; border: 1px solid #e2e8f0; text-align: center; width: 36px; }
+            /* Badge & Total Lebih Padat */
+            .pill-lunas { background-color: #22c55e; color: white; padding: 2px 0; border-radius: 3px; font-size: 7px; font-weight: 800; display: inline-block; text-align: center; width: 32px; }
+            .pill-libur { background-color: #ef4444; color: white; padding: 2px 0; border-radius: 3px; font-size: 7px; font-weight: 800; display: inline-block; text-align: center; width: 32px; }
+            .pill-empty { background-color: #ffffff; color: #cbd5e1; padding: 2px 0; border-radius: 3px; font-size: 7px; font-weight: 800; display: inline-block; border: 1px solid #e2e8f0; text-align: center; width: 32px; }
             .row-total td { background-color: #f8fafc !important; font-weight: 800; color: #0f172a; border-top: 1px solid #cbd5e1; border-bottom: none; font-size: 8px; padding: 6px 2px; }
         }
     </style>
 </head>
 <body>
 
-    <!-- SPLASH SCREEN LOADING AWAL -->
+    <!-- SPLASH SCREEN LOADING AWAL (LOGO TINTA.png MELAYANG) -->
     <div id="splash-screen" class="fixed inset-0 bg-[#f8fafc] z-[9999999] flex flex-col justify-center items-center transition-opacity duration-700">
         <img src="TINTA.png" class="w-[200px] md:w-[250px] h-auto object-contain animate-float-logo drop-shadow-xl" onerror="this.src='https://placehold.co/200x60/ffffff/1e3a8a?text=TINTA'">
         <div class="mt-8 flex items-center gap-2">
@@ -175,7 +177,7 @@
         </button>
     </div>
 
-    <!-- VIEW 1: LOGIN -->
+    <!-- VIEW 1: LOGIN (DIPERLEBAR UNTUK DESKTOP) -->
     <div id="view-login" class="min-h-[100dvh] w-screen relative flex flex-col items-center origin-center pt-[60px]">
         <div class="fine-grid"></div>
         <div class="bg-clean-lines"></div>
@@ -299,12 +301,12 @@
         </div>
     </div>
 
-    <!-- VIEW 2: ADMIN -->
+    <!-- VIEW 2: ADMIN (FULL WIDTH GRID UNTUK DESKTOP) -->
     <div id="view-dashboard-admin" class="hidden w-full min-h-[100dvh] pb-8 relative origin-top pt-[60px]" style="background-color: #f1f5f9;">
-        <main class="relative max-w-7xl mx-auto w-full px-4 md:px-8 pt-4">
+        <main class="relative w-full mx-auto px-4 lg:px-8 xl:px-12 pt-4 max-w-[1400px]">
             
-            <div class="md:grid md:grid-cols-12 md:gap-5 mb-4">
-                <div class="md:col-span-5 lg:col-span-4 space-y-4">
+            <div class="lg:grid lg:grid-cols-12 lg:gap-6 mb-4">
+                <div class="lg:col-span-4 xl:col-span-3 space-y-4">
                     <section class="section-shape flex items-center gap-3 !mt-0 !mb-0 shadow-sm">
                         <img src="TINTA.png" class="w-12 h-auto object-contain" onerror="this.src='https://placehold.co/100x30/ffffff/1e3a8a?text=LOGO'">
                         <div class="flex-1">
@@ -341,129 +343,132 @@
                     </section>
                 </div>
                 
-                <div class="md:col-span-7 lg:col-span-8 space-y-4 mt-4 md:mt-0">
-                    <section class="section-shape bg-blue-50 border-blue-100 flex items-center justify-between gap-3 !mb-0 shadow-sm">
-                        <div class="flex items-center gap-2">
-                            <i class="fa-solid fa-file-pdf text-red-500 text-2xl"></i>
+                <div class="lg:col-span-8 xl:col-span-9 space-y-4 mt-4 lg:mt-0 flex flex-col justify-between">
+                    <section class="section-shape bg-blue-50 border-blue-100 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 !mb-0 shadow-sm h-full md:h-auto">
+                        <div class="flex items-center gap-3">
+                            <i class="fa-solid fa-file-pdf text-red-500 text-3xl"></i>
                             <div>
-                                <span class="text-[10px] font-black text-[#1e3a8a] uppercase tracking-wide block">PDF RESMI LENGKAP</span>
-                                <span class="text-[8px] text-slate-500 font-bold">Cetak rekapitulasi data infaq</span>
+                                <span class="text-[12px] md:text-[14px] font-black text-[#1e3a8a] uppercase tracking-wide block">PDF RESMI LENGKAP</span>
+                                <span class="text-[9px] md:text-[10px] text-slate-500 font-bold">Cetak rekapitulasi data infaq & Pengeluaran</span>
                             </div>
                         </div>
-                        <button onclick="openAdminPrintModal()" class="bg-[#1e3a8a] text-white px-5 py-2.5 rounded-xl font-black text-[10px] hover:bg-blue-800 transition shadow-md active:scale-95 flex items-center gap-2"><i class="fa-solid fa-print"></i> Pilihan Cetak</button>
+                        <button onclick="openAdminPrintModal()" class="w-full md:w-auto bg-[#1e3a8a] text-white px-6 py-3 rounded-xl font-black text-[11px] hover:bg-blue-800 transition shadow-md active:scale-95 flex items-center justify-center gap-2"><i class="fa-solid fa-print"></i> Pilihan Cetak</button>
                     </section>
 
-                    <section class="section-shape !mb-0 shadow-sm h-[115px] flex flex-col justify-center">
-                        <div class="flex items-center justify-between mb-3">
-                            <span class="section-title !mb-0">Ringkasan Infaq</span>
-                            <select id="summary-kelas-select" onchange="updateDashboardView()" class="bg-slate-50 border border-slate-200 rounded p-1.5 text-[10px] font-black outline-none focus:border-blue-500 min-w-[100px] cursor-pointer">
+                    <section class="section-shape !mb-0 shadow-sm h-[135px] flex flex-col justify-center relative overflow-hidden">
+                        <div class="flex items-center justify-between mb-4 relative z-10">
+                            <span class="section-title !mb-0">Ringkasan Infaq Kelas</span>
+                            <select id="summary-kelas-select" onchange="updateDashboardView()" class="bg-slate-50 border border-slate-200 rounded p-1.5 text-[11px] font-black outline-none focus:border-blue-500 min-w-[120px] cursor-pointer shadow-sm">
                                 <option value="">Pilih Kelas</option>
                             </select>
                         </div>
-                        <div class="grid grid-cols-3 gap-3 text-center">
-                            <div class="bg-green-50 p-2.5 rounded-lg border border-green-100 shadow-inner"><p class="text-[8px] font-black text-green-700 uppercase">Masuk</p><h4 id="stat-masuk" class="text-[12px] md:text-[14px] font-black text-green-900">Rp 0</h4></div>
-                            <div class="bg-red-50 p-2.5 rounded-lg border border-red-100 shadow-inner"><p class="text-[8px] font-black text-red-700 uppercase">Keluar</p><h4 id="stat-keluar" class="text-[12px] md:text-[14px] font-black text-red-900">Rp 0</h4></div>
-                            <div class="bg-blue-50 p-2.5 rounded-lg border border-blue-100 shadow-inner"><p class="text-[8px] font-black text-blue-700 uppercase">Saldo</p><h4 id="stat-saldo" class="text-[12px] md:text-[14px] font-black text-blue-900">Rp 0</h4></div>
+                        <div class="grid grid-cols-3 gap-4 text-center relative z-10">
+                            <div class="bg-green-50 p-3 rounded-xl border border-green-100 shadow-sm"><p class="text-[9px] font-black text-green-700 uppercase mb-1">Masuk</p><h4 id="stat-masuk" class="text-[14px] lg:text-[16px] font-black text-green-900 truncate">Rp 0</h4></div>
+                            <div class="bg-red-50 p-3 rounded-xl border border-red-100 shadow-sm"><p class="text-[9px] font-black text-red-700 uppercase mb-1">Keluar</p><h4 id="stat-keluar" class="text-[14px] lg:text-[16px] font-black text-red-900 truncate">Rp 0</h4></div>
+                            <div class="bg-blue-50 p-3 rounded-xl border border-blue-100 shadow-sm"><p class="text-[9px] font-black text-blue-700 uppercase mb-1">Saldo</p><h4 id="stat-saldo" class="text-[14px] lg:text-[16px] font-black text-blue-900 truncate">Rp 0</h4></div>
                         </div>
                     </section>
                 </div>
             </div>
 
-            <div class="relative z-[10]">
+            <div class="relative z-[10] mt-2">
                 <section class="section-shape overflow-hidden px-0 py-0 pb-2 mb-0 shadow-sm">
-                    <div class="p-4 border-b border-slate-100 flex justify-between items-center bg-white">
-                        <span class="section-title !mb-0">Daftar Infaq Siswa</span>
-                        <span id="label-kelas-aktif" class="text-[10px] md:text-[11px] font-bold bg-slate-100 text-slate-500 px-3 py-1.5 rounded-lg">--</span>
+                    <div class="p-5 border-b border-slate-100 flex justify-between items-center bg-white">
+                        <span class="section-title !mb-0 text-[13px]">Daftar Infaq Siswa</span>
+                        <span id="label-kelas-aktif" class="text-[11px] font-black bg-slate-100 text-slate-600 px-4 py-2 rounded-lg border border-slate-200">--</span>
                     </div>
-                    <div class="search-container bg-white pt-3">
-                        <i class="fa-solid fa-magnifying-glass search-icon top-[22px]"></i>
-                        <input type="text" id="search-siswa" onkeyup="cariSiswa()" placeholder="Cari nama siswa..." class="search-input py-2.5">
+                    <div class="search-container bg-white pt-4 px-5">
+                        <i class="fa-solid fa-magnifying-glass search-icon top-[26px] left-[32px]"></i>
+                        <input type="text" id="search-siswa" onkeyup="cariSiswa()" placeholder="Cari nama siswa..." class="search-input py-3 pl-10 text-[11px]">
                     </div>
-                    <div class="grid grid-cols-6 px-4 py-3 bg-slate-50 border-b border-slate-100 text-[9px] md:text-[10px] font-black text-slate-500 uppercase">
-                        <span class="col-span-1">No</span>
-                        <span class="col-span-3">Nama Siswa</span>
-                        <span class="col-span-2 text-right">Infaq</span>
+                    <div class="grid grid-cols-6 lg:grid-cols-12 px-5 py-4 bg-slate-50 border-b border-slate-100 text-[10px] font-black text-slate-500 uppercase">
+                        <span class="col-span-1 lg:col-span-1">No</span>
+                        <span class="col-span-3 lg:col-span-8">Nama Lengkap Siswa</span>
+                        <span class="col-span-2 lg:col-span-3 text-right pr-2">Total Infaq</span>
                     </div>
-                    <div id="tabel-siswa-container" class="divide-y divide-slate-100 text-[11px] md:text-[12px] bg-white">
-                        <div class="p-6 text-center text-slate-400 text-[10px] md:text-[11px] font-bold">Pilih kelas di tabel ringkasan atas.</div>
+                    <div id="tabel-siswa-container" class="divide-y divide-slate-100 text-[12px] bg-white h-[400px] overflow-y-auto custom-scrollbar">
+                        <div class="p-10 text-center text-slate-400 text-[11px] font-bold">Pilih kelas di tabel ringkasan atas untuk melihat data siswa.</div>
                     </div>
                 </section>
             </div>
         </main>
     </div>
 
-    <!-- VIEW 3: WALAS -->
+    <!-- VIEW 3: WALAS (FULL WIDTH GRID UNTUK DESKTOP) -->
     <div id="view-dashboard-walas" class="hidden w-full min-h-[100dvh] pb-8 relative origin-top font-['Inter'] pt-[60px]" style="background-color: #f8fafc;">
-        <main class="p-3 md:p-6 relative max-w-7xl mx-auto w-full">
+        <main class="p-3 lg:p-6 relative w-full mx-auto max-w-[1400px]">
             
-            <div class="bg-white rounded-2xl p-4 shadow-sm border border-slate-100 flex flex-col md:flex-row md:items-center justify-between gap-3 mb-4 mt-2">
+            <div class="bg-white rounded-2xl p-4 lg:p-5 shadow-sm border border-slate-100 flex flex-col md:flex-row md:items-center justify-between gap-4 mb-5 mt-2">
                 <div class="flex items-center gap-4">
-                    <img src="TINTA.png" class="w-14 md:w-16 h-auto object-contain" onerror="this.src='https://placehold.co/100x30/ffffff/1e3a8a?text=LOGO'">
+                    <img src="TINTA.png" class="w-14 lg:w-16 h-auto object-contain" onerror="this.src='https://placehold.co/100x30/ffffff/1e3a8a?text=LOGO'">
                     <div class="flex-1">
-                        <h2 id="walas-nama-kelas" class="text-[16px] md:text-[18px] font-black text-slate-800 leading-tight">KELAS --</h2>
-                        <p class="text-[10px] md:text-[11px] font-bold text-slate-500 flex items-center gap-1.5 mt-0.5"><i class="fa-solid fa-circle-user text-blue-700"></i> <span id="walas-nama-guru">Wali Kelas: ...</span></p>
+                        <h2 id="walas-nama-kelas" class="text-[16px] lg:text-[20px] font-black text-slate-800 leading-tight">KELAS --</h2>
+                        <p class="text-[10px] lg:text-[12px] font-bold text-slate-500 flex items-center gap-1.5 mt-1"><i class="fa-solid fa-circle-user text-blue-700"></i> <span id="walas-nama-guru">Wali Kelas: ...</span></p>
                     </div>
                 </div>
-                <div class="flex gap-2">
-                    <button onclick="bukaWAAdmin()" class="px-3.5 py-2 rounded-xl border border-green-500 text-green-600 font-black text-[10px] flex items-center gap-1.5 bg-[#f0fdf4] hover:bg-green-100 transition shadow-sm" title="Hubungi Admin"><i class="fa-brands fa-whatsapp text-[13px]"></i> WA ADMIN</button>
-                    <button onclick="logoutApp('view-dashboard-walas')" class="w-9 h-9 rounded-xl border border-red-500 text-red-500 flex items-center justify-center bg-[#fef2f2] hover:bg-red-100 transition shadow-sm" title="Keluar"><i class="fa-solid fa-power-off text-[14px]"></i></button>
+                <div class="flex gap-3">
+                    <button onclick="bukaWAAdmin()" class="px-4 py-2.5 rounded-xl border border-green-500 text-green-600 font-black text-[11px] flex items-center gap-2 bg-[#f0fdf4] hover:bg-green-100 transition shadow-sm" title="Hubungi Admin"><i class="fa-brands fa-whatsapp text-[15px]"></i> WA ADMIN</button>
+                    <button onclick="logoutApp('view-dashboard-walas')" class="w-10 h-10 rounded-xl border border-red-500 text-red-500 flex items-center justify-center bg-[#fef2f2] hover:bg-red-100 transition shadow-sm" title="Keluar"><i class="fa-solid fa-power-off text-[15px]"></i></button>
                 </div>
             </div>
 
-            <div class="md:flex md:gap-5 mb-5 items-stretch">
-                <div class="md:w-3/5 grid grid-cols-3 gap-2.5 mb-3 md:mb-0">
-                    <div class="bg-[#dcfce7] rounded-xl p-3 md:p-4 shadow-sm border border-green-200/50 flex flex-col justify-center items-center h-full">
-                        <div class="flex items-center gap-1 text-green-700 font-bold text-[9px] md:text-[10px] mb-1.5">
-                            <div class="w-4 h-4 rounded-full bg-white/70 flex items-center justify-center"><i class="fa-solid fa-arrow-down text-[8px]"></i></div> MASUK
+            <div class="lg:flex lg:gap-6 mb-6 items-stretch">
+                <div class="lg:w-3/5 grid grid-cols-3 gap-3 mb-4 lg:mb-0">
+                    <div class="bg-[#dcfce7] rounded-2xl p-4 lg:p-6 shadow-sm border border-green-200/50 flex flex-col justify-center items-center h-full relative overflow-hidden group">
+                        <div class="absolute -right-4 -bottom-4 opacity-10 text-green-900 group-hover:scale-110 transition-transform"><i class="fa-solid fa-arrow-trend-down text-7xl"></i></div>
+                        <div class="flex items-center gap-1.5 text-green-700 font-black text-[10px] lg:text-[11px] mb-2 z-10">
+                            <div class="w-5 h-5 rounded-full bg-white/80 flex items-center justify-center"><i class="fa-solid fa-arrow-down text-[9px]"></i></div> TOTAL MASUK
                         </div>
-                        <span id="walas-stat-masuk" class="font-black text-green-800 text-[12px] md:text-[15px]">Rp 0</span>
+                        <span id="walas-stat-masuk" class="font-black text-green-800 text-[14px] lg:text-[18px] z-10">Rp 0</span>
                     </div>
-                    <div class="bg-[#ffe4e6] rounded-xl p-3 md:p-4 shadow-sm border border-red-200/50 flex flex-col justify-center items-center h-full">
-                        <div class="flex items-center gap-1 text-red-700 font-bold text-[9px] md:text-[10px] mb-1.5">
-                            <div class="w-4 h-4 rounded-full bg-white/70 flex items-center justify-center"><i class="fa-solid fa-arrow-up text-[8px]"></i></div> KELUAR
+                    <div class="bg-[#ffe4e6] rounded-2xl p-4 lg:p-6 shadow-sm border border-red-200/50 flex flex-col justify-center items-center h-full relative overflow-hidden group">
+                        <div class="absolute -right-4 -bottom-4 opacity-10 text-red-900 group-hover:scale-110 transition-transform"><i class="fa-solid fa-arrow-trend-up text-7xl"></i></div>
+                        <div class="flex items-center gap-1.5 text-red-700 font-black text-[10px] lg:text-[11px] mb-2 z-10">
+                            <div class="w-5 h-5 rounded-full bg-white/80 flex items-center justify-center"><i class="fa-solid fa-arrow-up text-[9px]"></i></div> TOTAL KELUAR
                         </div>
-                        <span id="walas-stat-keluar" class="font-black text-red-800 text-[12px] md:text-[15px]">Rp 0</span>
+                        <span id="walas-stat-keluar" class="font-black text-red-800 text-[14px] lg:text-[18px] z-10">Rp 0</span>
                     </div>
-                    <div class="bg-[#1e3aa8] rounded-xl p-3 md:p-4 shadow-md border border-[#1e3aa8] flex flex-col justify-center items-center h-full">
-                        <div class="flex items-center gap-1 text-white font-bold text-[9px] md:text-[10px] mb-1.5">
-                            <div class="w-4 h-4 rounded bg-white/20 flex items-center justify-center"><i class="fa-solid fa-wallet text-[8px]"></i></div> SALDO
+                    <div class="bg-gradient-to-br from-[#1e3a8a] to-[#3b82f6] rounded-2xl p-4 lg:p-6 shadow-md border border-blue-800 flex flex-col justify-center items-center h-full relative overflow-hidden group">
+                        <div class="absolute -right-2 -bottom-2 opacity-20 text-white group-hover:scale-110 transition-transform"><i class="fa-solid fa-wallet text-7xl"></i></div>
+                        <div class="flex items-center gap-1.5 text-blue-100 font-black text-[10px] lg:text-[11px] mb-2 z-10">
+                            <div class="w-5 h-5 rounded bg-white/20 flex items-center justify-center backdrop-blur"><i class="fa-solid fa-wallet text-[9px]"></i></div> SISA SALDO
                         </div>
-                        <span id="walas-stat-saldo" class="font-black text-white text-[12px] md:text-[15px]">Rp 0</span>
+                        <span id="walas-stat-saldo" class="font-black text-white text-[14px] lg:text-[18px] z-10">Rp 0</span>
                     </div>
                 </div>
                 
-                <div class="md:w-2/5 grid grid-cols-4 gap-2">
-                    <button onclick="openWalasModal('pengeluaran')" class="walas-btn-action bg-[#ea580c] text-white rounded-xl py-2 px-1 text-[8px] md:text-[9px] font-bold flex flex-col items-center justify-center gap-1.5 shadow-sm h-full hover:bg-orange-700">
-                        <div class="w-6 h-6 rounded-full bg-white/20 flex items-center justify-center"><i class="fa-solid fa-minus text-[11px]"></i></div>
+                <div class="lg:w-2/5 grid grid-cols-4 gap-3">
+                    <button onclick="openWalasModal('pengeluaran')" class="walas-btn-action bg-[#ea580c] text-white rounded-2xl py-3 px-2 text-[9px] lg:text-[10px] font-black flex flex-col items-center justify-center gap-2 shadow-sm h-full hover:bg-orange-700 transition-colors">
+                        <div class="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center backdrop-blur"><i class="fa-solid fa-minus text-[13px]"></i></div>
                         <span class="text-center leading-tight">CATAT<br>PENGELUARAN</span>
                     </button>
-                    <button onclick="openWalasModal('riwayat')" class="walas-btn-action bg-[#f8fafc] text-[#1e3a8a] border border-slate-200 rounded-xl py-2 px-1 text-[8px] md:text-[9px] font-bold flex flex-col items-center justify-center gap-1.5 shadow-sm h-full hover:bg-slate-50">
-                        <i class="fa-solid fa-clock-rotate-left text-[18px] md:text-[20px] mb-0.5 text-blue-600"></i>
+                    <button onclick="openWalasModal('riwayat')" class="walas-btn-action bg-white text-[#1e3a8a] border border-slate-200 rounded-2xl py-3 px-2 text-[9px] lg:text-[10px] font-black flex flex-col items-center justify-center gap-2 shadow-sm h-full hover:bg-slate-50 transition-colors">
+                        <div class="w-8 h-8 rounded-full bg-blue-50 flex items-center justify-center"><i class="fa-solid fa-clock-rotate-left text-[13px] text-blue-600"></i></div>
                         <span class="text-center leading-tight">RIWAYAT<br>KAS</span>
                     </button>
-                    <button onclick="forceSaveDataWalas(this)" class="walas-btn-action bg-[#10b981] text-white rounded-xl py-2 px-1 text-[8px] md:text-[9px] font-bold flex flex-col items-center justify-center gap-1.5 shadow-sm relative overflow-hidden h-full hover:bg-emerald-600">
-                        <i id="icon-sync-walas" class="fa-solid fa-floppy-disk text-[18px] md:text-[20px] mb-0.5"></i>
+                    <button onclick="forceSaveDataWalas(this)" class="walas-btn-action bg-[#10b981] text-white rounded-2xl py-3 px-2 text-[9px] lg:text-[10px] font-black flex flex-col items-center justify-center gap-2 shadow-sm relative overflow-hidden h-full hover:bg-emerald-600 transition-colors">
+                        <div class="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center backdrop-blur"><i id="icon-sync-walas" class="fa-solid fa-floppy-disk text-[13px]"></i></div>
                         <span class="text-center leading-tight">SIMPAN<br>DATA</span>
                     </button>
-                    <button onclick="openPrintWalasModal()" class="walas-btn-action bg-[#1e3a8a] text-white rounded-xl py-2 px-1 text-[8px] md:text-[9px] font-bold flex flex-col items-center justify-center gap-1.5 shadow-sm h-full hover:bg-blue-900">
-                        <i class="fa-solid fa-print text-[18px] md:text-[20px] mb-0.5"></i>
+                    <button onclick="openPrintWalasModal()" class="walas-btn-action bg-[#1e3a8a] text-white rounded-2xl py-3 px-2 text-[9px] lg:text-[10px] font-black flex flex-col items-center justify-center gap-2 shadow-sm h-full hover:bg-blue-900 transition-colors">
+                        <div class="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center backdrop-blur"><i class="fa-solid fa-print text-[13px]"></i></div>
                         <span class="text-center leading-tight">CETAK<br>PDF</span>
                     </button>
                 </div>
             </div>
 
             <div class="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden">
-                <div class="p-4 border-b border-slate-100 flex justify-between items-center bg-[#fdfdfd]">
-                    <h3 class="text-[11px] md:text-[13px] font-black text-slate-800 flex items-center gap-2"><i class="fa-solid fa-list-check text-slate-400 text-[16px]"></i> CHECKLIST INFAQ JUMAT</h3>
-                    <button onclick="resetChecklistWalas()" class="bg-[#ef4444] text-white px-3 py-1.5 rounded-lg text-[9px] md:text-[10px] font-bold flex items-center gap-1.5 shadow-sm hover:bg-red-600 transition"><i class="fa-solid fa-trash-can"></i> Reset Papan</button>
+                <div class="p-5 border-b border-slate-100 flex justify-between items-center bg-[#fdfdfd]">
+                    <h3 class="text-[12px] lg:text-[14px] font-black text-slate-800 flex items-center gap-2"><i class="fa-solid fa-list-check text-[#ea580c] text-[18px]"></i> CHECKLIST INFAQ JUMAT</h3>
+                    <button onclick="resetChecklistWalas()" class="bg-[#ef4444] text-white px-4 py-2 rounded-xl text-[10px] font-bold flex items-center gap-1.5 shadow-sm hover:bg-red-600 transition"><i class="fa-solid fa-trash-can"></i> Reset Papan</button>
                 </div>
                 
-                <div class="table-container custom-scrollbar w-full">
+                <div class="table-container custom-scrollbar w-full h-[50vh] lg:h-[60vh]">
                     <table class="w-full text-left border-separate border-spacing-0" style="min-width: max-content;">
-                        <thead id="walas-table-header-row" class="text-[9px] font-black text-slate-500">
+                        <thead id="walas-table-header-row" class="text-[10px] font-black text-slate-500">
                             <!-- Injected by JS -->
                         </thead>
-                        <tbody id="checklist-tbody" class="text-[10px] md:text-[11px] font-bold text-slate-700">
+                        <tbody id="checklist-tbody" class="text-[11px] lg:text-[12px] font-bold text-slate-700">
                             <!-- Injected by JS -->
                         </tbody>
                     </table>
@@ -472,57 +477,56 @@
         </main>
     </div>
 
-    <!-- VIEW 4: WARID -->
+    <!-- VIEW 4: WARID (FULL WIDTH GRID UNTUK DESKTOP) -->
     <div id="view-dashboard-warid" class="hidden w-full min-h-[100dvh] pb-8 relative origin-top font-['Inter'] pt-[60px]" style="background-color: #f8fafc;">
-        <main class="p-4 md:p-8 relative max-w-5xl mx-auto w-full">
+        <main class="p-4 lg:p-8 relative w-full mx-auto max-w-[1000px]">
             
-            <div class="md:grid md:grid-cols-2 md:gap-6 mb-6 items-stretch">
-                <div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-100 flex items-center justify-between mb-4 md:mb-0 h-full">
-                    <div class="flex items-center gap-4">
-                        <div class="w-12 h-12 rounded-full border border-blue-200 bg-blue-50 flex items-center justify-center text-blue-600 text-lg">
+            <div class="lg:grid lg:grid-cols-2 lg:gap-8 mb-8 items-stretch">
+                <div class="bg-white rounded-2xl p-6 lg:p-8 shadow-sm border border-slate-100 flex items-center justify-between mb-4 lg:mb-0 h-full">
+                    <div class="flex items-center gap-5">
+                        <div class="w-14 h-14 rounded-full border-2 border-blue-100 bg-blue-50 flex items-center justify-center text-blue-600 text-xl shadow-inner">
                             <i class="fa-solid fa-user-graduate"></i>
                         </div>
                         <div>
-                            <h2 id="warid-nama-siswa" class="text-[15px] md:text-[18px] font-black text-[#1e3a8a] leading-tight">Nama Siswa</h2>
-                            <p id="warid-info-siswa" class="text-[10px] md:text-[11px] font-bold text-slate-500 mt-1">Kelas -- | No Presensi: --</p>
+                            <h2 id="warid-nama-siswa" class="text-[16px] lg:text-[20px] font-black text-[#1e3a8a] leading-tight">Nama Siswa</h2>
+                            <p id="warid-info-siswa" class="text-[11px] lg:text-[12px] font-bold text-slate-500 mt-1.5">Kelas -- | No Presensi: --</p>
                         </div>
                     </div>
-                    <button onclick="logoutApp('view-dashboard-warid')" class="w-10 h-10 rounded-xl border border-red-500 text-red-500 flex items-center justify-center bg-[#fef2f2] hover:bg-red-100 transition shadow-sm" title="Keluar"><i class="fa-solid fa-power-off text-[15px]"></i></button>
+                    <button onclick="logoutApp('view-dashboard-warid')" class="w-12 h-12 rounded-xl border border-red-500 text-red-500 flex items-center justify-center bg-[#fef2f2] hover:bg-red-100 transition shadow-sm" title="Keluar"><i class="fa-solid fa-power-off text-[18px]"></i></button>
                 </div>
 
-                <div class="bg-[#1e3a8a] rounded-2xl p-6 shadow-lg relative overflow-hidden h-full flex flex-col justify-center">
-                    <div class="absolute right-[-10px] top-[-10px] opacity-10 text-[90px]"><i class="fa-solid fa-wallet"></i></div>
-                    <p id="teks-total-ananda" class="text-[10px] font-bold text-blue-200 uppercase tracking-widest mb-1.5 relative z-10">Total Infaq Ananda</p>
-                    <h3 id="warid-total-infaq" class="text-3xl font-black text-white relative z-10">Rp 0</h3>
-                    <div class="absolute right-5 top-1/2 transform -translate-y-1/2 w-12 h-12 bg-white/20 rounded-full flex items-center justify-center text-white backdrop-blur z-10 text-xl">
+                <div class="bg-gradient-to-br from-[#1e3a8a] to-[#3b82f6] rounded-2xl p-6 lg:p-8 shadow-lg relative overflow-hidden h-full flex flex-col justify-center border border-blue-800">
+                    <div class="absolute -right-4 -top-4 opacity-10 text-[120px]"><i class="fa-solid fa-wallet"></i></div>
+                    <p id="teks-total-ananda" class="text-[11px] font-black text-blue-200 uppercase tracking-widest mb-2 relative z-10">Total Infaq Ananda</p>
+                    <h3 id="warid-total-infaq" class="text-4xl lg:text-5xl font-black text-white relative z-10 drop-shadow-md">Rp 0</h3>
+                    <div class="absolute right-6 top-1/2 transform -translate-y-1/2 w-16 h-16 bg-white/20 rounded-full flex items-center justify-center text-white backdrop-blur z-10 text-2xl shadow-inner">
                         <i class="fa-solid fa-wallet"></i>
                     </div>
                 </div>
             </div>
 
-            <div class="mb-4 flex items-center gap-2">
-                <i class="fa-solid fa-calendar-days text-slate-400"></i>
-                <h3 class="text-[11px] md:text-[12px] font-black text-slate-700 tracking-wider">KALENDER RIWAYAT INFAQ</h3>
+            <div class="mb-5 flex items-center gap-2.5 px-2">
+                <i class="fa-solid fa-calendar-days text-[#ea580c] text-lg"></i>
+                <h3 class="text-[13px] font-black text-slate-700 tracking-wider">KALENDER RIWAYAT INFAQ</h3>
             </div>
 
-            <div id="warid-calendar-container" class="space-y-4">
+            <div id="warid-calendar-container" class="space-y-5">
                 <!-- Data Bulanan Diinjeksi via JS -->
             </div>
 
-            <div class="mt-10 flex items-center justify-center gap-2 text-center px-4 bg-slate-50 py-3 rounded-xl border border-slate-200">
-                <i class="fa-solid fa-shield-halved text-green-500 text-[12px]"></i>
-                <p class="text-[9px] md:text-[10px] font-bold text-slate-500">Data ini diverifikasi & terhubung langsung secara realtime dengan Wali Kelas.</p>
+            <div class="mt-12 flex items-center justify-center gap-3 text-center px-6 bg-slate-50 py-4 rounded-xl border border-slate-200 shadow-sm max-w-[600px] mx-auto">
+                <i class="fa-solid fa-shield-halved text-green-500 text-[16px]"></i>
+                <p class="text-[10px] lg:text-[11px] font-bold text-slate-500">Data ini diverifikasi & terhubung langsung secara realtime dengan Wali Kelas.</p>
             </div>
         </main>
     </div>
 
     <!-- TOAST TENGAH ATAS -->
-    <div id="toast" class="fixed top-[75px] left-1/2 transform -translate-x-1/2 -translate-y-5 bg-slate-800 text-white rounded-full px-4 py-2 opacity-0 pointer-events-none transition-all duration-300 z-[9999] shadow-lg flex items-center gap-2 border border-slate-700">
-        <i id="toastIcon" class="fa-solid fa-circle-info text-blue-400 text-[12px]"></i> <span id="toastContent" class="text-[10px] md:text-[11px] font-bold tracking-wide">Data terbaru dimuat</span>
+    <div id="toast" class="fixed top-[75px] left-1/2 transform -translate-x-1/2 -translate-y-5 bg-slate-800 text-white rounded-full px-5 py-2.5 opacity-0 pointer-events-none transition-all duration-300 z-[9999] shadow-lg flex items-center gap-2.5 border border-slate-700">
+        <i id="toastIcon" class="fa-solid fa-circle-info text-blue-400 text-[13px]"></i> <span id="toastContent" class="text-[11px] font-bold tracking-wide">Data terbaru dimuat</span>
     </div>
 
-    <!-- FUN POPUP (SWEET ALERT CUSTOM) -->
-    <!-- PERHATIAN: Z-Index diubah menjadi 9999999 agar selalu paling depan! -->
+    <!-- FUN POPUP (SWEET ALERT CUSTOM) - Z-INDEX TERTINGGI -->
     <div id="fun-popup-overlay" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-[9999999] flex justify-center items-center opacity-0 pointer-events-none transition-opacity duration-300 px-4">
         <div id="fun-popup-card" class="bg-white rounded-3xl p-6 pt-8 max-w-[300px] w-full transform scale-75 opacity-0 transition-all duration-300 text-center relative mt-8 border-2 shadow-2xl">
             <div id="fun-popup-icon" class="absolute -top-8 left-1/2 transform -translate-x-1/2 text-[55px] drop-shadow-[0_10px_10px_rgba(0,0,0,0.2)] z-10 whitespace-nowrap animate-bounce">🚀</div>
@@ -566,15 +570,14 @@
         </div>
     </div>
 
-    <!-- POPUP INSTALL INSTAN (PWA) - WAJIB INSTALL (TIDAK BISA DITUTUP) -->
+    <!-- POPUP INSTALL INSTAN (PWA) - WAJIB INSTALL -->
     <div id="install-popup-overlay" class="fixed inset-0 bg-slate-900/90 backdrop-blur-md z-[999998] flex justify-center items-end sm:items-center opacity-0 pointer-events-none transition-opacity duration-300 sm:px-4 pb-4 sm:pb-0">
         <div class="bg-white rounded-[2rem] sm:rounded-3xl p-6 w-full max-w-[360px] transform translate-y-10 sm:translate-y-0 sm:scale-95 transition-all duration-300 relative shadow-2xl border-2 border-slate-200">
             <div class="flex items-center gap-4 mb-4 mt-2">
-                <!-- MENGGUNAKAN TINTA.png SESUAI INSTRUKSI -->
                 <img src="TINTA.png" class="w-14 md:w-16 h-14 md:h-16 object-contain drop-shadow" onerror="this.src='https://placehold.co/100x100/ffffff/1e3a8a?text=TINTA'">
                 <div>
-                    <h3 class="text-[16px] md:text-[18px] font-black text-slate-800 leading-tight uppercase text-red-600">AKSES DITOLAK!</h3>
-                    <p class="text-[10px] md:text-[11px] font-bold text-slate-500 mt-0.5">Wajib Install Aplikasi 🚀</p>
+                    <h3 class="text-[16px] md:text-[18px] font-black text-slate-800 leading-tight uppercase text-blue-900">INSTALL APLIKASI</h3>
+                    <p class="text-[10px] md:text-[11px] font-bold text-slate-500 mt-0.5">Wajib Install Untuk Lanjut 🚀</p>
                 </div>
             </div>
             <p class="text-[11px] md:text-[12px] text-slate-600 mb-5 font-medium leading-relaxed bg-slate-50 p-3 rounded-xl border border-slate-100">Untuk keamanan dan kecepatan maksimal, aplikasi TINTA <b>HARUS DIINSTAL</b> terlebih dahulu di layar utama HP/Laptop Anda. Tidak ada tawar-menawar! 😎</p>
@@ -612,7 +615,9 @@
     <div id="pdf-render-container"></div>
 
     <script>
-        // --- MESIN PWA INSTAN INSTALL (INJECTOR BAYANGAN) ---
+        // ==========================================
+        // MESIN PWA INSTAN INSTALL (CERDAS & EVENT-DRIVEN)
+        // ==========================================
         let deferredPrompt;
         let isAppInstalled = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
 
@@ -626,26 +631,32 @@
             document.head.insertAdjacentHTML('beforeend', `<link rel="manifest" href="data:application/manifest+json;charset=utf-8,${encodeURIComponent(manifestStr)}">`);
 
             if ('serviceWorker' in navigator) {
-                // TERHUBUNG OTOMATIS KE sw.js DI GITHUB ANDA AGAR LOLOS SYARAT PWA GOOGLE CHROME
-                navigator.serviceWorker.register('sw.js').catch(e => console.log("SW Offline"));
+                // Koneksi langsung ke sw.js asli milik Github Anda
+                navigator.serviceWorker.register('sw.js').catch(e => console.log("SW offline/bypassed"));
             }
-        } catch(e) { console.log("PWA Setup Bypassed"); }
+        } catch(e) {}
 
+        // KUNCI LEVEL DEWA: Hanya memunculkan PopUp JIKA browser mengirimkan sinyal "SIAP INSTALL"
         window.addEventListener('beforeinstallprompt', (e) => {
             e.preventDefault();
-            deferredPrompt = e;
-            if(!isAppInstalled && document.getElementById('splash-screen').style.display === 'none') {
-                showMandatoryInstall();
+            deferredPrompt = e; // Simpan event sakti ini!
+            
+            // Jika aplikasi memang belum diinstal, dan browser mensupport, 
+            // BARU KITA JEGAT DENGAN POPUP WAJIB INSTALL KITA!
+            if (!isAppInstalled) {
+                const overlay = document.getElementById('install-popup-overlay');
+                overlay.classList.remove('opacity-0', 'pointer-events-none');
+                overlay.classList.add('pointer-events-auto');
+                overlay.querySelector('div').classList.remove('translate-y-10', 'scale-95');
             }
         });
 
         window.addEventListener('appinstalled', () => {
             isAppInstalled = true;
             document.getElementById('install-popup-overlay').classList.add('opacity-0', 'pointer-events-none');
-            showWelcomePopup();
+            if(!sessionStorage.getItem('tinta_welcomed')) showWelcomePopup();
         });
 
-        // --- SISTEM PENYAMBUTAN & SPLASH SCREEN LOGIC ---
         window.addEventListener('DOMContentLoaded', () => {
             setTimeout(() => {
                 const splash = document.getElementById('splash-screen');
@@ -654,46 +665,27 @@
                 setTimeout(() => {
                     splash.style.display = 'none';
                     
-                    if (!isAppInstalled) {
-                        showMandatoryInstall();
-                    } else {
-                        if(!sessionStorage.getItem('tinta_welcomed')) {
-                            showWelcomePopup();
-                        }
+                    // Jika aplikasi sudah di-install dan belum pernah disambut
+                    if (isAppInstalled && !sessionStorage.getItem('tinta_welcomed')) {
+                        showWelcomePopup();
                     }
+                    // Jika belum terinstall, biarkan beforeinstallprompt yang bekerja memunculkan PopUp.
                 }, 700); 
             }, 1800); 
         });
 
-        function showMandatoryInstall() {
-            if (window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true) {
-                isAppInstalled = true;
-                if(!sessionStorage.getItem('tinta_welcomed')) showWelcomePopup();
-                return;
-            }
-            const overlay = document.getElementById('install-popup-overlay');
-            overlay.classList.remove('opacity-0', 'pointer-events-none');
-            overlay.classList.add('pointer-events-auto');
-            overlay.querySelector('div').classList.remove('translate-y-10', 'scale-95');
-        }
-
-        // FUNGSI INSTALL INSTAN DENGAN FALLBACK CERDAS
         function triggerNativeInstall() {
+            // Jaminan 100% jalan karena tombol ini HANYA muncul jika deferredPrompt ada!
             if (deferredPrompt) {
-                deferredPrompt.prompt();
+                deferredPrompt.prompt(); // Panggil menu install bawaan HP!
                 deferredPrompt.userChoice.then((choiceResult) => {
                     if (choiceResult.outcome === 'accepted') {
                         document.getElementById('install-popup-overlay').classList.add('opacity-0', 'pointer-events-none');
-                        sweetPop('success', 'Sedang Diinstal!', 'Mantap Bos! Aplikasi akan otomatis muncul di layar utama Anda.');
+                        sweetPop('success', 'Berhasil Diinstal!', 'Mantap Bos! Aplikasi akan otomatis tertanam di layar utama Anda.');
                         setTimeout(() => showWelcomePopup(), 2000);
-                    } else {
-                        sweetPop('error', 'Wajib Bos!', 'Tidak ada kompromi! Aplikasi harus diinstal biar kecepatannya maksimal. 😤');
                     }
                     deferredPrompt = null;
                 });
-            } else {
-                // MODE OTORITER MUTLAK: TANPA OPSI TITIK TIGA!
-                sweetPop('error', 'Install Instan Diblokir Browser!', 'Browser Anda (Atau Mode Incognito) menolak perintah Install Otomatis.\n\nPastikan Anda menggunakan Google Chrome biasa agar instalasi instan bekerja!');
             }
         }
 
@@ -726,6 +718,7 @@
             let year = currentDate.getFullYear();
             if (currentDate.getMonth() < 6) year -= 1; 
             
+            // Cari Jumat pertama di bulan Juli
             currentDate = new Date(year, 6, 1); 
             while(currentDate.getDay() !== 5) { currentDate.setDate(currentDate.getDate() + 1); } 
             
@@ -847,7 +840,7 @@
 
         function updateDashboardView() {
             const kelas = document.getElementById('summary-kelas-select').value; const container = document.getElementById('tabel-siswa-container'); const labelKelas = document.getElementById('label-kelas-aktif'); document.getElementById('search-siswa').value = ''; 
-            if(!kelas) { document.getElementById('stat-masuk').innerText = 'Rp 0'; document.getElementById('stat-keluar').innerText = 'Rp 0'; document.getElementById('stat-saldo').innerText = 'Rp 0'; labelKelas.innerText = '--'; container.innerHTML = `<div class="p-6 text-center text-slate-400 text-[10px] md:text-[11px] font-bold">Pilih kelas di tabel ringkasan atas.</div>`; return; }
+            if(!kelas) { document.getElementById('stat-masuk').innerText = 'Rp 0'; document.getElementById('stat-keluar').innerText = 'Rp 0'; document.getElementById('stat-saldo').innerText = 'Rp 0'; labelKelas.innerText = '--'; container.innerHTML = `<div class="p-10 text-center text-slate-400 text-[11px] font-bold">Pilih kelas di tabel ringkasan atas untuk melihat data siswa.</div>`; return; }
             
             labelKelas.innerText = kelas + " (Memuat...)";
             fetchKelasData(kelas).then(() => {
@@ -861,11 +854,11 @@
                 let totalKeluar = DB.pengeluaran[kelas] || 0; let saldo = totalMasuk - totalKeluar;
                 document.getElementById('stat-masuk').innerText = "Rp " + formatRp(totalMasuk); document.getElementById('stat-keluar').innerText = "Rp " + formatRp(totalKeluar); document.getElementById('stat-saldo').innerText = "Rp " + formatRp(saldo);
 
-                if(dataKelas.length === 0) { container.innerHTML = `<div class="p-6 text-center text-slate-400 text-[10px] md:text-[11px] font-bold">Belum ada data siswa.</div>`; return; }
+                if(dataKelas.length === 0) { container.innerHTML = `<div class="p-10 text-center text-slate-400 text-[11px] font-bold">Belum ada data siswa.</div>`; return; }
                 let html = '';
                 dataKelas.forEach((s, idx) => {
                     const isLunas = s.infaq > 0; const colorClass = isLunas ? 'text-green-600' : 'text-slate-400';
-                    html += `<div class="grid grid-cols-6 px-4 py-4 item-siswa-admin transition hover:bg-slate-50 border-b border-slate-50 last:border-0"><span class="col-span-1 font-black text-slate-400">${String(s.no || idx+1).padStart(2, '0')}</span><span class="col-span-3 font-bold text-slate-800 nama-siswa-admin"><div class="bg-blue-50 text-blue-700 px-2.5 py-0.5 rounded inline-block truncate max-w-full">${s.nama || s.class}</div></span><span class="col-span-2 text-right font-black ${colorClass}">Rp ${formatRp(s.infaq)}</span></div>`;
+                    html += `<div class="grid grid-cols-6 lg:grid-cols-12 px-5 py-4 item-siswa-admin transition hover:bg-slate-50 border-b border-slate-50 last:border-0"><span class="col-span-1 lg:col-span-1 font-black text-slate-400">${String(s.no || idx+1).padStart(2, '0')}</span><span class="col-span-3 lg:col-span-8 font-bold text-slate-800 nama-siswa-admin"><div class="bg-blue-50 text-blue-700 px-3 py-1 rounded-md inline-block truncate max-w-full">${s.nama || s.class}</div></span><span class="col-span-2 lg:col-span-3 text-right pr-2 font-black ${colorClass}">Rp ${formatRp(s.infaq)}</span></div>`;
                 });
                 container.innerHTML = html;
             });
@@ -962,9 +955,9 @@
                         ${listSiswa || '<p class="text-center text-[10px] font-bold text-slate-400">Belum ada siswa</p>'}
                     </div>
 
-                    <div class="flex gap-2">
-                        <button onclick="prosesCetakWalasRekap()" class="w-1/2 bg-[#1e3a8a] text-white py-3.5 rounded-xl font-black text-[10px] md:text-[11px] shadow-md hover:bg-blue-900 transition flex items-center justify-center gap-1.5 cursor-pointer"><i class="fa-solid fa-table text-[14px]"></i> CETAK REKAP KELAS</button>
-                        <button onclick="prosesCetakWalasSiswa()" class="w-1/2 bg-[#ea580c] text-white py-3.5 rounded-xl font-black text-[10px] md:text-[11px] shadow-md hover:bg-orange-700 transition flex items-center justify-center gap-1.5 cursor-pointer"><i class="fa-solid fa-file-pdf text-[14px]"></i> CETAK LAPORAN SISWA</button>
+                    <div class="flex flex-col md:flex-row gap-2">
+                        <button onclick="prosesCetakWalasRekap()" class="w-full md:w-1/2 bg-[#1e3a8a] text-white py-3 rounded-xl font-black text-[10px] md:text-[11px] shadow-md hover:bg-blue-900 transition flex items-center justify-center gap-1.5 cursor-pointer"><i class="fa-solid fa-table text-[14px]"></i> CETAK REKAP KELAS</button>
+                        <button onclick="prosesCetakWalasSiswa()" class="w-full md:w-1/2 bg-[#ea580c] text-white py-3 rounded-xl font-black text-[10px] md:text-[11px] shadow-md hover:bg-orange-700 transition flex items-center justify-center gap-1.5 cursor-pointer"><i class="fa-solid fa-file-pdf text-[14px]"></i> CETAK LAPORAN SISWA</button>
                     </div>
                 </div>
             `;
@@ -1021,7 +1014,7 @@
             let filename = `Laporan_Rekap_Infaq_Kelas_${kelasWalasAktif}`;
             await fetchKelasData(kelasWalasAktif); 
             
-            // Kumpulkan index siswa yang dicentang
+            // Kumpulkan index siswa yang dicentang agar hanya mencetak yang tercentang!
             let selectedIndices = [];
             cbs.forEach(cb => selectedIndices.push(parseInt(cb.value)));
             
